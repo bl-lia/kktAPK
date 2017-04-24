@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bl_lia.kirakiratter">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name="com.bl_lia.kirakiratter.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.bl_lia.kirakiratter.presentation.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/oauth_redirect_host"
+                    android:scheme="@string/oauth_scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".presentation.activity.TimelineActivity" />
+        <activity android:name=".presentation.activity.KatsuActivity" />
+        <activity
+            android:name=".presentation.activity.AccountActivity"
+            android:label=""/>
+        <activity android:name=".presentation.activity.NotificationActivity" />
+        <activity
+            android:name=".presentation.activity.LicenseActivity"
+            android:label="Open Source Licenses"
+            android:theme="@style/LicenseTheme"
+            android:parentActivityName=".presentation.activity.TimelineActivity"/>
+        <activity
+            android:name=".presentation.activity.ThanksActivity"
+            android:label="Special Thanks"
+            android:theme="@style/LicenseTheme"
+            android:parentActivityName=".presentation.activity.TimelineActivity"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="27f9af93b690794d39395b724dff12c8ce3483c1"
+            />
+    </application>
+
+</manifest>

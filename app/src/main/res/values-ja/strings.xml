@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">キラキラッター</string>
+
+    <string name="hint_content_warning">内容注意メッセージ</string>
+    <string name="hint_content_body">今なにしてる？</string>
+    <string name="error_message_5xx">サーバーに繋がらなかった... ＞＜</string>
+
+    <string name="notification_follow">%s さんがフォローしたよ</string>
+    <string name="notification_favourite">%s さんが いいね したよ</string>
+    <string name="notification_boost">%s さんがブーストしたよ</string>
+    <string name="notification_mention">%s さんがコメントくれたよ</string>
+</resources>

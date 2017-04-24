@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/twitter">
+        <shape>
+            <corners android:radius="5dp"/>
+            <gradient
+                android:angle="90"
+                android:endColor="#606060"
+                android:startColor="#323232" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_report_problem_white_24dp"
+        android:top="20dp"
+        android:bottom="20dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:tint="@android:color/white"/>
+</layer-list>

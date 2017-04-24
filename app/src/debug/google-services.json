@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "567379684731",
+    "firebase_url": "https://kirakiratter-d1b51.firebaseio.com",
+    "project_id": "kirakiratter-d1b51",
+    "storage_bucket": "kirakiratter-d1b51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567379684731:android:154b383bd2daae1d",
+        "android_client_info": {
+          "package_name": "com.bl_lia.kirakiratter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567379684731-eb7tg4al6drle77f4hn0p96bipuppf6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw9q99bvm1ebmZE4ecpO_OWC7XRi_8aDc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567379684731:android:947aaa89e231ae5a",
+        "android_client_info": {
+          "package_name": "com.bl_lia.kirakiratter.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567379684731-eb7tg4al6drle77f4hn0p96bipuppf6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw9q99bvm1ebmZE4ecpO_OWC7XRi_8aDc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

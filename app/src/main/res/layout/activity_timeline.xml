@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_drawer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_toolbar">
+
+                <Button
+                    android:id="@+id/button_katsu"
+                    android:layout_width="41dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_toot"/>
+
+                <Button
+                    android:id="@+id/button_search"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_search_black_18px"
+                    android:backgroundTint="@color/toolbar_menu"/>
+
+                <Button
+                    android:id="@+id/button_menu"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_list_black_18px"
+                    android:backgroundTint="@color/toolbar_menu"/>
+
+                <Button
+                    android:id="@+id/button_notification"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_star_rate_black_18px"
+                    android:backgroundTint="@color/toolbar_menu"/>
+
+                <Button
+                    android:id="@+id/button_account"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_atmark"
+                    android:backgroundTint="@color/toolbar_menu"/>
+
+                <com.bl_lia.kirakiratter.presentation.view.TimelineSpinner
+                    android:id="@+id/spinner_timeline"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:background="@drawable/ic_home_black_24px"
+                    android:backgroundTint="@color/toolbar_menu"/>
+
+            </android.support.v7.widget.Toolbar>
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/layout_content"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <com.bl_lia.kirakiratter.presentation.view_pager.TimelineViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="55dp"
+                android:src="@drawable/banner_toolbar"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/left_drawer"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical">
+
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>
