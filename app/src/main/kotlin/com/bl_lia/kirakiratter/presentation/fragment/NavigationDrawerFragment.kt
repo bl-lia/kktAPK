@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.BuildConfig
 import com.bl_lia.kirakiratter.R
@@ -93,14 +94,16 @@ class NavigationDrawerFragment : Fragment() {
                         val pushFeatureEnabled = fbc.getBoolean("push_feature_enabled")
                         adapter.pushFeatureEnabled = !pushUrl.isNullOrEmpty() && !pushUrl.startsWith("nil") && pushFeatureEnabled
                         adapter.notifyDataSetChanged()
-                        presenter.isRegisteredToken(pushUrl)
-                                .subscribe { registered, error ->
-                                    if (error != null) {
-                                        Crashlytics.logException(error)
-                                        return@subscribe
+                        if (adapter.pushFeatureEnabled) {
+                            presenter.isRegisteredToken(pushUrl)
+                                    .subscribe { registered, error ->
+                                        if (error != null) {
+                                            Crashlytics.logException(error)
+                                            return@subscribe
+                                        }
+                                        adapter.pushEnabled(registered)
                                     }
-                                    adapter.pushEnabled(registered)
-                                }
+                        }
                     }
                 }
 
@@ -114,6 +117,8 @@ class NavigationDrawerFragment : Fragment() {
                                         adapter.pushEnabled(false)
                                         return@subscribe
                                     }
+
+                                    Toast.makeText(activity, activity.resources.getString(R.string.push_notification_enabled), Toast.LENGTH_SHORT).show()
                                 }
                     } else {
                         presenter.unregisterToken(pushUrl)
@@ -123,6 +128,7 @@ class NavigationDrawerFragment : Fragment() {
                                         adapter.pushEnabled(true)
                                         return@subscribe
                                     }
+                                    Toast.makeText(activity, activity.resources.getString(R.string.push_notification_disabled), Toast.LENGTH_SHORT).show()
                                 }
                     }
                 }
