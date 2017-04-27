@@ -29,14 +29,12 @@ class FetchNotificationJobService : JobService() {
     }
 
     override fun onStartJob(job: JobParameters?): Boolean {
-        Log.d("TAGTAG", "onStartJob")
         component.inject(this)
 
         job?.extras?.getString("notification_id")?.let { id ->
             extra.getNotification(id.toInt())
                     .subscribe { notification, error ->
                         if (error != null) {
-                            Log.e("TAGTAG", "error", error)
                             return@subscribe
                         }
 
@@ -66,7 +64,6 @@ class FetchNotificationJobService : JobService() {
     }
 
     override fun onStopJob(job: JobParameters?): Boolean {
-        Log.d("TAGTAG", "onStopJob")
         return false
     }
 }

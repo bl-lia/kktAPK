@@ -52,23 +52,20 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
 
         when (notification.type) {
             "reblog" -> {
-                notifyText.text = itemView.resources.getString(R.string.notification_boost).format(notification.account?.preparedDisplayName)
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
             }
             "favourite" -> {
-                notifyText.text = itemView.resources.getString(R.string.notification_favourite).format(notification.account?.preparedDisplayName)
                 notificationType.setBackgroundResource(R.drawable.ic_star_favourite)
             }
             "follow" -> {
-                notifyText.text = itemView.resources.getString(R.string.notification_follow).format(notification.account?.preparedDisplayName)
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
             }
             "mention" -> {
-                notifyText.text = itemView.resources.getString(R.string.notification_mention).format(notification.account?.preparedDisplayName)
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
             }
         }
 
+        notifyText.text = notification.notifiedMessage(itemView.context)
         notifyText.movementMethod = LinkMovementMethod.getInstance()
 
         notification.status?.let { status ->
