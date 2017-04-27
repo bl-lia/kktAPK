@@ -1,5 +1,6 @@
 package com.bl_lia.kirakiratter.presentation.service
 
+import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -42,6 +43,7 @@ class FetchNotificationJobService : JobService() {
                         val builder = NotificationCompat.Builder(applicationContext).also { builder ->
                             builder.setSmallIcon(R.drawable.ic_kirakiratter_logo)
                             builder.setContentTitle(notification.notifiedMessage(applicationContext))
+                            builder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
                             notification.status?.let { status ->
                                 builder.setContentText(status.content.body?.trim())
                             }
