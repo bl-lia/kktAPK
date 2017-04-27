@@ -59,6 +59,17 @@ class ApplicationModule(
 
     @Provides
     @Singleton
+    @Named("PushRetrofit")
+    internal fun provideRetrofitForPush(okHttpClient: OkHttpClient): Retrofit =
+            Retrofit.Builder().apply {
+                client(okHttpClient)
+                baseUrl("http://example.com")
+                addConverterFactory(GsonConverterFactory.create())
+                addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            }.build()
+
+    @Provides
+    @Singleton
     internal fun provideOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -148,6 +159,10 @@ class ApplicationModule(
     @Provides
     @Singleton
     internal fun provideAccountRepository(repository: AccountDataRepository): AccountRepository = repository
+
+    @Provides
+    @Singleton
+    internal fun providePushNotificationRepository(repository: PushNotificationDataRepository): PushNotificationRepository = repository
 
     @Provides
     @Singleton

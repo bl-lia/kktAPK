@@ -14,6 +14,7 @@ interface AuthRepository {
     fun reset(authInfo: AuthInfo): Completable
 
     fun accessToken(code: String): Single<AccessToken>
+    fun cachedAccessToken(): Single<AccessToken>
 
     fun isAuthenticated(): Single<Boolean>
 

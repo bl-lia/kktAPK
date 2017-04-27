@@ -14,10 +14,12 @@ import com.bl_lia.kirakiratter.presentation.activity.LicenseActivity
 import com.bl_lia.kirakiratter.presentation.activity.MainActivity
 import com.bl_lia.kirakiratter.presentation.activity.ThanksActivity
 import com.bl_lia.kirakiratter.presentation.adapter.navigation_drawer.NavigationDrawerAdapter
-import com.bl_lia.kirakiratter.presentation.internal.di.component.AuthComponent
-import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerAuthComponent
+import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerNavigationDrawerComponent
+import com.bl_lia.kirakiratter.presentation.internal.di.component.NavigationDrawerComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.NavigationDrawerPresenter
+import com.crashlytics.android.Crashlytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import kotlinx.android.synthetic.main.fragment_navigation_drawer.*
 import javax.inject.Inject
 
@@ -30,8 +32,10 @@ class NavigationDrawerFragment : Fragment() {
     @Inject
     lateinit var presenter: NavigationDrawerPresenter
 
-    val authComponent: AuthComponent by lazy {
-        DaggerAuthComponent.builder()
+    lateinit var pushUrl: String
+
+    val component: NavigationDrawerComponent by lazy {
+        DaggerNavigationDrawerComponent.builder()
                 .applicationComponent((activity.application as App).component)
                 .fragmentModule(FragmentModule(this))
                 .build()
@@ -56,7 +60,7 @@ class NavigationDrawerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authComponent.inject(this)
+        component.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -79,5 +83,48 @@ class NavigationDrawerFragment : Fragment() {
                         startActivity(intent)
                     }
         }
+
+        val fbc = FirebaseRemoteConfig.getInstance()
+        fbc.fetch()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        fbc.activateFetched()
+                        pushUrl = fbc.getString("push_api_url")
+                        val pushFeatureEnabled = fbc.getBoolean("push_feature_enabled")
+                        adapter.pushFeatureEnabled = !pushUrl.isNullOrEmpty() && !pushUrl.startsWith("nil") && pushFeatureEnabled
+                        adapter.notifyDataSetChanged()
+                        presenter.isRegisteredToken(pushUrl)
+                                .subscribe { registered, error ->
+                                    if (error != null) {
+                                        Crashlytics.logException(error)
+                                        return@subscribe
+                                    }
+                                    adapter.pushEnabled(registered)
+                                }
+                    }
+                }
+
+        adapter.onChangePushNotificationSetting
+                .subscribe { checked ->
+                    if (checked) {
+                        presenter.registerToken(pushUrl)
+                                .subscribe { response, error ->
+                                    if (error != null) {
+                                        Crashlytics.logException(error)
+                                        adapter.pushEnabled(false)
+                                        return@subscribe
+                                    }
+                                }
+                    } else {
+                        presenter.unregisterToken(pushUrl)
+                                .subscribe { response, error ->
+                                    if (error != null) {
+                                        Crashlytics.logException(error)
+                                        adapter.pushEnabled(true)
+                                        return@subscribe
+                                    }
+                                }
+                    }
+                }
     }
 }
