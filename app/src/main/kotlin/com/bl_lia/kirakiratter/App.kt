@@ -1,6 +1,6 @@
 package com.bl_lia.kirakiratter
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.bl_lia.kirakiratter.presentation.internal.di.HasComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.ApplicationComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerApplicationComponent
@@ -11,7 +11,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import io.fabric.sdk.android.Fabric
 import io.realm.Realm
 
-class App : Application(), HasComponent<ApplicationComponent> {
+class App : MultiDexApplication(), HasComponent<ApplicationComponent> {
 
     private val _component: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
