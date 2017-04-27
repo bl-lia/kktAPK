@@ -18,4 +18,7 @@ class NotificationDataRepository
 
     override fun listMore(maxId: Int?, sinceId: Int?): Single<List<Notification>> =
             notificationDataStoreFactory.create().listMore(maxId, sinceId)
+
+    override fun notification(id: Int): Single<Notification> =
+            notificationDataStoreFactory.create().notification(id)
 }

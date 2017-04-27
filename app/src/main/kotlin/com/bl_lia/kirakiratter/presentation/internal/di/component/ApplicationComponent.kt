@@ -20,6 +20,7 @@ interface ApplicationComponent {
     fun translationRepository(): TranslationRepository
     fun notificationRepository(): NotificationRepository
     fun accountRepository(): AccountRepository
+    fun pushNotificationRepository(): PushNotificationRepository
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
 

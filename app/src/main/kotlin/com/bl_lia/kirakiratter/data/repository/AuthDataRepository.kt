@@ -1,12 +1,12 @@
 package com.bl_lia.kirakiratter.data.repository
 
-import io.reactivex.Completable
-import io.reactivex.Single
 import com.bl_lia.kirakiratter.data.repository.datasource.auth.AuthDataStoreFactory
 import com.bl_lia.kirakiratter.domain.entity.AuthInfo
 import com.bl_lia.kirakiratter.domain.repository.AuthRepository
 import com.bl_lia.kirakiratter.domain.value_object.AccessToken
 import com.bl_lia.kirakiratter.domain.value_object.AppCredentials
+import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,6 +27,9 @@ class AuthDataRepository
 
     override fun accessToken(code: String): Single<AccessToken> =
             authDataStoreFactory.create(AuthDataStoreFactory.Type.AccessToken).accessToken(code).toSingle()
+
+    override fun cachedAccessToken(): Single<AccessToken> =
+            authDataStoreFactory.createDisk().accessToken("").toSingle()
 
     override fun isAuthenticated(): Single<Boolean> =
             authDataStoreFactory.createDisk().accessToken("").map { accessToken -> accessToken != null }.defaultIfEmpty(false).toSingle()

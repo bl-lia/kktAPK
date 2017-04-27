@@ -7,4 +7,6 @@ interface NotificationRepository {
 
     fun list(): Single<List<Notification>>
     fun listMore(maxId: Int? = null, sinceId: Int? = null): Single<List<Notification>>
+
+    fun notification(id: Int): Single<Notification>
 }
