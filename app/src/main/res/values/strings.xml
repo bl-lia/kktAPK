@@ -8,6 +8,8 @@
     <string name="hint_content_body">What is on your mind?</string>
     <string name="error_message_5xx">Server connection error :(</string>
 
+    <string name="push_notification_enabled">Push Notification Enabled</string>
+    <string name="push_notification_disabled">Push Notification Disabled</string>
     <string name="notification_follow">%s followed you</string>
     <string name="notification_favourite">%s favourited your status</string>
     <string name="notification_boost">%s boosted your status</string>

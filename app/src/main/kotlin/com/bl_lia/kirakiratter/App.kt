@@ -8,6 +8,7 @@ import com.bl_lia.kirakiratter.presentation.internal.di.module.ApplicationModule
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.fabric.sdk.android.Fabric
 import io.realm.Realm
 
@@ -36,6 +37,10 @@ class App : MultiDexApplication(), HasComponent<ApplicationComponent> {
         Stetho.initializeWithDefaults(this)
         Realm.init(this)
 
+        val configSettings = FirebaseRemoteConfigSettings.Builder().apply {
+            setDeveloperModeEnabled(BuildConfig.DEBUG)
+        }.build()
+        FirebaseRemoteConfig.getInstance().setConfigSettings(configSettings)
         FirebaseRemoteConfig.getInstance().setDefaults(R.xml.remote_config_defaults)
     }
 }
