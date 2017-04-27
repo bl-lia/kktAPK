@@ -12,4 +12,7 @@ class ApiNotificationDataStore(
 
     override fun listMore(maxId: Int?, sinceId: Int?): Single<List<Notification>> =
             notificationService.list(maxId, sinceId)
+
+    override fun notification(id: Int): Single<Notification> =
+            notificationService.notification(id)
 }

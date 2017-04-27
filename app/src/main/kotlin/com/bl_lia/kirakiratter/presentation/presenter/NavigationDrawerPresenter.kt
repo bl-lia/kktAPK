@@ -1,8 +1,10 @@
 package com.bl_lia.kirakiratter.presentation.presenter
 
-import io.reactivex.Completable
 import com.bl_lia.kirakiratter.domain.interactor.CompletableUseCase
+import com.bl_lia.kirakiratter.domain.interactor.SingleUseCase
 import com.bl_lia.kirakiratter.presentation.internal.di.PerFragment
+import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -10,7 +12,13 @@ import javax.inject.Named
 class NavigationDrawerPresenter
     @Inject constructor(
             @Named("logout")
-            private val logout: CompletableUseCase<Void>
+            private val logout: CompletableUseCase<Void>,
+            @Named("registerToken")
+            private val registerToken: SingleUseCase<String>,
+            @Named("unregisterToken")
+            private val unregisterToken: SingleUseCase<String>,
+            @Named("isRegisteredToken")
+            private val isRegisteredToken: SingleUseCase<Boolean>
     ): Presenter {
 
     override fun resume() {
@@ -32,4 +40,12 @@ class NavigationDrawerPresenter
     fun logout(): Completable {
         return logout.execute()
     }
+
+    fun registerToken(pushApiUrl: String): Single<String> {
+        return registerToken.execute(pushApiUrl)
+    }
+
+    fun unregisterToken(pushApiUrl: String): Single<String> = unregisterToken.execute(pushApiUrl)
+
+    fun isRegisteredToken(pushApiUrl: String): Single<Boolean> = isRegisteredToken.execute(pushApiUrl)
 }

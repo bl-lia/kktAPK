@@ -67,6 +67,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     kapt group: 'com.google.dagger', name: 'dagger-compiler', version: '2.10'
+    compile 'com.android.support:multidex:1.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -98,7 +99,8 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
     compile 'com.google.firebase:firebase-core:10.2.1'
     compile 'com.google.firebase:firebase-config:10.2.1'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.6.0'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

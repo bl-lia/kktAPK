@@ -7,4 +7,6 @@ interface NotificationDataStore {
 
     fun list(): Single<List<Notification>>
     fun listMore(maxId: Int?, sinceId: Int?): Single<List<Notification>>
+
+    fun notification(id: Int): Single<Notification>
 }

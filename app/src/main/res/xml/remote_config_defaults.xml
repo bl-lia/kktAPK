@@ -4,4 +4,12 @@
         <key>translation_api_key</key>
         <value>nil</value>
     </entry>
+    <entry>
+        <key>push_api_url</key>
+        <value>nil</value>
+    </entry>
+    <entry>
+        <key>push_feature_enabled</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>
