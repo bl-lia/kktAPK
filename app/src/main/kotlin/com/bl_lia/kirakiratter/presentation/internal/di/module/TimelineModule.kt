@@ -3,6 +3,7 @@ package com.bl_lia.kirakiratter.presentation.internal.di.module
 import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.executor.PostExecutionThread
 import com.bl_lia.kirakiratter.domain.executor.ThreadExecutor
+import com.bl_lia.kirakiratter.domain.interactor.CompletableUseCase
 import com.bl_lia.kirakiratter.domain.interactor.SingleUseCase
 import com.bl_lia.kirakiratter.domain.interactor.timeline.*
 import com.bl_lia.kirakiratter.domain.interactor.translation.TranslateContentUseCase
@@ -114,5 +115,27 @@ class TimelineModule {
             postExecutionThread: PostExecutionThread
     ): SingleUseCase<List<Translation>> {
         return TranslateContentUseCase(translationRepository, threadExecutor, postExecutionThread)
+    }
+
+    @Provides
+    @PerFragment
+    @Named("getSelectedTimeline")
+    internal fun provideGetSelectedTimeline(
+            timelineRepository: TimelineRepository,
+            threadExecutor: ThreadExecutor,
+            postExecutionThread: PostExecutionThread
+    ): SingleUseCase<String> {
+        return GetSelectedTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
+    }
+
+    @Provides
+    @PerFragment
+    @Named("setSelectedTimeline")
+    internal fun provideSetSelectedTimeline(
+            timelineRepository: TimelineRepository,
+            threadExecutor: ThreadExecutor,
+            postExecutionThread: PostExecutionThread
+    ): CompletableUseCase<String> {
+        return SetSelectedTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
     }
 }

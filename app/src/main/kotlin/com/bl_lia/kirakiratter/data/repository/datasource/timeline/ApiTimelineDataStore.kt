@@ -30,4 +30,8 @@ class ApiTimelineDataStore(
 
     override fun unReblog(id: Int): Single<Status> =
             timelineService.unReblog(id)
+
+    override var selectedTimeline: String?
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        set(value) {}
 }

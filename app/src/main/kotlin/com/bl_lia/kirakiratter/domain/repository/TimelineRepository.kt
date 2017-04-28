@@ -16,4 +16,6 @@ interface TimelineRepository {
 
     fun reblog(id: Int): Single<Status>
     fun unReblog(id: Int): Single<Status>
+
+    var selectedTimeline: String?
 }
