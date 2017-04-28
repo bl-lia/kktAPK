@@ -32,9 +32,9 @@ class TimelineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timeline)
 
-        if (savedInstanceState == null) {
-            view_pager.adapter = TimelineFragmentPagerAdapter(supportFragmentManager)
+        view_pager.adapter = TimelineFragmentPagerAdapter(supportFragmentManager)
 
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().also { transaction ->
                 val fragment = NavigationDrawerFragment.newInstance()
                 transaction.add(R.id.left_drawer, fragment)
