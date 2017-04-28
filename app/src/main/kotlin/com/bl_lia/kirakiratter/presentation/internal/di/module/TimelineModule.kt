@@ -116,26 +116,4 @@ class TimelineModule {
     ): SingleUseCase<List<Translation>> {
         return TranslateContentUseCase(translationRepository, threadExecutor, postExecutionThread)
     }
-
-    @Provides
-    @PerFragment
-    @Named("getSelectedTimeline")
-    internal fun provideGetSelectedTimeline(
-            timelineRepository: TimelineRepository,
-            threadExecutor: ThreadExecutor,
-            postExecutionThread: PostExecutionThread
-    ): SingleUseCase<String> {
-        return GetSelectedTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
-    }
-
-    @Provides
-    @PerFragment
-    @Named("setSelectedTimeline")
-    internal fun provideSetSelectedTimeline(
-            timelineRepository: TimelineRepository,
-            threadExecutor: ThreadExecutor,
-            postExecutionThread: PostExecutionThread
-    ): CompletableUseCase<String> {
-        return SetSelectedTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
-    }
 }
