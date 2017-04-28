@@ -36,4 +36,8 @@ class TimelineDataRepository
 
     override fun unReblog(id: Int): Single<Status> =
             timelineDataStoreFactory.create().unReblog(id)
+
+    override var selectedTimeline: String?
+        get() = timelineDataStoreFactory.createDisk().selectedTimeline
+        set(value) { timelineDataStoreFactory.createDisk().selectedTimeline = value }
 }

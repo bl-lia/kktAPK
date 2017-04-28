@@ -3,6 +3,7 @@ package com.bl_lia.kirakiratter.presentation.internal.di.module
 import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.executor.PostExecutionThread
 import com.bl_lia.kirakiratter.domain.executor.ThreadExecutor
+import com.bl_lia.kirakiratter.domain.interactor.CompletableUseCase
 import com.bl_lia.kirakiratter.domain.interactor.SingleUseCase
 import com.bl_lia.kirakiratter.domain.interactor.timeline.*
 import com.bl_lia.kirakiratter.domain.interactor.translation.TranslateContentUseCase

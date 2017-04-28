@@ -2,12 +2,13 @@ package com.bl_lia.kirakiratter.domain.interactor
 
 import android.util.Log
 import com.bl_lia.kirakiratter.BuildConfig
-import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
 import com.bl_lia.kirakiratter.domain.executor.PostExecutionThread
 import com.bl_lia.kirakiratter.domain.executor.ThreadExecutor
 import com.crashlytics.android.Crashlytics
+import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 
+// TODO: remove T type
 abstract class CompletableUseCase<T>(
         private val threadExecutor: ThreadExecutor,
         private val postExecutionThread: PostExecutionThread
