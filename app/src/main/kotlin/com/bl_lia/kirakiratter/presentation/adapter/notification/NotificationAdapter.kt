@@ -22,6 +22,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
     val onClickReply   = PublishSubject.create<Status>()
+    val onClickReblog  = PublishSubject.create<Notification>()
 
     private val list: MutableList<Notification> = mutableListOf()
 
@@ -57,6 +58,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.bind(list[position])
             holder.onClickAccount.subscribe(onClickAccount)
             holder.onClickReply.subscribe(onClickReply)
+            holder.onClickReblog.subscribe(onClickReblog)
             return
         }
 
@@ -86,5 +88,16 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun add(moreList: List<Notification>) {
         list.addAll(moreList)
         notifyDataSetChanged()
+    }
+
+    fun update(notification: Notification) {
+        list.indexOfFirst {
+            it.id == notification.id
+        }.also { index ->
+            if (index > -1) {
+                list.set(index, notification)
+                notifyItemChanged(index)
+            }
+        }
     }
 }
