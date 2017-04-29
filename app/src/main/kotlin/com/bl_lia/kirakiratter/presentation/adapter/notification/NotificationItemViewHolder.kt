@@ -1,10 +1,12 @@
 package com.bl_lia.kirakiratter.presentation.adapter.notification
 
+import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -69,6 +71,10 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         itemView.findViewById(R.id.button_translate) as Button
     }
 
+    private val actionLayout: ViewGroup by lazy {
+        itemView.findViewById(R.id.layout_action) as ViewGroup
+    }
+
     private lateinit var notification: Notification
 
     fun bind(notification: Notification) {
@@ -77,31 +83,34 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         when (notification.type) {
             "reblog" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
-                replyButton.visibility = View.INVISIBLE
-                reblogButton.visibility = View.INVISIBLE
-                favouriteButton.visibility = View.INVISIBLE
-                translateButton.visibility = View.INVISIBLE
+                actionLayout.visibility = View.GONE
             }
             "favourite" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_star_favourite)
-                replyButton.visibility = View.INVISIBLE
-                reblogButton.visibility = View.INVISIBLE
-                favouriteButton.visibility = View.INVISIBLE
-                translateButton.visibility = View.INVISIBLE
+                actionLayout.visibility = View.GONE
             }
             "follow" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
-                replyButton.visibility = View.INVISIBLE
-                reblogButton.visibility = View.INVISIBLE
-                favouriteButton.visibility = View.INVISIBLE
-                translateButton.visibility = View.INVISIBLE
+                actionLayout.visibility = View.GONE
             }
             "mention" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
+                actionLayout.visibility = View.VISIBLE
                 replyButton.visibility = View.VISIBLE
                 reblogButton.visibility = View.INVISIBLE
                 favouriteButton.visibility = View.INVISIBLE
                 translateButton.visibility = View.INVISIBLE
+            }
+        }
+
+        when (notification.type) {
+            "reblog",
+            "favourite",
+            "follow" -> {
+                notification.status?.account?.loadAvater(itemView.context, avatarImage)
+            }
+            "mention" -> {
+                notification.account?.loadAvater(itemView.context, avatarImage)
             }
         }
 
@@ -111,14 +120,13 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         notification.status?.let { status ->
             bodyText.text = status.content.body?.trim()
             bodyText.movementMethod = LinkMovementMethod.getInstance()
-
-            status.account?.let { account ->
-                Picasso.with(itemView.context)
-                        .load(account.avatar)
-                        .transform(AvatarTransformation(ContextCompat.getColor(itemView.context, R.color.content_border)))
-                        .into(avatarImage)
-            }
         }
+    }
 
+    private fun Account.loadAvater(context: Context, imageView: ImageView) {
+        Picasso.with(context)
+                .load(avatar)
+                .transform(AvatarTransformation(ContextCompat.getColor(context, R.color.content_border)))
+                .into(imageView)
     }
 }

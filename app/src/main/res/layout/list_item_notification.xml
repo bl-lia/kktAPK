@@ -24,7 +24,7 @@
         <RelativeLayout
             android:id="@+id/layout_header"
             android:layout_width="match_parent"
-            android:layout_height="22dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/image_type"
@@ -62,6 +62,7 @@
                 tools:text="aaaaaaaaa"/>
 
             <RelativeLayout
+                android:id="@+id/layout_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_body"
