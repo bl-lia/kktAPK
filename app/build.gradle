@@ -31,8 +31,8 @@ android {
         applicationId "com.bl_lia.kirakiratter"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 19
-        versionName "0.2.1"
+        versionCode 20
+        versionName "0.2.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
