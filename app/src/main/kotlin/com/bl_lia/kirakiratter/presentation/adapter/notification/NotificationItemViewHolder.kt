@@ -5,11 +5,13 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Notification
+import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
@@ -29,6 +31,12 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         }
     }
 
+    val onClickReply = Observable.create<Status> { subscriber ->
+        replyButton.setOnClickListener {
+            subscriber.onNext(notification.status)
+        }
+    }
+
     private val notifyText: TextView by lazy {
         itemView.findViewById(R.id.text_notify) as TextView
     }
@@ -45,6 +53,22 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         itemView.findViewById(R.id.image_type) as ImageView
     }
 
+    private val replyButton: Button by lazy {
+        itemView.findViewById(R.id.button_reply) as Button
+    }
+
+    private val reblogButton: Button by lazy {
+        itemView.findViewById(R.id.button_reblog) as Button
+    }
+
+    private val favouriteButton: Button by lazy {
+        itemView.findViewById(R.id.button_favourite) as Button
+    }
+
+    private val translateButton: Button by lazy {
+        itemView.findViewById(R.id.button_translate) as Button
+    }
+
     private lateinit var notification: Notification
 
     fun bind(notification: Notification) {
@@ -53,15 +77,31 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         when (notification.type) {
             "reblog" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
+                replyButton.visibility = View.INVISIBLE
+                reblogButton.visibility = View.INVISIBLE
+                favouriteButton.visibility = View.INVISIBLE
+                translateButton.visibility = View.INVISIBLE
             }
             "favourite" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_star_favourite)
+                replyButton.visibility = View.INVISIBLE
+                reblogButton.visibility = View.INVISIBLE
+                favouriteButton.visibility = View.INVISIBLE
+                translateButton.visibility = View.INVISIBLE
             }
             "follow" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reblog_reblog)
+                replyButton.visibility = View.INVISIBLE
+                reblogButton.visibility = View.INVISIBLE
+                favouriteButton.visibility = View.INVISIBLE
+                translateButton.visibility = View.INVISIBLE
             }
             "mention" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
+                replyButton.visibility = View.VISIBLE
+                reblogButton.visibility = View.VISIBLE
+                favouriteButton.visibility = View.VISIBLE
+                translateButton.visibility = View.INVISIBLE
             }
         }
 
