@@ -39,6 +39,12 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         }
     }
 
+    val onClickReblog = Observable.create<Notification> { subscriber ->
+        reblogButton.setOnClickListener {
+            subscriber.onNext(notification)
+        }
+    }
+
     private val notifyText: TextView by lazy {
         itemView.findViewById(R.id.text_notify) as TextView
     }
@@ -97,9 +103,16 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
                 actionLayout.visibility = View.VISIBLE
                 replyButton.visibility = View.VISIBLE
-                reblogButton.visibility = View.INVISIBLE
+                reblogButton.visibility = View.VISIBLE
                 favouriteButton.visibility = View.INVISIBLE
                 translateButton.visibility = View.INVISIBLE
+
+                reblogButton.background =
+                        if (notification.status?.reblogged ?: false) {
+                            ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_reblog)
+                        } else {
+                            ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_unreblog)
+                        }
             }
         }
 
@@ -107,20 +120,21 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             "reblog",
             "favourite",
             "follow" -> {
+                bodyText.text = notification.status?.content?.body?.trim()
                 notification.status?.account?.loadAvater(itemView.context, avatarImage)
             }
             "mention" -> {
+                val target = notification.status?.reblog ?: notification.status
+                bodyText.text = target?.content?.body?.trim()
                 notification.account?.loadAvater(itemView.context, avatarImage)
             }
         }
 
+        bodyText.movementMethod = LinkMovementMethod.getInstance()
+
+
         notifyText.text = notification.notifiedMessage(itemView.context)
         notifyText.movementMethod = LinkMovementMethod.getInstance()
-
-        notification.status?.let { status ->
-            bodyText.text = status.content.body?.trim()
-            bodyText.movementMethod = LinkMovementMethod.getInstance()
-        }
     }
 
     private fun Account.loadAvater(context: Context, imageView: ImageView) {

@@ -46,10 +46,6 @@ class NotificationFragment : Fragment() {
         NotificationAdapter()
     }
 
-//    private fun layoutManager(): RecyclerView.LayoutManager {
-//        return LinearLayoutManager(activity)
-//    }
-//
     private val scrollListener: NotificationScrollListener by lazy {
         object: NotificationScrollListener(layoutManager as LinearLayoutManager) {
             override fun onLoadMore() {
@@ -113,6 +109,21 @@ class NotificationFragment : Fragment() {
                 putExtra(KatsuActivity.INTENT_PARAM_REPLY_STATUS_ID, target.id)
             }
             startActivity(intent)
+        }
+
+        adapter.onClickReblog.subscribe { notification ->
+            val target = notification.status?.reblog ?: notification.status
+            target?.let { target ->
+                presenter.reblog(target)
+                        .subscribe { status, error ->
+                            if (error != null) {
+                                showError(error)
+                                return@subscribe
+                            }
+
+                            adapter.update(notification.copy(status = status))
+                        }
+            }
         }
 
         fetch()
