@@ -45,6 +45,12 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         }
     }
 
+    val onClickFavourite = Observable.create<Notification> { subscriber ->
+        favouriteButton.setOnClickListener {
+            subscriber.onNext(notification)
+        }
+    }
+
     private val notifyText: TextView by lazy {
         itemView.findViewById(R.id.text_notify) as TextView
     }
@@ -104,15 +110,25 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
                 actionLayout.visibility = View.VISIBLE
                 replyButton.visibility = View.VISIBLE
                 reblogButton.visibility = View.VISIBLE
-                favouriteButton.visibility = View.INVISIBLE
+                favouriteButton.visibility = View.VISIBLE
                 translateButton.visibility = View.INVISIBLE
 
+                val target = notification.status?.reblog ?: notification.status
+
                 reblogButton.background =
-                        if (notification.status?.reblogged ?: false) {
+                        if (target?.reblogged ?: false) {
                             ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_reblog)
                         } else {
                             ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_unreblog)
                         }
+
+                favouriteButton.background =
+                        if (target?.favourited ?: false) {
+                            ContextCompat.getDrawable(itemView.context, R.drawable.ic_star_favourite)
+                        } else {
+                            ContextCompat.getDrawable(itemView.context, R.drawable.ic_star_unfavourite)
+                        }
+
             }
         }
 

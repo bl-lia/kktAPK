@@ -29,7 +29,7 @@ class TimelineDataRepository
             timelineDataStoreFactory.create().favourite(id)
 
     override fun unfavourite(id: String): Single<Status> =
-            timelineDataStoreFactory.create().favourite(id)
+            timelineDataStoreFactory.create().unfavourite(id)
 
     override fun reblog(id: Int): Single<Status> =
             timelineDataStoreFactory.create().reblog(id)

@@ -20,9 +20,10 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
-    val onClickReply   = PublishSubject.create<Status>()
-    val onClickReblog  = PublishSubject.create<Notification>()
+    val onClickAccount   = PublishSubject.create<Pair<Account, ImageView>>()
+    val onClickReply     = PublishSubject.create<Status>()
+    val onClickReblog    = PublishSubject.create<Notification>()
+    val onClickFavourite = PublishSubject.create<Notification>()
 
     private val list: MutableList<Notification> = mutableListOf()
 
@@ -59,6 +60,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.onClickAccount.subscribe(onClickAccount)
             holder.onClickReply.subscribe(onClickReply)
             holder.onClickReblog.subscribe(onClickReblog)
+            holder.onClickFavourite.subscribe(onClickFavourite)
             return
         }
 

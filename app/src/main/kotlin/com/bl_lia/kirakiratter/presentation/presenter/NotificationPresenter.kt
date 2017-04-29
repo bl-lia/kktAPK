@@ -18,7 +18,11 @@ class NotificationPresenter
             @Named("reblogStatus")
             private val reblogStatus: SingleUseCase<Status>,
             @Named("unreblogStatus")
-            private val unreblogStatus: SingleUseCase<Status>
+            private val unreblogStatus: SingleUseCase<Status>,
+            @Named("favouriteStatus")
+            private val favouriteStatus: SingleUseCase<Status>,
+            @Named("unfavouriteStatus")
+            private val unfavouriteStatus: SingleUseCase<Status>
     ) : Presenter{
 
     override fun resume() {
@@ -52,6 +56,15 @@ class NotificationPresenter
             return unreblogStatus.execute(status.id)
         } else {
             return reblogStatus.execute(status.id)
+        }
+    }
+
+    fun favourite(status: Status): Single<Status> {
+        val target = status.reblog ?: status
+        if (target.favourited) {
+            return unfavouriteStatus.execute(status.id.toString())
+        } else {
+            return favouriteStatus.execute(status.id.toString())
         }
     }
 }
