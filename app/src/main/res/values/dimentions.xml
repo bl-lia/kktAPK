@@ -5,4 +5,6 @@
     <dimen name="spacing_normal">16dp</dimen>
 
     <dimen name="margin_timeline_avatar_content">4dp</dimen>
+
+    <dimen name="timeline_action_icon_size">24dp</dimen>
 </resources>

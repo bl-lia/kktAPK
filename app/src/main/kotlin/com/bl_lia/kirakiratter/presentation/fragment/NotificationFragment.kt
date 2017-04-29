@@ -11,9 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
-import com.bl_lia.kirakiratter.BuildConfig
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.presentation.activity.AccountActivity
+import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.adapter.notification.NotificationAdapter
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerNotificationComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.NotificationComponent
@@ -97,15 +97,22 @@ class NotificationFragment : Fragment() {
         }
 
         adapter.onClickAccount.subscribe { pair ->
-            if (BuildConfig.DEBUG) {
-                val account = pair.first
-                val imageView = pair.second
-                val intent = Intent(activity, AccountActivity::class.java).apply {
-                    putExtra(AccountActivity.INTENT_PARAM_ACCOUNT, account)
-                }
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imageView, "avatar")
-                startActivity(intent, options.toBundle())
+            val account = pair.first
+            val imageView = pair.second
+            val intent = Intent(activity, AccountActivity::class.java).apply {
+                putExtra(AccountActivity.INTENT_PARAM_ACCOUNT, account)
             }
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imageView, "avatar")
+            startActivity(intent, options.toBundle())
+        }
+
+        adapter.onClickReply.subscribe { status ->
+            val target = status.reblog ?: status
+            val intent = Intent(activity, KatsuActivity::class.java).apply {
+                putExtra(KatsuActivity.INTENT_PARAM_REPLY_ACCOUNT_NAME, target.account?.userName)
+                putExtra(KatsuActivity.INTENT_PARAM_REPLY_STATUS_ID, target.id)
+            }
+            startActivity(intent)
         }
 
         fetch()

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Notification
+import com.bl_lia.kirakiratter.domain.entity.Status
 import io.reactivex.subjects.PublishSubject
 
 class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,6 +21,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
+    val onClickReply   = PublishSubject.create<Status>()
 
     private val list: MutableList<Notification> = mutableListOf()
 
@@ -54,6 +56,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (holder is NotificationItemViewHolder) {
             holder.bind(list[position])
             holder.onClickAccount.subscribe(onClickAccount)
+            holder.onClickReply.subscribe(onClickReply)
             return
         }
 

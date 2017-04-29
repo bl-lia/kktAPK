@@ -161,23 +161,23 @@
 
                 <Button
                     android:id="@+id/button_reply"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/timeline_action_icon_size"
+                    android:layout_height="@dimen/timeline_action_icon_size"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/ic_reply_unreply"/>
 
                 <Button
                     android:id="@+id/button_reblog"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/timeline_action_icon_size"
+                    android:layout_height="@dimen/timeline_action_icon_size"
                     android:layout_toEndOf="@+id/button_reply"
                     android:layout_marginStart="18dp"
                     android:background="@drawable/ic_reblog_unreblog"/>
 
                 <Button
                     android:id="@+id/button_favourite"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/timeline_action_icon_size"
+                    android:layout_height="@dimen/timeline_action_icon_size"
                     android:layout_toEndOf="@+id/button_reblog"
                     android:layout_marginStart="18dp"
                     android:background="@drawable/ic_star_unfavourite"/>
