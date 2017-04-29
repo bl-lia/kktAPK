@@ -39,25 +39,27 @@
         android:layout_marginTop="6dp"
         android:layout_marginStart="@dimen/margin_timeline_avatar_content">
 
-        <TextView
-            android:id="@+id/account_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="aaaaaaaa"/>
-
         <RelativeLayout
             android:id="@+id/layout_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:layout_below="@+id/account_name"
             android:padding="8dp"
             android:background="@drawable/timeline_content_bg">
+
+            <TextView
+                android:id="@+id/account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                tools:text="aaaaaaaa"/>
 
             <RelativeLayout
                 android:id="@+id/layout_content_warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/account_name"
                 android:layout_marginBottom="8dp">
 
                 <Button
@@ -149,45 +151,46 @@
 
             </com.google.android.flexbox.FlexboxLayout>
 
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_comment"
-            android:layout_marginTop="4dp">
 
-            <Button
-                android:id="@+id/button_reply"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/ic_reply_unreply"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_images"
+                android:layout_marginTop="4dp">
 
-            <Button
-                android:id="@+id/button_reblog"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@+id/button_reply"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/ic_reblog_unreblog"/>
+                <Button
+                    android:id="@+id/button_reply"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_reply_unreply"/>
 
-            <Button
-                android:id="@+id/button_favourite"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@+id/button_reblog"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/ic_star_unfavourite"/>
+                <Button
+                    android:id="@+id/button_reblog"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toEndOf="@+id/button_reply"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/ic_reblog_unreblog"/>
 
-            <Button
-                android:id="@+id/button_translate"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/ic_translate_black_24dp"/>
+                <Button
+                    android:id="@+id/button_favourite"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toEndOf="@+id/button_reblog"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/ic_star_unfavourite"/>
 
+                <Button
+                    android:id="@+id/button_translate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/ic_translate_black_24dp"/>
+
+            </RelativeLayout>
         </RelativeLayout>
 
     </RelativeLayout>
