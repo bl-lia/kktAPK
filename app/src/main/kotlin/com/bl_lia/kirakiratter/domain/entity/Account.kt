@@ -1,16 +1,19 @@
 package com.bl_lia.kirakiratter.domain.entity
 
-import android.text.Spanned
 import java.io.Serializable
 
 data class Account(
         val id: Int,
-        val userName: String?,
-        val displayName: String?,
-        val avatar: String?,
-        val header: String?,
-        val note: String?
+        val userName: String? = null,
+        val displayName: String? = null,
+        val avatar: String? = null,
+        val header: String? = null,
+        val note: String? = null
 ): Serializable {
+
+    companion object {
+        fun invalidAccount(): Account = Account(-1)
+    }
 
     val preparedDisplayName: String? =
             if (displayName.isNullOrEmpty()) {
@@ -18,4 +21,6 @@ data class Account(
             } else {
                 displayName
             }
+
+    val isInvalid: Boolean = id == -1
 }
