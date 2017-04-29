@@ -34,7 +34,9 @@ class App : MultiDexApplication(), HasComponent<ApplicationComponent> {
         super.onCreate()
 
         Fabric.with(fabric)
-        Stetho.initializeWithDefaults(this)
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
         Realm.init(this)
 
         val configSettings = FirebaseRemoteConfigSettings.Builder().apply {
