@@ -126,6 +126,20 @@ class NotificationFragment : Fragment() {
             }
         }
 
+        adapter.onClickFavourite.subscribe { notification ->
+            notification.status?.let { status ->
+                presenter.favourite(status)
+                        .subscribe { status, error ->
+                            if (error != null) {
+                                showError(error)
+                                return@subscribe
+                            }
+
+                            adapter.update(notification.copy(status = status))
+                        }
+            }
+        }
+
         fetch()
     }
 
