@@ -101,11 +101,11 @@ class AccountActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        initView()
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    private fun initView() {
         account.subscribe { account, error ->
             if (error != null) {
                 showError(error)
