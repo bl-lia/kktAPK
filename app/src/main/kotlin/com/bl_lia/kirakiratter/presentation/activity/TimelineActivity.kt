@@ -20,11 +20,6 @@ import javax.inject.Inject
 
 class TimelineActivity : AppCompatActivity() {
 
-    companion object {
-        private const val FRAGMENT_TAG_TIMELINE = "FRAGMENT_TAG_TIMELINE"
-        private const val FRAGMENT_TAG_NOTIFICATION = "FRAGMENT_TAG_NOTIFICATION"
-    }
-
     val timelines: List<String> = listOf("home", "local")
 
     val spinnerAdapter: TimelineSpinnerAdapter by lazy {
@@ -33,6 +28,8 @@ class TimelineActivity : AppCompatActivity() {
 
     @Inject
     lateinit var presenter: TimelineActivityPresenter
+
+    private var isSpinnerInitialized: Boolean = false
 
     private val component: TimelineActivityComponent by lazy {
         DaggerTimelineActivityComponent.builder()
@@ -53,11 +50,11 @@ class TimelineActivity : AppCompatActivity() {
                 transaction.add(R.id.left_drawer, fragment)
             }.commit()
         }
+
+        initView()
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    private fun initView() {
         button_katsu.setOnClickListener {
             val intent = Intent(this, KatsuActivity::class.java)
             startActivity(intent)
@@ -72,6 +69,10 @@ class TimelineActivity : AppCompatActivity() {
         spinner_timeline.adapter = spinnerAdapter
         spinner_timeline.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (!isSpinnerInitialized) {
+                    isSpinnerInitialized = true
+                    return
+                }
                 showTimeline(position)
                 presenter.setSelectedTimeline(timelines[position])
             }
@@ -88,7 +89,10 @@ class TimelineActivity : AppCompatActivity() {
         }
         button_notification.setOnClickListener { view_pager.setCurrentItem(2, false) }
         button_search.setOnClickListener { showNothing() }
+    }
 
+    override fun onResume() {
+        super.onResume()
         view_pager.post {
             presenter.getSelectedTimeline()
                     .subscribe { timeline, error ->
