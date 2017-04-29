@@ -99,8 +99,8 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             "mention" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
                 replyButton.visibility = View.VISIBLE
-                reblogButton.visibility = View.VISIBLE
-                favouriteButton.visibility = View.VISIBLE
+                reblogButton.visibility = View.INVISIBLE
+                favouriteButton.visibility = View.INVISIBLE
                 translateButton.visibility = View.INVISIBLE
             }
         }
