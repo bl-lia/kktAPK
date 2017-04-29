@@ -22,5 +22,14 @@ class AccountDataRepository
     override fun follow(id: Int): Single<Relationship> = accountDataStoreFactory.create().follow(id)
     override fun unfollow(id: Int): Single<Relationship> = accountDataStoreFactory.create().unfollow(id)
 
-    override fun verifyCredentials(): Single<Account> = accountDataStoreFactory.create().verifyCredentials()
+    override fun verifyCredentials(): Single<Account> =
+            accountDataStoreFactory.createCache()
+                    .verifyCredentials()
+                    .flatMap { account ->
+                        if (account.isInvalid) {
+                            accountDataStoreFactory.createApi().verifyCredentials()
+                        } else {
+                            Single.just(account)
+                        }
+                    }
 }

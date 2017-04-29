@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.bl_lia.kirakiratter.BuildConfig
 import com.bl_lia.kirakiratter.R
-import com.bl_lia.kirakiratter.data.cache.AuthCache
-import com.bl_lia.kirakiratter.data.cache.SharedPrefAuthCache
-import com.bl_lia.kirakiratter.data.cache.SharedPrefTimelineCache
-import com.bl_lia.kirakiratter.data.cache.TimelineCache
+import com.bl_lia.kirakiratter.data.cache.*
 import com.bl_lia.kirakiratter.data.executor.JobExecutor
 import com.bl_lia.kirakiratter.data.repository.*
 import com.bl_lia.kirakiratter.data.type_adapter.AccountTypeAdapter
@@ -173,6 +170,10 @@ class ApplicationModule(
     @Provides
     @Singleton
     internal fun provideTimelineCache(cache: SharedPrefTimelineCache): TimelineCache = cache
+
+    @Provides
+    @Singleton
+    internal fun provideAccountCache(cache: MemoryAccountCache): AccountCache = cache
 
     @Provides
     @Singleton
