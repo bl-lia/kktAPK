@@ -2,6 +2,7 @@ package com.bl_lia.kirakiratter.presentation.presenter
 
 import android.support.v4.app.Fragment
 import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.extension.containsJapanese
 import com.bl_lia.kirakiratter.domain.interactor.SingleUseCase
 import com.bl_lia.kirakiratter.domain.value_object.Translation
 import com.bl_lia.kirakiratter.presentation.fragment.TimelineFragment
@@ -116,20 +117,5 @@ class TimelinePresenter
         } else {
             (fragment as TimelineFragment).tranlateText(status, listOf(), Exception("Error"))
         }
-    }
-
-    private fun String.containsJapanese(): Boolean {
-        val japanese = this.toCharArray().filter { char ->
-            when (Character.UnicodeBlock.of(char)) {
-                Character.UnicodeBlock.HIRAGANA,
-                Character.UnicodeBlock.KATAKANA,
-                Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS,
-                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS,
-                Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION -> true
-                else -> false
-            }
-        }
-
-        return japanese.count() > 0
     }
 }

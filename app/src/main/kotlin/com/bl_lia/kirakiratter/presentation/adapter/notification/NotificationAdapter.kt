@@ -24,6 +24,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val onClickReply     = PublishSubject.create<Status>()
     val onClickReblog    = PublishSubject.create<Notification>()
     val onClickFavourite = PublishSubject.create<Notification>()
+    val onClickTranslate = PublishSubject.create<Notification>()
 
     private val list: MutableList<Notification> = mutableListOf()
 
@@ -61,6 +62,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.onClickReply.subscribe(onClickReply)
             holder.onClickReblog.subscribe(onClickReblog)
             holder.onClickFavourite.subscribe(onClickFavourite)
+            holder.onClickTranslate.subscribe(onClickTranslate)
             return
         }
 
@@ -98,6 +100,32 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }.also { index ->
             if (index > -1) {
                 list.set(index, notification)
+                notifyItemChanged(index)
+            }
+        }
+    }
+
+    fun addTranslatedText(notification: Notification, translatedText: String) {
+        list.indexOfFirst {
+            it.id == notification.id
+        }.also { index ->
+            if (index > -1) {
+                val s = if (notification.status?.reblog != null) {
+                    notification.copy(
+                            status = notification.status.copy(
+                                    reblog = notification.status.reblog.copy(
+                                            content = notification.status.reblog.content.copy(translatedText = translatedText)
+                                    )
+                            )
+                    )
+                } else {
+                    notification.copy(
+                            status = notification.status?.copy(
+                                    content = notification.status.content.copy(translatedText = translatedText)
+                            )
+                    )
+                }
+                list.set(index, s)
                 notifyItemChanged(index)
             }
         }
