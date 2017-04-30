@@ -62,6 +62,7 @@ android {
                 disable 'MissingTranslation'
             }
             signingConfig signingConfigs.release
+            ext.betaDistributionGroupAliases = 'testers'
         }
     }
     sourceSets {
