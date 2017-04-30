@@ -31,7 +31,7 @@ android {
         applicationId "com.bl_lia.kirakiratter"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode System.getenv("BITRISE_BUILD_NUMBER") ?: 1
+        versionCode Integer.parseInt(System.getenv("BITRISE_BUILD_NUMBER") != null ? System.getenv("BITRISE_BUILD_NUMBER") : "1")
         versionName "0.2.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
