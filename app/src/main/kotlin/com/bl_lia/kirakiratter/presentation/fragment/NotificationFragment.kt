@@ -12,6 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
+import com.bl_lia.kirakiratter.domain.entity.Notification
+import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.value_object.Translation
 import com.bl_lia.kirakiratter.presentation.activity.AccountActivity
 import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.adapter.notification.NotificationAdapter
@@ -140,7 +143,19 @@ class NotificationFragment : Fragment() {
             }
         }
 
+        adapter.onClickTranslate.subscribe { notification ->
+                presenter.translate(notification)
+        }
+
         fetch()
+    }
+
+    fun tranlateText(notification: Notification, status: Status, translations: List<Translation>, error: Throwable?) {
+        if (error != null) {
+            showError(error)
+            return
+        }
+        adapter.addTranslatedText(notification.copy(status = status), translations.first().translatedText)
     }
 
     private fun fetch() {

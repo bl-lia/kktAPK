@@ -51,6 +51,12 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         }
     }
 
+    val onClickTranslate = Observable.create<Notification> { subscriber ->
+        translateButton.setOnClickListener {
+            subscriber.onNext(notification)
+        }
+    }
+
     private val notifyText: TextView by lazy {
         itemView.findViewById(R.id.text_notify) as TextView
     }
@@ -108,10 +114,6 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             "mention" -> {
                 notificationType.setBackgroundResource(R.drawable.ic_reply_unreply)
                 actionLayout.visibility = View.VISIBLE
-                replyButton.visibility = View.VISIBLE
-                reblogButton.visibility = View.VISIBLE
-                favouriteButton.visibility = View.VISIBLE
-                translateButton.visibility = View.INVISIBLE
 
                 val target = notification.status?.reblog ?: notification.status
 
@@ -141,7 +143,11 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             }
             "mention" -> {
                 val target = notification.status?.reblog ?: notification.status
-                bodyText.text = target?.content?.body?.trim()
+                bodyText.text = if (target?.content?.translatedText.isNullOrEmpty()) {
+                    target?.content?.body?.trim()
+                } else {
+                    target?.content?.translatedText
+                }
                 notification.account?.loadAvater(itemView.context, avatarImage)
             }
         }
