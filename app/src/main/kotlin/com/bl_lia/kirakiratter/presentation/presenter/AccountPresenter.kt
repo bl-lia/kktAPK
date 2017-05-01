@@ -42,14 +42,6 @@ class AccountPresenter
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun fetchStatus(account: Account): Single<List<Status>> = listAccountStatus.execute(account.id)
-
-    fun fetchMoreStatus(account: Account, maxId: Int): Single<List<Status>>? {
-        if (listMoreAccountStatus.processing) return null
-
-        return listMoreAccountStatus.execute(account.id, maxId)
-    }
-
     fun relationship(account: Account): Single<Relationship> = getRelationship.execute(account.id)
 
     fun follow(account: Account): Single<Relationship> = follow.execute(account.id)
