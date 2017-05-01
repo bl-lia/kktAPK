@@ -1,5 +1,6 @@
 package com.bl_lia.kirakiratter.domain.entity
 
+import com.bl_lia.kirakiratter.domain.entity.realm.RealmAccount
 import java.io.Serializable
 
 data class Account(
@@ -23,4 +24,14 @@ data class Account(
             }
 
     val isInvalid: Boolean = id == -1
+
+    fun toRealm(): RealmAccount =
+            RealmAccount(
+                    id = id,
+                    userName = userName,
+                    displayName = displayName,
+                    avatar = avatar,
+                    header = header,
+                    note = note
+            )
 }

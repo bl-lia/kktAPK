@@ -43,7 +43,7 @@ class FetchNotificationJobService : JobService() {
                             builder.setContentTitle(notification.notifiedMessage(applicationContext))
                             builder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
                             notification.status?.let { status ->
-                                builder.setContentText(status.content.body?.asHtml()?.trim())
+                                builder.setContentText(status.content?.body?.asHtml()?.trim())
                             }
 
                             val resultIntent = Intent(this, MainActivity::class.java)

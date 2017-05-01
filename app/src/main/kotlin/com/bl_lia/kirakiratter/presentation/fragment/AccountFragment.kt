@@ -134,7 +134,7 @@ class AccountFragment : Fragment() {
         }
         adapter.onClickTranslate.subscribe { status ->
             val target = status.reblog ?: status
-            if (target.content.translatedText.isNullOrEmpty()) {
+            if (target.content?.translatedText.isNullOrEmpty()) {
                 presenter.translation(status)
             }
         }

@@ -1,20 +1,28 @@
 package com.bl_lia.kirakiratter.data.repository.datasource.timeline
 
+import com.bl_lia.kirakiratter.data.cache.TimelineStatusCache
 import com.bl_lia.kirakiratter.domain.entity.Status
 import io.reactivex.Single
 
 class ApiTimelineDataStore(
-        private val timelineService: TimelineService
+        private val timelineService: TimelineService,
+        private val timelineStatusCache: TimelineStatusCache
 ) : TimelineDataStore {
 
     override fun homeTimeline(): Single<List<Status>> =
             timelineService.homeTimeline()
+                    .doAfterSuccess { list ->
+                        timelineStatusCache.reset("home", list)
+                    }
 
     override fun moreHomeTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineService.homeTimeline(maxId, sinceId)
 
     override fun publicTimeline(): Single<List<Status>> =
             timelineService.publicTimeline()
+                    .doAfterSuccess { list ->
+                        timelineStatusCache.reset("local", list)
+                    }
 
     override fun morePublicTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineService.publicTimeline(maxId = maxId, sinceId = sinceId)
