@@ -27,6 +27,9 @@ class TimelineDataRepository
     override fun moreHomeTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineDataStoreFactory.create().moreHomeTimeline(maxId, sinceId)
 
+    override fun newHomeTimeline(): Single<List<Status>> =
+            timelineDataStoreFactory.createApi().homeTimeline()
+
     override fun publicTimeline(): Single<List<Status>> =
             timelineDataStoreFactory.createDisk()
                     .publicTimeline()
@@ -40,6 +43,9 @@ class TimelineDataRepository
 
     override fun morePublicTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineDataStoreFactory.create().morePublicTimeline(maxId, sinceId)
+
+    override fun newPublicTimeline(): Single<List<Status>> =
+            timelineDataStoreFactory.createApi().publicTimeline()
 
     override fun favourite(id: String): Single<Status> =
             timelineDataStoreFactory.create().favourite(id)

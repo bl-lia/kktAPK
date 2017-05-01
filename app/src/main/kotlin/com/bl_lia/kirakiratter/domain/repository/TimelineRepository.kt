@@ -7,9 +7,11 @@ interface TimelineRepository {
 
     fun homeTimeline(): Single<List<Status>>
     fun moreHomeTimeline(maxId: String? = null, sinceId: String? = null): Single<List<Status>>
+    fun newHomeTimeline(): Single<List<Status>>
 
     fun publicTimeline(): Single<List<Status>>
     fun morePublicTimeline(maxId: String? = null, sinceId: String? = null): Single<List<Status>>
+    fun newPublicTimeline(): Single<List<Status>>
 
     fun favourite(id: String): Single<Status>
     fun unfavourite(id: String): Single<Status>

@@ -20,10 +20,14 @@ class TimelinePresenter
             private val getHomeTimeline: SingleUseCase<List<Status>>,
             @Named("getMoreHomeTimeline")
             private val getMoreHomeTimeline: SingleUseCase<List<Status>>,
+            @Named("getNewHomeTimeline")
+            private val getNewHomeTimeline: SingleUseCase<List<Status>>,
             @Named("getPublicTimeline")
             private val getPublicTimeline: SingleUseCase<List<Status>>,
             @Named("getMorePublicTimeline")
             private val getMorePublicTimeline: SingleUseCase<List<Status>>,
+            @Named("getNewPublicTimeline")
+            private val getNewPublicTimeline: SingleUseCase<List<Status>>,
             @Named("favouriteStatus")
             private val favouriteStatus: SingleUseCase<Status>,
             @Named("unfavouriteStatus")
@@ -52,13 +56,21 @@ class TimelinePresenter
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun fetchTimeline(scope: TimelineFragment.Scope): Single<List<Status>> =
+    fun fetchTimeline(scope: TimelineFragment.Scope, newTimeline: Boolean = false): Single<List<Status>> =
         when (scope) {
             TimelineFragment.Scope.Home -> {
-                getHomeTimeline.execute()
+                if (newTimeline) {
+                    getNewHomeTimeline.execute()
+                } else {
+                    getHomeTimeline.execute()
+                }
             }
             TimelineFragment.Scope.Local -> {
-                getPublicTimeline.execute()
+                if (newTimeline) {
+                    getNewPublicTimeline.execute()
+                } else {
+                    getPublicTimeline.execute()
+                }
             }
         }
 

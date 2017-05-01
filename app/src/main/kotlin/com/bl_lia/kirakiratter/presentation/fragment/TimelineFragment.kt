@@ -171,17 +171,13 @@ class TimelineFragment : Fragment() {
         fetch(scope)
 
         layout_swipe_refresh?.setOnRefreshListener {
-            fetch(scope)
+            fetch(scope, newTimeline = true)
         }
     }
 
-    fun addTimeline(list: List<Status>) {
-        adapter.add(list)
-    }
-
-    private fun fetch(scope: Scope) {
+    private fun fetch(scope: Scope, newTimeline: Boolean = false) {
         layout_swipe_refresh?.isRefreshing = true
-        presenter.fetchTimeline(scope)
+        presenter.fetchTimeline(scope, newTimeline)
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
