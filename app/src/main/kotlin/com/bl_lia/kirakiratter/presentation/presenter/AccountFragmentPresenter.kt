@@ -60,4 +60,13 @@ class AccountFragmentPresenter
             return reblogStatus.execute(status.id)
         }
     }
+
+    fun favourite(status: Status): Single<Status> {
+        val target = status.reblog ?: status
+        if (target.favourited) {
+            return unfavouriteStatus.execute(status.id.toString())
+        } else {
+            return favouriteStatus.execute(status.id.toString())
+        }
+    }
 }

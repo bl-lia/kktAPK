@@ -174,8 +174,7 @@
                     android:layout_height="24dp"
                     android:layout_toEndOf="@+id/button_reblog"
                     android:layout_marginStart="18dp"
-                    android:background="@drawable/ic_star_unfavourite"
-                    android:visibility="invisible"/>
+                    android:background="@drawable/ic_star_unfavourite"/>
 
                 <Button
                     android:id="@+id/button_translate"

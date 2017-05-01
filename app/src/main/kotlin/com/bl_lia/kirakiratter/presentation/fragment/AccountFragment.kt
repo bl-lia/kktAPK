@@ -116,6 +116,19 @@ class AccountFragment : Fragment() {
                         adapter.update(updateTarget)
                     }
         }
+        adapter.onClickFavourite.subscribe { status ->
+            val target = status.reblog ?: status
+            presenter.favourite(target)
+                    .subscribe { status, error ->
+                        if (error != null) {
+                            showError(error)
+                            return@subscribe
+                        }
+
+                        adapter.update(status)
+                    }
+        }
+
 
         layout_swipe_refresh?.setOnRefreshListener {
             fetch()
