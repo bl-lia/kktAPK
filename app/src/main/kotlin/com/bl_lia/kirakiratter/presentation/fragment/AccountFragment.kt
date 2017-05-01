@@ -1,5 +1,6 @@
 package com.bl_lia.kirakiratter.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
+import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.adapter.account.AccountAdapter
 import com.bl_lia.kirakiratter.presentation.internal.di.component.AccountFragmentComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerAccountFragmentComponent
@@ -101,6 +103,28 @@ class AccountFragment : Fragment() {
 
                     adapter.reset(list)
                 }
+
+        adapter.onClickReply.subscribe { status ->
+            val target = status.reblog ?: status
+            val intent = Intent(activity, KatsuActivity::class.java).apply {
+                putExtra(KatsuActivity.INTENT_PARAM_REPLY_ACCOUNT_NAME, target.account?.userName)
+                putExtra(KatsuActivity.INTENT_PARAM_REPLY_STATUS_ID, target.id)
+            }
+            startActivity(intent)
+        }
+        adapter.onClickReblog.subscribe { status ->
+            val target = status.reblog ?: status
+            presenter.reblog(target)
+                    .subscribe { status, error ->
+                        if (error != null) {
+                            showError(error)
+                            return@subscribe
+                        }
+
+                        val updateTarget = status.reblog ?: status
+                        adapter.update(updateTarget)
+                    }
+        }
     }
 
     private fun showError(error: Throwable) {
