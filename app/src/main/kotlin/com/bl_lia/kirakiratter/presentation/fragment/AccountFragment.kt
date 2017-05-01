@@ -94,15 +94,6 @@ class AccountFragment : Fragment() {
 
         list_status.adapter = adapter
         list_status.addOnScrollListener(scrollListener)
-        presenter.fetchStatus(account)
-                .subscribe { list, error ->
-                    if (error != null) {
-                        showError(error)
-                        return@subscribe
-                    }
-
-                    adapter.reset(list)
-                }
 
         adapter.onClickReply.subscribe { status ->
             val target = status.reblog ?: status
@@ -125,6 +116,28 @@ class AccountFragment : Fragment() {
                         adapter.update(updateTarget)
                     }
         }
+
+        layout_swipe_refresh?.setOnRefreshListener {
+            fetch()
+        }
+
+        fetch()
+    }
+
+    private fun fetch() {
+        layout_swipe_refresh?.isRefreshing = true
+        presenter.fetchStatus(account)
+                .doAfterTerminate {
+                    layout_swipe_refresh?.isRefreshing = false
+                }
+                .subscribe { list, error ->
+                    if (error != null) {
+                        showError(error)
+                        return@subscribe
+                    }
+
+                    adapter.reset(list)
+                }
     }
 
     private fun showError(error: Throwable) {
