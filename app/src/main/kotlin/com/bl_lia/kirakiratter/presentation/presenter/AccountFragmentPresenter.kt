@@ -84,8 +84,7 @@ class AccountFragmentPresenter
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             remoteConfig.activateFetched()
-//                            val key = remoteConfig.getString("translation_api_key")
-                            val key = "AIzaSyA7LcBylbo_KlGOFWpi22vw0HOd5IupBcQ"
+                            val key = remoteConfig.getString("translation_api_key")
                             val text = target.content.body.toString()
                             val sourceLang = if (text.containsJapanese()) "ja" else "en"
                             val targetLang = if (sourceLang == "ja") "en" else "ja"
