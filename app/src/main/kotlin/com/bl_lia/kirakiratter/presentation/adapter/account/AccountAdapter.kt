@@ -79,4 +79,26 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     }
                 }
     }
+
+    fun addTranslatedText(status: Status, translatedText: String) {
+        list.indexOfFirst {
+            it.id == status.id
+        }.also { index ->
+            if (index > -1) {
+                val s = if (status.reblog != null) {
+                    status.copy(
+                            reblog = status.reblog.copy(
+                                    content = status.reblog.content.copy(translatedText = translatedText)
+                            )
+                    )
+                } else {
+                    status.copy(
+                            content = status.content.copy(translatedText = translatedText)
+                    )
+                }
+                list.set(index, s)
+                notifyItemChanged(index)
+            }
+        }
+    }
 }
