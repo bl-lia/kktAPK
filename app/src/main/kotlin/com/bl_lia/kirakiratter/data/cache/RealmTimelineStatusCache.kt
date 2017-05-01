@@ -4,6 +4,7 @@ import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.entity.realm.RealmTimeline
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import org.joda.time.DateTime
 import javax.inject.Inject
 
 class RealmTimelineStatusCache
@@ -15,11 +16,11 @@ class RealmTimelineStatusCache
         Realm.getInstance(realmConfiguration).use { realm ->
             return realm.where(RealmTimeline::class.java)
                     .equalTo("scope", scope)
+                    .greaterThanOrEqualTo("created", DateTime.now().minusMinutes(30).toDate())
                     .findFirst()
                     ?.statusList
                     ?.map { it.toStatus() }
                     .orEmpty()
-
         }
     }
 
