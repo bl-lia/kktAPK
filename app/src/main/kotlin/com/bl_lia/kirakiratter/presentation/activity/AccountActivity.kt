@@ -10,6 +10,7 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
@@ -116,6 +117,13 @@ class AccountActivity : AppCompatActivity() {
                         text_followed_you.visibility = if (rel.followedBy) View.VISIBLE else View.GONE
                         invalidateOptionsMenu()
                     }
+
+            image_header.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    loadHeaderImage(image_header.width, image_header.height)
+                    image_header.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
         }
     }
 
@@ -175,6 +183,19 @@ class AccountActivity : AppCompatActivity() {
             }
         } else {
             return false
+        }
+    }
+
+    private fun loadHeaderImage(width: Int, height: Int) {
+        account.subscribe { account ->
+            if (account.header?.isNotEmpty() ?: false) {
+                Picasso.with(this)
+                        .load(account.header)
+                        .resize(width, height)
+                        .centerCrop()
+                        .transform(BlurTransformation(this))
+                        .into(image_header)
+            }
         }
     }
 
