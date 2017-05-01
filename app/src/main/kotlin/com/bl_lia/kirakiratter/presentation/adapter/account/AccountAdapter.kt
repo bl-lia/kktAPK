@@ -66,4 +66,17 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         list.addAll(newList)
         notifyDataSetChanged()
     }
+
+    fun update(status: Status) {
+        list.indexOfFirst {
+            val target = it.reblog ?: it
+            target.id == status.id
+        }
+                .also { index ->
+                    if (index > -1) {
+                        list.set(index, status)
+                        notifyItemChanged(index)
+                    }
+                }
+    }
 }

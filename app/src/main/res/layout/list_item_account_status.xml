@@ -147,48 +147,46 @@
 
             </com.google.android.flexbox.FlexboxLayout>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_images"
+                android:layout_marginTop="4dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_comment"
-            android:layout_marginTop="4dp">
+                <Button
+                    android:id="@+id/button_reply"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_reply_unreply"/>
 
-            <Button
-                android:id="@+id/button_reply"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/ic_reply_unreply"
-                android:visibility="invisible"/>
+                <Button
+                    android:id="@+id/button_reblog"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toEndOf="@+id/button_reply"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/ic_reblog_unreblog"/>
 
-            <Button
-                android:id="@+id/button_reblog"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@+id/button_reply"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/ic_reblog_unreblog"
-                android:visibility="invisible"/>
+                <Button
+                    android:id="@+id/button_favourite"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toEndOf="@+id/button_reblog"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/ic_star_unfavourite"
+                    android:visibility="invisible"/>
 
-            <Button
-                android:id="@+id/button_favourite"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_toEndOf="@+id/button_reblog"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/ic_star_unfavourite"
-                android:visibility="invisible"/>
+                <Button
+                    android:id="@+id/button_translate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/ic_translate_black_24dp"
+                    android:visibility="invisible"/>
 
-            <Button
-                android:id="@+id/button_translate"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/ic_translate_black_24dp"
-                android:visibility="invisible"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 
