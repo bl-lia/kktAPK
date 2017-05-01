@@ -12,10 +12,13 @@ import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
+import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.value_object.Translation
 import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.adapter.account.AccountAdapter
 import com.bl_lia.kirakiratter.presentation.internal.di.component.AccountFragmentComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerAccountFragmentComponent
+import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.AccountFragmentPresenter
 import com.bl_lia.kirakiratter.presentation.scroll_listener.TimelineScrollListener
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -74,6 +77,7 @@ class AccountFragment : Fragment() {
     private val component: AccountFragmentComponent by lazy {
         DaggerAccountFragmentComponent.builder()
                 .applicationComponent((activity.application as App).component)
+                .fragmentModule(FragmentModule(this))
                 .build()
     }
 
@@ -128,13 +132,26 @@ class AccountFragment : Fragment() {
                         adapter.update(status)
                     }
         }
-
+        adapter.onClickTranslate.subscribe { status ->
+            val target = status.reblog ?: status
+            if (target.content.translatedText.isNullOrEmpty()) {
+                presenter.translation(status)
+            }
+        }
 
         layout_swipe_refresh?.setOnRefreshListener {
             fetch()
         }
 
         fetch()
+    }
+
+    fun tranlateText(status: Status, translations: List<Translation>, error: Throwable?) {
+        if (error != null) {
+            showError(error)
+            return
+        }
+        adapter.addTranslatedText(status, translations.first().translatedText)
     }
 
     private fun fetch() {
