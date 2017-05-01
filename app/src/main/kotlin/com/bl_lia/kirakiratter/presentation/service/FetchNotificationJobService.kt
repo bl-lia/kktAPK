@@ -7,9 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.TaskStackBuilder
 import android.support.v7.app.NotificationCompat
-import android.util.Log
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
+import com.bl_lia.kirakiratter.domain.extension.asHtml
 import com.bl_lia.kirakiratter.presentation.activity.MainActivity
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerMessagingServiceComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.MessagingServiceComponent
@@ -43,7 +43,7 @@ class FetchNotificationJobService : JobService() {
                             builder.setContentTitle(notification.notifiedMessage(applicationContext))
                             builder.setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
                             notification.status?.let { status ->
-                                builder.setContentText(status.content.body?.trim())
+                                builder.setContentText(status.content.body?.asHtml()?.trim())
                             }
 
                             val resultIntent = Intent(this, MainActivity::class.java)
