@@ -88,12 +88,12 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val s = if (status.reblog != null) {
                     status.copy(
                             reblog = status.reblog.copy(
-                                    content = status.reblog.content.copy(translatedText = translatedText)
+                                    content = status.reblog.content?.copy(translatedText = translatedText)
                             )
                     )
                 } else {
                     status.copy(
-                            content = status.content.copy(translatedText = translatedText)
+                            content = status.content?.copy(translatedText = translatedText)
                     )
                 }
                 list.set(index, s)

@@ -22,6 +22,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import io.realm.RealmConfiguration
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -177,6 +178,10 @@ class ApplicationModule(
 
     @Provides
     @Singleton
+    internal fun provideTimelineStatusCache(cache: RealmTimelineStatusCache): TimelineStatusCache = cache
+
+    @Provides
+    @Singleton
     @Named("appName")
     internal fun provideAppName(): String = application.getString(R.string.app_name)
 
@@ -196,4 +201,11 @@ class ApplicationModule(
     @Singleton
     @Named("appWebsite")
     internal fun provideAppWebsite(): String = application.getString(R.string.app_website)
+
+    @Provides
+    @Singleton
+    internal fun provideRealmConfiguration(): RealmConfiguration =
+            RealmConfiguration.Builder()
+                    .deleteRealmIfMigrationNeeded()
+                    .build()
 }

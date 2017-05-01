@@ -14,13 +14,29 @@ class TimelineDataRepository
     ): TimelineRepository {
 
     override fun homeTimeline(): Single<List<Status>> =
-            timelineDataStoreFactory.create().homeTimeline()
+            timelineDataStoreFactory.createDisk()
+                    .homeTimeline()
+                    .flatMap { list ->
+                        if (list.isNotEmpty()) {
+                            Single.just(list)
+                        } else {
+                            timelineDataStoreFactory.createApi().homeTimeline()
+                        }
+                    }
 
     override fun moreHomeTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineDataStoreFactory.create().moreHomeTimeline(maxId, sinceId)
 
     override fun publicTimeline(): Single<List<Status>> =
-            timelineDataStoreFactory.create().publicTimeline()
+            timelineDataStoreFactory.createDisk()
+                    .publicTimeline()
+                    .flatMap { list ->
+                        if (list.isNotEmpty()) {
+                            Single.just(list)
+                        } else {
+                            timelineDataStoreFactory.createApi().publicTimeline()
+                        }
+                    }
 
     override fun morePublicTimeline(maxId: String?, sinceId: String?): Single<List<Status>> =
             timelineDataStoreFactory.create().morePublicTimeline(maxId, sinceId)

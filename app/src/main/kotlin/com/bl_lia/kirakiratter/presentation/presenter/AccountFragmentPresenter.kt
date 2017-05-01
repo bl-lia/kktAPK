@@ -78,7 +78,7 @@ class AccountFragmentPresenter
     fun translation(status: Status) {
         val target = status.reblog ?: status
 
-        if (target.content.body != null) {
+        if (target.content?.body != null) {
             val remoteConfig = FirebaseRemoteConfig.getInstance()
             remoteConfig.fetch()
                     .addOnCompleteListener { task ->

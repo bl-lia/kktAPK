@@ -143,13 +143,13 @@ class AccountStatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
         val target: Status = status.reblog ?: status
 
         statusBody.text =
-                if (target.content.translatedText.isNullOrEmpty()) {
-                    target.content.body?.asHtml()?.trim()
+                if (target.content?.translatedText.isNullOrEmpty()) {
+                    target.content?.body?.asHtml()?.trim()
                 } else {
-                    target.content.translatedText
+                    target.content?.translatedText
                 }
         statusBody.movementMethod = LinkMovementMethod.getInstance()
-        statusWarning.text = target.content.header
+        statusWarning.text = target.content?.header
 
         reblogImage.visibility = if (status.reblog != null) View.VISIBLE else View.INVISIBLE
         accountName.text =
@@ -177,7 +177,7 @@ class AccountStatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
             layoutBody.visibility = if (layoutBody.visibility == View.VISIBLE) View.GONE else View.VISIBLE
         }
 
-        if (target.content.header.isNullOrEmpty()) {
+        if (target.content?.header.isNullOrEmpty()) {
             contentWarningLayout.visibility = View.GONE
             layoutBody.visibility = View.VISIBLE
         } else {

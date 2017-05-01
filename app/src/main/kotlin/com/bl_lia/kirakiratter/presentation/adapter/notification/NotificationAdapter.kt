@@ -114,14 +114,14 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     notification.copy(
                             status = notification.status.copy(
                                     reblog = notification.status.reblog.copy(
-                                            content = notification.status.reblog.content.copy(translatedText = translatedText)
+                                            content = notification.status.reblog.content?.copy(translatedText = translatedText)
                                     )
                             )
                     )
                 } else {
                     notification.copy(
                             status = notification.status?.copy(
-                                    content = notification.status.content.copy(translatedText = translatedText)
+                                    content = notification.status.content?.copy(translatedText = translatedText)
                             )
                     )
                 }
