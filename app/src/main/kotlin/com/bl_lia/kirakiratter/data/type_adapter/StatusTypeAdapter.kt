@@ -1,9 +1,7 @@
 package com.bl_lia.kirakiratter.data.type_adapter
 
-import android.text.Spanned
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Status
-import com.bl_lia.kirakiratter.domain.extension.asHtml
 import com.bl_lia.kirakiratter.domain.extension.nextBooleanExtra
 import com.bl_lia.kirakiratter.domain.extension.nextStringExtra
 import com.bl_lia.kirakiratter.domain.extension.readAccount
@@ -24,7 +22,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
 
         var id: Int? = null
         var spoilerText: String? = null
-        var content: Spanned? = null
+        var content: String? = null
         var account: Account? = null
         var reblog: Status? = null
         var reblogged: Boolean = false
@@ -48,7 +46,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
             when (nextName) {
                 "id" -> id = input.nextInt()
                 "spoiler_text" -> spoilerText = input.nextStringExtra()
-                "content" -> content = input.nextStringExtra()?.asHtml()
+                "content" -> content = input.nextStringExtra()
                 "account" -> account = input.readAccount()
                 "reblog" -> reblog = input.reblog()
                 "favourited" -> favourited = input.nextBooleanExtra(false)
@@ -82,7 +80,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
 
         var id: Int? = null
         var spoilerText: String? = null
-        var content: Spanned? = null
+        var content: String? = null
         var account: Account? = null
         var favourited: Boolean = false
         var reblogged: Boolean = false
@@ -100,7 +98,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
             when (nextName) {
                 "id" -> id = nextInt()
                 "spoiler_text" -> spoilerText = nextStringExtra()
-                "content" -> content = nextStringExtra()?.asHtml()
+                "content" -> content = nextStringExtra()
                 "account" -> account = readAccount()
                 "favourited" -> favourited = nextBooleanExtra(false)
                 "reblogged" -> reblogged = nextBooleanExtra(false)

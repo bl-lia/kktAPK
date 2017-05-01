@@ -14,6 +14,7 @@ import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Notification
 import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.extension.asHtml
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
@@ -138,13 +139,13 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             "reblog",
             "favourite",
             "follow" -> {
-                bodyText.text = notification.status?.content?.body?.trim()
+                bodyText.text = notification.status?.content?.body?.asHtml()?.trim()
                 notification.status?.account?.loadAvater(itemView.context, avatarImage)
             }
             "mention" -> {
                 val target = notification.status?.reblog ?: notification.status
                 bodyText.text = if (target?.content?.translatedText.isNullOrEmpty()) {
-                    target?.content?.body?.trim()
+                    target?.content?.body?.asHtml()?.trim()
                 } else {
                     target?.content?.translatedText
                 }

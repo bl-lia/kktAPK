@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.extension.asHtml
 import com.bl_lia.kirakiratter.domain.value_object.Media
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
 import com.squareup.picasso.Picasso
@@ -143,7 +144,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
         statusBody.text =
                 if (target.content.translatedText.isNullOrEmpty()) {
-                    target.content.body?.trim()
+                    target.content.body?.asHtml()?.trim()
                 } else {
                     target.content.translatedText
                 }
