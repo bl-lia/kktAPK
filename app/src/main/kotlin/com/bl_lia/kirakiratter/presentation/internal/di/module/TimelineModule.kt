@@ -4,10 +4,7 @@ import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.executor.PostExecutionThread
 import com.bl_lia.kirakiratter.domain.executor.ThreadExecutor
 import com.bl_lia.kirakiratter.domain.interactor.SingleUseCase
-import com.bl_lia.kirakiratter.domain.interactor.timeline.GetHomeTimelineUseCase
-import com.bl_lia.kirakiratter.domain.interactor.timeline.GetMoreHomeTimelineUseCase
-import com.bl_lia.kirakiratter.domain.interactor.timeline.GetMorePublicTimelineUseCase
-import com.bl_lia.kirakiratter.domain.interactor.timeline.GetPublicTimelineUseCase
+import com.bl_lia.kirakiratter.domain.interactor.timeline.*
 import com.bl_lia.kirakiratter.domain.repository.TimelineRepository
 import com.bl_lia.kirakiratter.presentation.internal.di.PerFragment
 import dagger.Module
@@ -41,6 +38,17 @@ class TimelineModule {
 
     @Provides
     @PerFragment
+    @Named("getNewHomeTimeline")
+    internal fun provideGetNewHomeTimeline(
+            timelineRepository: TimelineRepository,
+            threadExecutor: ThreadExecutor,
+            postExecutionThread: PostExecutionThread
+    ): SingleUseCase<List<Status>> {
+        return GetNewHomeTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
+    }
+
+    @Provides
+    @PerFragment
     @Named("getPublicTimeline")
     internal fun provideGetPublicTimeline(
             timelineRepository: TimelineRepository,
@@ -59,5 +67,16 @@ class TimelineModule {
             postExecutionThread: PostExecutionThread
     ): SingleUseCase<List<Status>> {
         return GetMorePublicTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
+    }
+
+    @Provides
+    @PerFragment
+    @Named("getNewPublicTimeline")
+    internal fun provideGetNewPublicTimeline(
+            timelineRepository: TimelineRepository,
+            threadExecutor: ThreadExecutor,
+            postExecutionThread: PostExecutionThread
+    ): SingleUseCase<List<Status>> {
+        return GetNewPublicTimelineUseCase(timelineRepository, threadExecutor, postExecutionThread)
     }
 }
