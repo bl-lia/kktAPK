@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -15,16 +14,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import com.bl_lia.kirakiratter.R
-import kotlinx.android.synthetic.main.fragment_full_image_view.*
+import com.squareup.picasso.Picasso
 
 class FullImageViewFragment : DialogFragment() {
 
     companion object {
-        fun newInstance(imageUrl: String): FullImageViewFragment {
+        fun newInstance(imageUrls: ArrayList<String>, defaultPosition: Int = 0): FullImageViewFragment {
             val params = Bundle().apply {
-                putString(PARAM_IMAGE_URL, imageUrl)
+                putStringArrayList(PARAM_IMAGE_URL, imageUrls)
+                putInt(PARAM_DEFAULT_POSITION, defaultPosition)
             }
             return FullImageViewFragment().apply {
                 arguments = params
@@ -32,6 +31,19 @@ class FullImageViewFragment : DialogFragment() {
         }
 
         private const val PARAM_IMAGE_URL = "image_url"
+        private const val PARAM_DEFAULT_POSITION = "default_position"
+    }
+
+    private val imageUrls: List<String> by lazy {
+        arguments.getStringArrayList(PARAM_IMAGE_URL).toList()
+    }
+
+    private val defaultPosition: Int by lazy {
+        arguments.getInt(PARAM_DEFAULT_POSITION)
+    }
+
+    private val pagerAdapter: ImagePagerAdapter by lazy {
+        ImagePagerAdapter(activity, imageUrls)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,17 +61,17 @@ class FullImageViewFragment : DialogFragment() {
     }
 
     private fun initView(view: View) {
-        val pagerAdapter = ImagePagerAdapter(activity, arguments.getString(PARAM_IMAGE_URL))
         val pagerScreenshot = view.findViewById(R.id.pager_screenshot) as ViewPager
         pagerScreenshot.adapter = pagerAdapter
+        pagerScreenshot.currentItem = defaultPosition
     }
 
     internal class ImagePagerAdapter(
             private val context: Context,
-            private val imageUrl: String
+            private val imageUrls: List<String>
     ) : PagerAdapter() {
 
-        override fun getCount(): Int = 1
+        override fun getCount(): Int = imageUrls.size
 
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
             val imageView: ImageView = ImageView(context).apply {
@@ -67,7 +79,7 @@ class FullImageViewFragment : DialogFragment() {
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             }
 
-            Picasso.with(context).load(imageUrl).into(imageView)
+            Picasso.with(context).load(imageUrls[position]).into(imageView)
             container?.addView(imageView)
             return imageView
         }
