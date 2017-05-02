@@ -151,12 +151,13 @@ class TimelineFragment : Fragment() {
             val status = pair.first
             val index = pair.second
             val target = status.reblog ?: status
+            val mediaList = target.mediaAttachments
+                    .filter { !it.url.isNullOrEmpty() }
+                    .map { it.url!! }
 
-            target.mediaAttachments[index].url?.let {
-                val dialogFragment = FullImageViewFragment.newInstance(it).apply {
-                    showsDialog = true
-                }.show(fragmentManager, "dialog")
-            }
+            val dialogFragment = FullImageViewFragment.newInstance(ArrayList(mediaList), index).apply {
+                showsDialog = true
+            }.show(fragmentManager, "dialog")
         }
         adapter.onClickAccount.subscribe { pair ->
             val account = pair.first
