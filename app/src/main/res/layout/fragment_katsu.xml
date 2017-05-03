@@ -71,6 +71,33 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true" />
 
+            <ImageView
+                android:id="@+id/attach_image_2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignTop="@+id/attach_image_1"
+                android:layout_toEndOf="@+id/attach_image_1"
+                android:background="@drawable/ic_camera_alt_black_24px"
+                android:backgroundTint="@android:color/darker_gray"/>
+
+            <ImageView
+                android:id="@+id/attach_image_3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignTop="@+id/attach_image_1"
+                android:layout_toEndOf="@+id/attach_image_2"
+                android:background="@drawable/ic_camera_alt_black_24px"
+                android:backgroundTint="@android:color/darker_gray"/>
+
+            <ImageView
+                android:id="@+id/attach_image_4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignTop="@+id/attach_image_1"
+                android:layout_toEndOf="@+id/attach_image_3"
+                android:background="@drawable/ic_camera_alt_black_24px"
+                android:backgroundTint="@android:color/darker_gray"/>
+
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_content_warning"
                 android:layout_width="wrap_content"

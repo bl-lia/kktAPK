@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
@@ -47,7 +48,8 @@ class KatsuFragment : Fragment() {
     @Inject
     lateinit var presenter: KatsuPresenter
 
-    var mediaUri: Uri? = null
+    val mediaUris = mutableListOf<Uri>()
+    val attachImageViews by lazy { listOf(attach_image_1, attach_image_2, attach_image_3, attach_image_4) }
 
     private val component: StatusComponent by lazy {
         DaggerStatusComponent.builder()
@@ -82,7 +84,7 @@ class KatsuFragment : Fragment() {
                 presenter.post(
                         text = body,
                         warning = header,
-                        attachment = mediaUri,
+                        attachment = mediaUris,
                         inReplyToId = replyTo
                 ).subscribe { status, error ->
                     button_katsu.isEnabled = true
@@ -104,14 +106,16 @@ class KatsuFragment : Fragment() {
             content_warning_textinput.visibility = if (checked) View.VISIBLE else View.GONE
         }
 
-        attach_image_1.setOnClickListener {
-            if (mediaUri != null) return@setOnClickListener
+        attachImageViews.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                if (mediaUris.size > index) return@setOnClickListener
 
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                setType("image/*")
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    setType("image/*")
+                }
+                startActivityForResult(intent, REQUEST_PICK_IMAGE)
             }
-            startActivityForResult(intent, REQUEST_PICK_IMAGE)
         }
 
         katsu_content_body.addTextChangedListener(object : TextWatcher {
@@ -122,7 +126,7 @@ class KatsuFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                setKatsuButtonVisibility()
+                setButtonVisibility()
             }
         })
 
@@ -144,9 +148,10 @@ class KatsuFragment : Fragment() {
         if (arguments.containsKey(PARAM_SHARED_IMAGE)) {
             arguments.getParcelable<Uri>(PARAM_SHARED_IMAGE)?.let { sharedImage ->
                 attachImage(sharedImage)
-                setKatsuButtonVisibility()
             }
         }
+
+        setButtonVisibility()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -156,7 +161,7 @@ class KatsuFragment : Fragment() {
             data?.let {
                 attachImage(data.data)
             }
-            setKatsuButtonVisibility()
+            setButtonVisibility()
         }
     }
 
@@ -174,15 +179,29 @@ class KatsuFragment : Fragment() {
         Snackbar.make(layout_content, error.localizedMessage, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun setKatsuButtonVisibility() {
+    private fun setButtonVisibility() {
         val body = katsu_content_body.text.toString()
 
-        button_katsu.isEnabled = body.isNotEmpty() || mediaUri != null
+        button_katsu.isEnabled = body.isNotEmpty() || mediaUris.size > 0
+
+        attachImageViews.forEachIndexed { index, imageView ->
+            imageView.visibility = if(mediaUris.size >= index) View.VISIBLE else View.GONE
+        }
     }
 
     private fun attachImage(imageUri: Uri) {
-        mediaUri = imageUri
-        attach_image_1.setBackgroundResource(0)
-        Picasso.with(activity).load(mediaUri).into(attach_image_1)
+        if(mediaUris.size >= attachImageViews.size) {
+            return
+        }
+
+        mediaUris.add(imageUri)
+        val imageView = attachImageViews[mediaUris.size - 1]
+        imageView.setBackgroundResource(0)
+        Picasso.with(activity)
+                .load(imageUri)
+                .resize(imageView.width, imageView.height)
+                .centerInside()
+                .onlyScaleDown()
+                .into(imageView)
     }
 }
