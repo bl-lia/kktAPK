@@ -43,7 +43,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.TimelineActivity" />
-        <activity android:name=".presentation.activity.KatsuActivity" />
+        <activity
+            android:name=".presentation.activity.KatsuActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.activity.AccountActivity"
             android:label=""/>

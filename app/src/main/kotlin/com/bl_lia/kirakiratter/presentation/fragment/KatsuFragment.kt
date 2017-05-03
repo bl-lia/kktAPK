@@ -68,7 +68,7 @@ class KatsuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_katsu.setOnClickListener {
-            val header = katsu_content_header.text.toString()
+            val header = content_warning_edittext.text.toString()
             val body = katsu_content_body.text.toString()
             val replyTo: Int? =
                     if (arguments.containsKey(PARAM_REPLY_STATUS_ID)) {
@@ -101,7 +101,7 @@ class KatsuFragment : Fragment() {
         }
 
         switch_content_warning.setOnCheckedChangeListener { button, checked ->
-            layout_content_header.visibility = if (checked) View.VISIBLE else View.GONE
+            content_warning_textinput.visibility = if (checked) View.VISIBLE else View.GONE
         }
 
         attach_image_1.setOnClickListener {
@@ -161,9 +161,9 @@ class KatsuFragment : Fragment() {
     }
 
     private fun setHint() {
-        val hintHeader = layout_content_header.hint
-        layout_content_header.hint = null
-        layout_content_header.editText?.hint = hintHeader
+        val hintHeader = content_warning_textinput.hint
+        content_warning_textinput.hint = null
+        content_warning_textinput.editText?.hint = hintHeader
 
         val hintContent = layout_content_body.hint
         layout_content_body.hint = null
