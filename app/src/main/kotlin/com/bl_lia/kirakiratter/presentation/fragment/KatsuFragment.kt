@@ -6,12 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
@@ -108,14 +108,25 @@ class KatsuFragment : Fragment() {
 
         attachImageViews.forEachIndexed { index, imageView ->
             imageView.setOnClickListener {
-                if (mediaUris.size > index) return@setOnClickListener
-
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    setType("image/*")
-                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                if (index == mediaUris.size) {
+                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        setType("image/*")
+                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    }
+                    startActivityForResult(intent, REQUEST_PICK_IMAGE)
                 }
-                startActivityForResult(intent, REQUEST_PICK_IMAGE)
+                else if(index < mediaUris.size) {
+                    AlertDialog.Builder(activity)
+                            .setTitle(R.string.cancel_image_dialog_title)
+                            .setMessage(R.string.cancel_image_dialog_message)
+                            .setPositiveButton(android.R.string.yes) { dialog, id ->
+                                removeImageAt(index)
+                                setButtonVisibility()
+                            }
+                            .setNegativeButton(android.R.string.no, null)
+                            .show()
+                }
             }
         }
 
@@ -212,5 +223,17 @@ class KatsuFragment : Fragment() {
                 .centerInside()
                 .onlyScaleDown()
                 .into(imageView)
+    }
+
+    private fun removeImageAt(index:Int) {
+        mediaUris.removeAt(index)
+
+        attachImageViews.subList(index, attachImageViews.size - 1).forEachIndexed { index2, imageView2 ->
+            imageView2.setImageDrawable(attachImageViews[index + index2 + 1].drawable)
+        }
+        attachImageViews[mediaUris.size].apply {
+            setImageDrawable(null)
+            setBackgroundResource(R.drawable.ic_camera_alt_black_24px)
+        }
     }
 }
