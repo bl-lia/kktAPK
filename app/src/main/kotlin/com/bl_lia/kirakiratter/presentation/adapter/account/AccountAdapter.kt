@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.presentation.adapter.timeline.TimelineItemViewHolder
 import io.reactivex.subjects.PublishSubject
 
 class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,12 +41,12 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = list.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(AccountStatusViewHolder.LAYOUT, parent, false)
-        return AccountStatusViewHolder.newInstance(view)
+        val view = LayoutInflater.from(parent?.context).inflate(TimelineItemViewHolder.LAYOUT, parent, false)
+        return TimelineItemViewHolder.newInstance(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is AccountStatusViewHolder) {
+        if (holder is TimelineItemViewHolder) {
             holder.bind(list[position])
             holder.onClickReply.subscribe(onClickReply)
             holder.onClickReblog.subscribe(onClickReblog)

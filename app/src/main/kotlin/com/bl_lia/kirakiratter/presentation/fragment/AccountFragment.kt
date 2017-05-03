@@ -138,6 +138,20 @@ class AccountFragment : Fragment() {
                 presenter.translation(status)
             }
         }
+        adapter.onClickMedia.subscribe { pair ->
+            val status = pair.first
+            val index = pair.second
+            val target = status.reblog ?: status
+            val mediaList = target.mediaAttachments
+                    .filter { !it.url.isNullOrEmpty() }
+                    .map { it.url!! }
+
+            if (fragmentManager.findFragmentByTag("dialog") == null) {
+                val dialogFragment = FullImageViewFragment.newInstance(ArrayList(mediaList), index).apply {
+                    showsDialog = true
+                }.show(fragmentManager, "dialog")
+            }
+        }
 
         layout_swipe_refresh?.setOnRefreshListener {
             fetch()
