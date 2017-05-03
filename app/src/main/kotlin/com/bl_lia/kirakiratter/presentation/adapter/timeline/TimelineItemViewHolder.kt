@@ -177,6 +177,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             imagesLayout.visibility = View.GONE
         } else {
             imagesLayout.visibility = View.VISIBLE
+            sensitiveLayout.visibility = View.GONE
             images.forEach { it.visibility = View.GONE }
 
             if (status.sensitive) {
