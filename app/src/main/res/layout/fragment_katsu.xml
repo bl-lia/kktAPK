@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Colored"
             android:enabled="false"
-            android:text="KATSU!"
+            android:text="@string/button_katsu"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 
