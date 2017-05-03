@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:flexWrap="wrap"
+        app:justifyContent="space_between">
+
+        <RelativeLayout
+            android:id="@+id/layout_sensitive"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:layout_flexBasisPercent="100%"
+            android:background="@android:color/darker_gray"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Tap hold to show images"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/image_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_flexBasisPercent="49%"
+            tools:background="@android:color/holo_orange_dark"/>
+
+        <ImageView
+            android:id="@+id/image_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_flexBasisPercent="49%"
+            tools:background="@android:color/holo_purple"/>
+
+        <ImageView
+            android:id="@+id/image_3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_flexBasisPercent="49%"
+            tools:background="@android:color/holo_blue_dark"/>
+
+        <ImageView
+            android:id="@+id/image_4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_flexBasisPercent="49%"
+            tools:background="@android:color/holo_green_dark"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+</FrameLayout>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/text_account_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_subheading"
+        android:textColor="@color/colorAccent"
+        tools:text="つばき"/>
+    
+    <TextView
+        android:id="@+id/text_content_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_account_name"
+        android:textSize="@dimen/font_size_body"
+        android:layout_marginTop="4dp"
+        tools:text="注意文言"/>
+
+    <TextView
+        android:id="@+id/text_content_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_content_header"
+        android:textSize="@dimen/font_size_body"
+        android:layout_marginTop="8dp"
+        tools:text="ないよう"/>
+
+    <ImageView
+        android:id="@+id/image_content_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/text_account_name"
+        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+</RelativeLayout>

@@ -11,5 +11,5 @@
     <color name="button_tint">#607D8B</color>
     <color name="text_account_profile">@color/blue_grey_50</color>
 
-    <color name="blue_grey_50">#ECEFF1</color>
+    <color name="blue_grey_50">#eceff1</color>
 </resources>

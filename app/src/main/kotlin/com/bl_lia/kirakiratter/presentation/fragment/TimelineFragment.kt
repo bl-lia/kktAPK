@@ -62,10 +62,6 @@ class TimelineFragment : Fragment() {
         TimelineAdapter()
     }
 
-//    private val layoutManager: RecyclerView.LayoutManager by lazy {
-//        LinearLayoutManager(activity)
-//    }
-//
     private val scrollListener: TimelineScrollListener by lazy {
         object : TimelineScrollListener(layoutManager as LinearLayoutManager) {
             override fun onLoadMore() {
@@ -155,9 +151,11 @@ class TimelineFragment : Fragment() {
                     .filter { !it.url.isNullOrEmpty() }
                     .map { it.url!! }
 
-            val dialogFragment = FullImageViewFragment.newInstance(ArrayList(mediaList), index).apply {
-                showsDialog = true
-            }.show(fragmentManager, "dialog")
+            if (fragmentManager.findFragmentByTag("dialog") == null) {
+                val dialogFragment = FullImageViewFragment.newInstance(ArrayList(mediaList), index).apply {
+                    showsDialog = true
+                }.show(fragmentManager, "dialog")
+            }
         }
         adapter.onClickAccount.subscribe { pair ->
             val account = pair.first
