@@ -44,12 +44,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    private val sharedImage: Uri? by lazy {
+    private val sharedImages: ArrayList<Uri> by lazy {
         if (activity.intent.action == Intent.ACTION_SEND
                 && activity.intent.type.startsWith("image/")) {
-            activity.intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            activity.intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)?.let { arrayListOf(it) } ?: arrayListOf()
+        } else if(activity.intent.action == Intent.ACTION_SEND_MULTIPLE
+                && activity.intent.type.startsWith("image/")) {
+            ArrayList(activity.intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM).orEmpty())
         } else {
-            null
+            arrayListOf()
         }
     }
 
@@ -88,11 +91,11 @@ class MainFragment : Fragment() {
                 .subscribe { authenticated ->
                     if (authenticated) {
                         if (activity != null) {
-                            if (sharedText != null || sharedImage != null) {
+                            if (sharedText != null || sharedImages.isNotEmpty()) {
                                 val intent = Intent(activity, KatsuActivity::class.java).apply {
                                     setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                     putExtra(KatsuActivity.INTENT_PARAM_SHARED_TEXT, sharedText)
-                                    putExtra(KatsuActivity.INTENT_PARAM_SHARED_IMAGE, sharedImage)
+                                    putParcelableArrayListExtra(KatsuActivity.INTENT_PARAM_SHARED_IMAGE, sharedImages)
                                 }
                                 startActivity(intent)
                             } else {

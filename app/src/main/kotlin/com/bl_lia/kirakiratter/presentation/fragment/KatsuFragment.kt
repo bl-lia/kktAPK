@@ -27,13 +27,13 @@ import javax.inject.Inject
 class KatsuFragment : Fragment() {
 
     companion object {
-        fun newInstance(accountName: String? = null, replyStatusId: Int? = null, sharedText: String? = null, sharedImage: Uri? = null): KatsuFragment =
+        fun newInstance(accountName: String? = null, replyStatusId: Int? = null, sharedText: String? = null, sharedImages: ArrayList<Uri> = arrayListOf()): KatsuFragment =
                 KatsuFragment().also { fragment ->
                     val bundle = Bundle().apply {
                         if (!accountName.isNullOrEmpty()) putString(PARAM_ACCOUNT_NAME, accountName)
                         if (replyStatusId != null && replyStatusId > -1) putInt(PARAM_REPLY_STATUS_ID, replyStatusId)
                         putString(PARAM_SHARED_TEXT, sharedText)
-                        putParcelable(PARAM_SHARED_IMAGE, sharedImage)
+                        putParcelableArrayList(PARAM_SHARED_IMAGE, sharedImages)
                     }
                     fragment.arguments = bundle
                 }
@@ -158,7 +158,7 @@ class KatsuFragment : Fragment() {
         }
 
         if (arguments.containsKey(PARAM_SHARED_IMAGE)) {
-            arguments.getParcelable<Uri>(PARAM_SHARED_IMAGE)?.let { sharedImage ->
+            arguments.getParcelableArrayList<Uri>(PARAM_SHARED_IMAGE)?.forEach { sharedImage ->
                 attachImage(sharedImage)
             }
         }
@@ -219,7 +219,8 @@ class KatsuFragment : Fragment() {
         imageView.setBackgroundResource(0)
         Picasso.with(activity)
                 .load(imageUri)
-                .resize(attachImageViews[0].width, attachImageViews[0].height) // attachImageViews[0] is always visible
+                .resize(resources.getDimensionPixelSize(R.dimen.katsu_image_width),
+                        resources.getDimensionPixelSize(R.dimen.katsu_image_height))
                 .centerInside()
                 .onlyScaleDown()
                 .into(imageView)

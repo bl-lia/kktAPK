@@ -25,12 +25,12 @@ class KatsuActivity : AppCompatActivity() {
                 val replyAccountName = intent.getStringExtra(INTENT_PARAM_REPLY_ACCOUNT_NAME)
                 val replyStatusId = intent.getIntExtra(INTENT_PARAM_REPLY_STATUS_ID, -1)
                 val sharedText = intent.getStringExtra(INTENT_PARAM_SHARED_TEXT)
-                val sharedImage = intent.getParcelableExtra<Uri>(INTENT_PARAM_SHARED_IMAGE)
+                val sharedImages = intent.getParcelableArrayListExtra<Uri>(INTENT_PARAM_SHARED_IMAGE) ?: arrayListOf()
                 val fragment = KatsuFragment.newInstance(
                         accountName = replyAccountName,
                         replyStatusId = replyStatusId,
                         sharedText = sharedText,
-                        sharedImage = sharedImage)
+                        sharedImages = sharedImages)
                 transaction.replace(android.R.id.content, fragment)
             }.commit()
         }
