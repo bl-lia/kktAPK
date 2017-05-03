@@ -113,6 +113,7 @@ class KatsuFragment : Fragment() {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     setType("image/*")
+                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                 }
                 startActivityForResult(intent, REQUEST_PICK_IMAGE)
             }
@@ -159,7 +160,14 @@ class KatsuFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK
                 && requestCode == REQUEST_PICK_IMAGE) {
             data?.let {
-                attachImage(data.data)
+                data.clipData?.let {
+                    (0..data.clipData.itemCount - 1).map { data.clipData.getItemAt(it) }.forEach { item ->
+                        attachImage(item.uri)
+                    }
+                }
+                data.data?.let {
+                    attachImage(data.data)
+                }
             }
             setButtonVisibility()
         }
@@ -199,7 +207,7 @@ class KatsuFragment : Fragment() {
         imageView.setBackgroundResource(0)
         Picasso.with(activity)
                 .load(imageUri)
-                .resize(imageView.width, imageView.height)
+                .resize(attachImageViews[0].width, attachImageViews[0].height) // attachImageViews[0] is always visible
                 .centerInside()
                 .onlyScaleDown()
                 .into(imageView)
