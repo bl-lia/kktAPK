@@ -11,6 +11,7 @@
     <dimen name="keyline_screen_edge">16dp</dimen>
     <dimen name="font_size_body">14sp</dimen>
     <dimen name="font_size_subheading">16sp</dimen>
+    <dimen name="font_size_toot_time">12sp</dimen>
 
     <dimen name="avatar_size">60dp</dimen>
 </resources>

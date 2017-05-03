@@ -4,6 +4,7 @@ import com.bl_lia.kirakiratter.domain.entity.Status
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import java.util.*
 
 open class RealmStatus(
         @PrimaryKey
@@ -14,7 +15,8 @@ open class RealmStatus(
         open var reblogged: Boolean = false,
         open var favourited: Boolean = false,
         open var mediaAttachments: RealmList<RealmMedia> = RealmList(),
-        open var sensitive: Boolean = false
+        open var sensitive: Boolean = false,
+        open var createdAt: Date? = null
 ): RealmObject() {
 
     fun toStatus(): Status =
@@ -26,6 +28,7 @@ open class RealmStatus(
                     reblogged = reblogged,
                     favourited = favourited,
                     mediaAttachments = mediaAttachments.map { it.toMedia() },
-                    sensitive = sensitive
+                    sensitive = sensitive,
+                    createdAt = createdAt
             )
 }

@@ -3,6 +3,7 @@ package com.bl_lia.kirakiratter.presentation.adapter.timeline
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,9 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val favouriteButton: Button by lazy { itemView.f(R.id.button_favourite) as Button }
     private val translateButton: Button by lazy { itemView.f(R.id.button_translate) as Button }
 
+    // Time
+    private val tootTime: TextView by lazy { itemView.f(R.id.text_toot_time) as TextView }
+
     private lateinit var status: Status
 
     fun bind(status: Status) {
@@ -102,6 +106,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         initBoosted(status)
 
         val target = status.reblog ?: status
+        tootTime.text = DateUtils.getRelativeTimeSpanString(status.createdAt?.time!!)
         target.account?.let { account -> initAccount(account) }
         initContent(target)
         initActions(target)
