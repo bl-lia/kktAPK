@@ -19,6 +19,4 @@
 
     <string name="timeline_boosted">%s boosted</string>
     <string name="post_image_over_max">Maximum number of images is 4.</string>
-    <string name="cancel_image_dialog_title">Image selection</string>
-    <string name="cancel_image_dialog_message">Cancel this image?</string>
 </resources>

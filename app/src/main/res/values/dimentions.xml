@@ -14,7 +14,4 @@
     <dimen name="font_size_toot_time">12sp</dimen>
 
     <dimen name="avatar_size">60dp</dimen>
-
-    <dimen name="katsu_image_width">60dp</dimen>
-    <dimen name="katsu_image_height">60dp</dimen>
 </resources>

@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_content_header"
-            android:layout_above="@+id/layout_content_footer">
+            android:layout_above="@+id/layout_image_list_container">
 
             <EditText
                 android:id="@+id/katsu_content_body"
@@ -56,6 +56,20 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <HorizontalScrollView
+            android:id="@+id/layout_image_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/layout_content_footer">
+
+            <LinearLayout
+                android:id="@+id/attach_image_list"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </HorizontalScrollView>
+
         <RelativeLayout
             android:id="@+id/layout_content_footer"
             android:layout_width="match_parent"
@@ -64,39 +78,12 @@
 
             <ImageView
                 android:id="@+id/attach_image_1"
-                android:layout_width="@dimen/katsu_image_width"
-                android:layout_height="@dimen/katsu_image_height"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/ic_camera_alt_black_24px"
                 android:backgroundTint="@android:color/darker_gray"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true" />
-
-            <ImageView
-                android:id="@+id/attach_image_2"
-                android:layout_width="@dimen/katsu_image_width"
-                android:layout_height="@dimen/katsu_image_height"
-                android:layout_alignTop="@+id/attach_image_1"
-                android:layout_toEndOf="@+id/attach_image_1"
-                android:background="@drawable/ic_camera_alt_black_24px"
-                android:backgroundTint="@android:color/darker_gray"/>
-
-            <ImageView
-                android:id="@+id/attach_image_3"
-                android:layout_width="@dimen/katsu_image_width"
-                android:layout_height="@dimen/katsu_image_height"
-                android:layout_alignTop="@+id/attach_image_1"
-                android:layout_toEndOf="@+id/attach_image_2"
-                android:background="@drawable/ic_camera_alt_black_24px"
-                android:backgroundTint="@android:color/darker_gray"/>
-
-            <ImageView
-                android:id="@+id/attach_image_4"
-                android:layout_width="@dimen/katsu_image_width"
-                android:layout_height="@dimen/katsu_image_height"
-                android:layout_alignTop="@+id/attach_image_1"
-                android:layout_toEndOf="@+id/attach_image_3"
-                android:background="@drawable/ic_camera_alt_black_24px"
-                android:backgroundTint="@android:color/darker_gray"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_content_warning"

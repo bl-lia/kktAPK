@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -22,6 +21,7 @@ import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.KatsuPresenter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_katsu.*
+import kotlinx.android.synthetic.main.list_item_katsu_image.view.*
 import javax.inject.Inject
 
 class KatsuFragment : Fragment() {
@@ -43,13 +43,13 @@ class KatsuFragment : Fragment() {
         private val PARAM_REPLY_STATUS_ID = "param_reply_status_id"
         private val PARAM_SHARED_TEXT = "param_shared_text"
         private val PARAM_SHARED_IMAGE = "param_shared_image"
+        private val MAX_IMAGE_COUNT = 4
     }
 
     @Inject
     lateinit var presenter: KatsuPresenter
 
     val mediaUris = mutableListOf<Uri>()
-    val attachImageViews by lazy { listOf(attach_image_1, attach_image_2, attach_image_3, attach_image_4) }
 
     private val component: StatusComponent by lazy {
         DaggerStatusComponent.builder()
@@ -106,28 +106,13 @@ class KatsuFragment : Fragment() {
             content_warning_textinput.visibility = if (checked) View.VISIBLE else View.GONE
         }
 
-        attachImageViews.forEachIndexed { index, imageView ->
-            imageView.setOnClickListener {
-                if (index == mediaUris.size) {
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        setType("image/*")
-                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    }
-                    startActivityForResult(intent, REQUEST_PICK_IMAGE)
-                }
-                else if(index < mediaUris.size) {
-                    AlertDialog.Builder(activity)
-                            .setTitle(R.string.cancel_image_dialog_title)
-                            .setMessage(R.string.cancel_image_dialog_message)
-                            .setPositiveButton(android.R.string.yes) { dialog, id ->
-                                removeImageAt(index)
-                                setButtonVisibility()
-                            }
-                            .setNegativeButton(android.R.string.no, null)
-                            .show()
-                }
+        attach_image_1.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                setType("image/*")
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }
+            startActivityForResult(intent, REQUEST_PICK_IMAGE)
         }
 
         katsu_content_body.addTextChangedListener(object : TextWatcher {
@@ -138,7 +123,7 @@ class KatsuFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                setButtonVisibility()
+                setKatsuButtonVisibility()
             }
         })
 
@@ -163,7 +148,7 @@ class KatsuFragment : Fragment() {
             }
         }
 
-        setButtonVisibility()
+        setKatsuButtonVisibility()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -180,7 +165,7 @@ class KatsuFragment : Fragment() {
                     attachImage(data.data)
                 }
             }
-            setButtonVisibility()
+            setKatsuButtonVisibility()
         }
     }
 
@@ -198,43 +183,42 @@ class KatsuFragment : Fragment() {
         Snackbar.make(layout_content, error.localizedMessage, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun setButtonVisibility() {
+    private fun setKatsuButtonVisibility() {
         val body = katsu_content_body.text.toString()
 
         button_katsu.isEnabled = body.isNotEmpty() || mediaUris.size > 0
 
-        attachImageViews.forEachIndexed { index, imageView ->
-            imageView.visibility = if(mediaUris.size >= index) View.VISIBLE else View.GONE
-        }
+        attach_image_1.isEnabled = mediaUris.size < MAX_IMAGE_COUNT
     }
 
     private fun attachImage(imageUri: Uri) {
-        if(mediaUris.size >= attachImageViews.size) {
+        if(mediaUris.size >= MAX_IMAGE_COUNT) {
             Snackbar.make(layout_content, R.string.post_image_over_max, Snackbar.LENGTH_LONG).show()
             return
         }
 
         mediaUris.add(imageUri)
-        val imageView = attachImageViews[mediaUris.size - 1]
-        imageView.setBackgroundResource(0)
+
+        val itemView = activity.layoutInflater.inflate(R.layout.list_item_katsu_image, null)
+        attach_image_list.addView(itemView, attach_image_list.childCount)
+        itemView.attach_image_remove.setOnClickListener {
+            removeImage(imageUri)
+            setKatsuButtonVisibility()
+        }
+
+        val imageView = itemView.attach_image_content
         Picasso.with(activity)
                 .load(imageUri)
-                .resize(resources.getDimensionPixelSize(R.dimen.katsu_image_width),
-                        resources.getDimensionPixelSize(R.dimen.katsu_image_height))
+                .fit()
                 .centerInside()
-                .onlyScaleDown()
                 .into(imageView)
     }
 
-    private fun removeImageAt(index:Int) {
-        mediaUris.removeAt(index)
+    private fun removeImage(imageUri: Uri) {
+        val index = mediaUris.indexOf(imageUri)
+        if(index < 0) return
 
-        attachImageViews.subList(index, attachImageViews.size - 1).forEachIndexed { index2, imageView2 ->
-            imageView2.setImageDrawable(attachImageViews[index + index2 + 1].drawable)
-        }
-        attachImageViews[mediaUris.size].apply {
-            setImageDrawable(null)
-            setBackgroundResource(R.drawable.ic_camera_alt_black_24px)
-        }
+        mediaUris.removeAt(index)
+        attach_image_list.removeViewAt(index)
     }
 }
