@@ -5,19 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_account_name"
+    <RelativeLayout
+        android:id="@+id/layout_account_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/font_size_subheading"
-        android:textColor="@color/colorAccent"
-        tools:text="つばき"/>
-    
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_account_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_subheading"
+            android:textColor="@color/colorAccent"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_toStartOf="@+id/text_toot_time"
+            tools:text="つばき"/>
+
+        <TextView
+            android:id="@+id/text_toot_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/font_size_toot_time"
+            android:text="10s"/>
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/text_content_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_account_name"
+        android:layout_below="@+id/layout_account_name"
         android:textSize="@dimen/font_size_body"
         android:layout_marginTop="4dp"
         tools:text="注意文言"/>
@@ -36,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/text_account_name"
+        android:layout_below="@+id/layout_account_name"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
 </RelativeLayout>
