@@ -18,4 +18,5 @@
     <string name="notification_mention">%s mentioned you</string>
 
     <string name="timeline_boosted">%s boosted</string>
+    <string name="post_image_over_max">Maximum number of images is 4.</string>
 </resources>

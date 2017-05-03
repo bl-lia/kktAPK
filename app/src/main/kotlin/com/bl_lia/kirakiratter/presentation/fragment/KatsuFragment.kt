@@ -199,6 +199,7 @@ class KatsuFragment : Fragment() {
 
     private fun attachImage(imageUri: Uri) {
         if(mediaUris.size >= attachImageViews.size) {
+            Snackbar.make(layout_content, R.string.post_image_over_max, Snackbar.LENGTH_LONG).show()
             return
         }
 
