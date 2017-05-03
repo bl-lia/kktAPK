@@ -6,6 +6,7 @@
 
     <string name="hint_content_warning">Content warning</string>
     <string name="hint_content_body">What is on your mind?</string>
+    <string name="label_content_warning">CW</string>
     <string name="button_katsu">KATSU!</string>
     <string name="error_message_5xx">Server connection error :(</string>
 
