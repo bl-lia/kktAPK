@@ -9,6 +9,7 @@ import com.bl_lia.kirakiratter.presentation.fragment.TimelineFragment
 import com.bl_lia.kirakiratter.presentation.internal.di.PerFragment
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import io.reactivex.Single
+import org.jsoup.Jsoup
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -107,18 +108,18 @@ class TimelinePresenter
 
     fun translation(status: Status) {
         val target = status.reblog ?: status
+        val content = Jsoup.parse(target.content?.body).text()
 
-        if (target.content?.body != null) {
+        if (content.isNotEmpty()) {
             val remoteConfig = FirebaseRemoteConfig.getInstance()
             remoteConfig.fetch()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             remoteConfig.activateFetched()
                             val key = remoteConfig.getString("translation_api_key")
-                            val text = target.content.body.toString()
-                            val sourceLang = if (text.containsJapanese()) "ja" else "en"
+                            val sourceLang = if (content.containsJapanese()) "ja" else "en"
                             val targetLang = if (sourceLang == "ja") "en" else "ja"
-                            translateContent.execute(key, sourceLang, targetLang, text)
+                            translateContent.execute(key, sourceLang, targetLang, content)
                                     .subscribe { list, error ->
                                         (fragment as TimelineFragment).tranlateText(status, list, error)
                                     }

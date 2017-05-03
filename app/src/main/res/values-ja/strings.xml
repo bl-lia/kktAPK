@@ -12,4 +12,6 @@
     <string name="notification_favourite">%s さんが いいね したよ</string>
     <string name="notification_boost">%s さんがブーストしたよ</string>
     <string name="notification_mention">%s さんがコメントくれたよ</string>
+
+    <string name="timeline_boosted">%s さんがブースト</string>
 </resources>

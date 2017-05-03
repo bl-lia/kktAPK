@@ -15,6 +15,8 @@ import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.extension.asHtml
 import com.bl_lia.kirakiratter.domain.value_object.Media
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
+import com.bumptech.glide.Glide
+import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 
@@ -25,6 +27,13 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         val LAYOUT = R.layout.list_item_timeline
 
         fun newInstance(parent: View): TimelineItemViewHolder = TimelineItemViewHolder(parent)
+    }
+
+    val onClickAccount = Observable.create<Pair<Account, ImageView>> { subscriber ->
+        avatarImage.setOnClickListener {
+            val target = status.reblog ?: status
+            subscriber.onNext(Pair<Account, ImageView>(target.account!!, avatarImage))
+        }
     }
 
     val onClickReply = Observable.create<Status> { subscriber ->
@@ -52,189 +61,154 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 
     val onClickImage = Observable.create<Pair<Status, Int>> { subscriber ->
-        itemImage1.setOnClickListener {
-            subscriber.onNext(Pair(status, 0))
-        }
-        itemImage2.setOnClickListener {
-            subscriber.onNext(Pair(status, 1))
-        }
+        image1.setOnClickListener { subscriber.onNext(Pair(status, 0)) }
+        image2.setOnClickListener { subscriber.onNext(Pair(status, 1)) }
+        image3.setOnClickListener { subscriber.onNext(Pair(status, 2)) }
+        image4.setOnClickListener { subscriber.onNext(Pair(status, 3)) }
     }
 
-    val onClickAccount = Observable.create<Pair<Account, ImageView>> { subscriber ->
-        avatarImage.setOnClickListener {
-            val target = status.reblog ?: status
-            subscriber.onNext(Pair<Account, ImageView>(target.account!!, avatarImage))
-        }
-    }
+    // Boosted
+    private val boostedLayout: ViewGroup by lazy { itemView.f(R.id.timeline_boosted) as ViewGroup }
+    private val boostedMessage: TextView by lazy { itemView.f(R.id.text_boosted) as TextView }
 
-    private val statusBody: TextView by lazy {
-        itemView.findViewById(R.id.status_body) as TextView
-    }
+    // Account
+    private val avatarImage: ImageView by lazy { itemView.f(R.id.image_avatar) as ImageView }
+    private val accountName: TextView by lazy { itemView.f(R.id.text_account_name) as TextView }
 
-    private val avatarImage: ImageView by lazy {
-        itemView.findViewById(R.id.image_avatar) as ImageView
-    }
+    // Content
+    private val contentHeader: TextView by lazy { itemView.f(R.id.text_content_header) as TextView }
+    private val contentBody: TextView by lazy { itemView.f(R.id.text_content_body) as TextView }
+    private val showWarningContentImage: ImageView by lazy { itemView.f(R.id.image_content_show) as ImageView }
 
-    private val reblogImage: ImageView by lazy {
-        itemView.findViewById(R.id.image_reblog) as ImageView
-    }
+    // Media
+    private val imagesLayout: FlexboxLayout by lazy { itemView.f(R.id.images) as FlexboxLayout }
+    private val images: List<ImageView> by lazy { listOf(image1, image2, image3, image4) }
+    private val image1: ImageView by lazy { itemView.f(R.id.image_1) as ImageView }
+    private val image2: ImageView by lazy { itemView.f(R.id.image_2) as ImageView }
+    private val image3: ImageView by lazy { itemView.f(R.id.image_3) as ImageView }
+    private val image4: ImageView by lazy { itemView.f(R.id.image_4) as ImageView }
+    private val sensitiveLayout: ViewGroup by lazy { itemView.f(R.id.layout_sensitive) as ViewGroup }
 
-    private val accountName: TextView by lazy {
-        itemView.findViewById(R.id.account_name) as TextView
-    }
-
-    private val replyButton: Button by lazy {
-        itemView.findViewById(R.id.button_reply) as Button
-    }
-
-    private val reblogButton: Button by lazy {
-        itemView.findViewById(R.id.button_reblog) as Button
-    }
-
-    private val favouriteButton: Button by lazy {
-        itemView.findViewById(R.id.button_favourite) as Button
-    }
-
-    private val itemImage1: ImageView by lazy {
-        itemView.findViewById(R.id.item_image_1) as ImageView
-    }
-
-    private val sensitive1: ImageView by lazy {
-        itemView.findViewById(R.id.item_image_sensitive_1) as ImageView
-    }
-
-    private val sensitive2: ImageView by lazy {
-        itemView.findViewById(R.id.item_image_sensitive_2) as ImageView
-    }
-
-    private val itemImage2: ImageView by lazy {
-        itemView.findViewById(R.id.item_image_2) as ImageView
-    }
-
-    private val downButton: Button by lazy {
-        itemView.findViewById(R.id.button_down) as Button
-    }
-
-    private val statusWarning: TextView by lazy {
-        itemView.findViewById(R.id.status_warning) as TextView
-    }
-
-    private val contentWarningLayout: ViewGroup by lazy {
-        itemView.findViewById(R.id.layout_content_warning) as ViewGroup
-    }
-
-    private val imagesLayout: ViewGroup by lazy {
-        itemView.findViewById(R.id.layout_images) as ViewGroup
-    }
-
-    private val layoutBody: ViewGroup by lazy {
-        itemView.findViewById(R.id.layout_status_body) as ViewGroup
-    }
-
-    private val translateButton: Button by lazy {
-        itemView.findViewById(R.id.button_translate) as Button
-    }
+    // Action buttons
+    private val replyButton: Button by lazy { itemView.f(R.id.button_reply) as Button }
+    private val reblogButton: Button by lazy { itemView.f(R.id.button_reblog) as Button }
+    private val favouriteButton: Button by lazy { itemView.f(R.id.button_favourite) as Button }
+    private val translateButton: Button by lazy { itemView.f(R.id.button_translate) as Button }
 
     private lateinit var status: Status
 
-
     fun bind(status: Status) {
         this.status = status
-        val target: Status = status.reblog ?: status
+        initBoosted(status)
 
-        statusBody.text =
-                if (target.content?.translatedText.isNullOrEmpty()) {
-                    target.content?.body?.asHtml()?.trim()
+        val target = status.reblog ?: status
+        target.account?.let { account -> initAccount(account) }
+        initContent(target)
+        initActions(target)
+        initMediaAttachments(target.mediaAttachments, target)
+    }
+
+    private fun initBoosted(status: Status) {
+        if (status.reblog != null) {
+            boostedLayout.visibility = View.VISIBLE
+            boostedMessage.text = itemView.context.resources.getString(R.string.timeline_boosted).format(status.account?.preparedDisplayName)
+
+        } else {
+            boostedLayout.visibility = View.GONE
+        }
+
+
+        boostedLayout.visibility = if (status.reblog != null) View.VISIBLE else View.GONE
+    }
+
+    private fun initContent(status: Status) {
+        contentHeader.text = status.content?.header
+        contentBody.text =
+                if (status.content?.translatedText.isNullOrEmpty()) {
+                    status.content?.body?.asHtml()?.trim()
                 } else {
-                    target.content?.translatedText
+                    status.content?.translatedText
                 }
-        statusBody.movementMethod = LinkMovementMethod.getInstance()
-        statusWarning.text = target.content?.header
+        contentBody.movementMethod = LinkMovementMethod.getInstance()
 
-        reblogImage.visibility = if (status.reblog != null) View.VISIBLE else View.INVISIBLE
-        accountName.text =
-                if (target.account?.displayName.isNullOrEmpty()) {
-                    target.account?.userName
-                } else {
-                    target.account?.displayName
-                }
+        if (status.content?.header.isNullOrEmpty()) {
+            contentHeader.visibility = View.GONE
+            contentBody.visibility = View.VISIBLE
+            showWarningContentImage.visibility = View.GONE
+        } else {
+            contentHeader.visibility = View.VISIBLE
+            contentBody.visibility = View.GONE
+            showWarningContentImage.visibility = View.VISIBLE
+            showWarningContentImage.setOnClickListener {
+                contentBody.visibility = View.VISIBLE
+                showWarningContentImage.visibility = View.GONE
+            }
+        }
+    }
 
+    private fun initAccount(account: Account) {
+        accountName.text = account.preparedDisplayName
+
+        val border = ContextCompat.getColor(itemView.context, R.color.content_border)
+        Picasso.with(itemView.context)
+                .load(account.avatar)
+                .transform(AvatarTransformation(border))
+                .into(avatarImage)
+    }
+
+    private fun initActions(status: Status) {
         reblogButton.background =
-                if (target.reblogged) {
+                if (status.reblogged) {
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_reblog)
                 } else {
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_unreblog)
                 }
 
         favouriteButton.background =
-                if (target.favourited) {
+                if (status.favourited) {
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_star_favourite)
                 } else {
                     ContextCompat.getDrawable(itemView.context, R.drawable.ic_star_unfavourite)
                 }
+    }
 
-        downButton.setOnClickListener {
-            layoutBody.visibility = if (layoutBody.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-        }
-
-        if (target.content?.header.isNullOrEmpty()) {
-            contentWarningLayout.visibility = View.GONE
-            layoutBody.visibility = View.VISIBLE
+    private fun initMediaAttachments(mediaAttachments: List<Media>, status: Status) {
+        if (mediaAttachments.isEmpty()) {
+            imagesLayout.visibility = View.GONE
         } else {
-            contentWarningLayout.visibility = View.VISIBLE
-            layoutBody.visibility = View.GONE
-        }
+            imagesLayout.visibility = View.VISIBLE
+            images.forEach { it.visibility = View.GONE }
 
-        resetMedia(target.mediaAttachments)
-        target.mediaAttachments
-                .forEachIndexed { index, media ->
-                    when (index) {
-                        0 -> {
-                            itemImage1.visibility = View.VISIBLE
-                            if (!target.sensitive) {
-                                Picasso.with(itemView.context).load(media.previewUrl).into(itemImage1)
-                            } else {
-                                sensitive1.visibility = View.VISIBLE
-                            }
-                        }
-                        1 -> {
-                            itemImage2.visibility = View.VISIBLE
-                            if (!target.sensitive) {
-                                Picasso.with(itemView.context).load(media.previewUrl).into(itemImage2)
-                            } else {
-                                sensitive2.visibility = View.VISIBLE
-                            }
-                        }
-                    }
+            if (status.sensitive) {
+                sensitiveLayout.visibility = View.VISIBLE
+                sensitiveLayout.setOnLongClickListener {
+                    showImages(mediaAttachments)
+                    sensitiveLayout.visibility = View.GONE
+                    true
                 }
-
-        target.account?.let {
-            val color = ContextCompat.getColor(itemView.context, R.color.content_border)
-            Picasso.with(itemView.context).load(it.avatar).transform(AvatarTransformation(color)).into(avatarImage)
-        }
-
-        sensitive1.setOnClickListener {
-            sensitive1.visibility = View.GONE
-            target.mediaAttachments[0].let { media ->
-                Picasso.with(itemView.context).load(media.previewUrl).into(itemImage1)
-            }
-        }
-        sensitive2.setOnClickListener {
-            sensitive2.visibility = View.GONE
-            target.mediaAttachments[1].let { media ->
-                Picasso.with(itemView.context).load(media.previewUrl).into(itemImage2)
+            } else {
+                showImages(mediaAttachments)
             }
         }
     }
 
-    private fun resetMedia(mediaList: List<Media>) {
-        itemImage1.setImageResource(0)
-        itemImage1.visibility = View.GONE
-        sensitive1.visibility = View.GONE
-        itemImage2.setImageResource(0)
-        itemImage2.visibility = View.GONE
-        sensitive2.visibility = View.GONE
-
-        imagesLayout.visibility = if (mediaList.isNotEmpty()) View.VISIBLE else View.GONE
+    private fun showImages(mediaAttachments: List<Media>) {
+        image1.layoutParams = image1.layoutParams.also { params ->
+            (params as FlexboxLayout.LayoutParams).flexBasisPercent = if (mediaAttachments.size.odd) 1f else 0.49f
+        }
+        mediaAttachments
+                .forEachIndexed { index, media ->
+                    images[index].visibility = View.VISIBLE
+                    Glide.with(itemView.context)
+                            .load(media.previewUrl)
+                            .fitCenter()
+                            .into(images[index])
+                }
     }
+
+
+    private fun View.f(id: Int): View? = findViewById(id)
+
+    private val Int.odd: Boolean
+            get() = this % 2 == 1
 }

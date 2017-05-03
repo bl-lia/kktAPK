@@ -14,4 +14,6 @@
     <string name="notification_favourite">%s favourited your status</string>
     <string name="notification_boost">%s boosted your status</string>
     <string name="notification_mention">%s mentioned you</string>
+
+    <string name="timeline_boosted">%s boosted</string>
 </resources>
