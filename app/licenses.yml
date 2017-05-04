@@ -199,4 +199,36 @@
   licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/
   url: http://www.reactive-streams.org/
   skip: true
-
+- artifact: com.firebase:firebase-jobdispatcher-with-gcm-dep:+
+  name: firebase-jobdispatcher-with-gcm-dep
+  copyrightHolder: Google Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+- artifact: com.github.bumptech.glide:glide:+
+  name: Glide
+  copyrightHolder: Sam Judd
+  license: Simplified BSD License
+  licenseUrl: http://www.opensource.org/licenses/bsd-license
+  url: https://github.com/bumptech/glide
+- artifact: com.github.bumptech.glide:okhttp3-integration:+
+  name: Glide OkHttp 3.x Integration
+  copyrightHolder: Sam Judd
+  license: Simplified BSD License
+  licenseUrl: http://www.opensource.org/licenses/bsd-license
+  url: https://github.com/bumptech/glide
+- artifact: com.github.chrisbanes:PhotoView:+
+  name: PhotoView
+  copyrightHolder: Chris Banes
+  license: apache2
+- artifact: joda-time:joda-time:+
+  name: Joda-Time
+  copyrightHolder: Joda.org
+  license: Apache 2
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://www.joda.org/joda-time/
+- artifact: net.danlew:android.joda:+
+  name: joda-time-android Library
+  copyrightHolder: Daniel Lew
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/dlew/joda-time-android
