@@ -3,6 +3,7 @@ package com.bl_lia.kirakiratter.presentation.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Status
 import com.bl_lia.kirakiratter.domain.value_object.Translation
+import com.bl_lia.kirakiratter.presentation.activity.FullImageViewActivity
 import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.adapter.account.AccountAdapter
 import com.bl_lia.kirakiratter.presentation.internal.di.component.AccountFragmentComponent
@@ -138,19 +140,21 @@ class AccountFragment : Fragment() {
                 presenter.translation(status)
             }
         }
-        adapter.onClickMedia.subscribe { pair ->
-            val status = pair.first
-            val index = pair.second
+        adapter.onClickMedia.subscribe { triple ->
+            val status = triple.first
+            val index = triple.second
+            val imageView = triple.third
             val target = status.reblog ?: status
             val mediaList = target.mediaAttachments
                     .filter { !it.url.isNullOrEmpty() }
                     .map { it.url!! }
+            val previewList = target.mediaAttachments
+                    .filter { !it.previewUrl.isNullOrEmpty() }
+                    .map { it.previewUrl!! }
 
-            if (fragmentManager.findFragmentByTag("dialog") == null) {
-                val dialogFragment = FullImageViewFragment.newInstance(ArrayList(mediaList), index).apply {
-                    showsDialog = true
-                }.show(fragmentManager, "dialog")
-            }
+            val intent = FullImageViewActivity.newIntent(activity, ArrayList(mediaList), ArrayList(previewList), index)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imageView, "image")
+            startActivity(intent, options.toBundle())
         }
 
         layout_swipe_refresh?.setOnRefreshListener {

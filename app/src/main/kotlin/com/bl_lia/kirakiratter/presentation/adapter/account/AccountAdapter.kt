@@ -15,7 +15,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val onClickReblog = PublishSubject.create<Status>()
     val onClickFavourite = PublishSubject.create<Status>()
     val onClickTranslate = PublishSubject.create<Status>()
-    val onClickMedia = PublishSubject.create<Pair<Status, Int>>()
+    val onClickMedia = PublishSubject.create<Triple<Status, Int, ImageView>>()
     val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
 
     private val list: MutableList<Status> = mutableListOf()
