@@ -12,12 +12,11 @@ class TimelineFragmentPagerAdapter(
 
     override fun getCount(): Int = 3
 
-    override fun getItem(position: Int): Fragment? =
-            when (position) {
-                0 -> TimelineFragment.newInstance(TimelineFragment.Scope.Home)
-                1 -> TimelineFragment.newInstance(TimelineFragment.Scope.Local)
-                2 -> NotificationFragment.newInstance()
-                else -> null
-            }
+    private val items = arrayOf<Fragment>(
+            TimelineFragment.newInstance(TimelineFragment.Scope.Home),
+            TimelineFragment.newInstance(TimelineFragment.Scope.Local),
+            NotificationFragment.newInstance())
+
+    override fun getItem(position: Int): Fragment? = items[position]
 
 }

@@ -26,7 +26,7 @@ import com.bl_lia.kirakiratter.presentation.scroll_listener.TimelineScrollListen
 import kotlinx.android.synthetic.main.fragment_timeline.*
 import javax.inject.Inject
 
-class TimelineFragment : Fragment() {
+class TimelineFragment : Fragment(), ScrollableFragment {
 
     enum class Scope {
         Home, Local
@@ -175,6 +175,10 @@ class TimelineFragment : Fragment() {
         layout_swipe_refresh?.setOnRefreshListener {
             fetch(scope, newTimeline = true)
         }
+    }
+
+    override fun scrollToTop() {
+        timeline.smoothScrollToPosition(0)
     }
 
     private fun fetch(scope: Scope, newTimeline: Boolean = false) {

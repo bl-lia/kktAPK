@@ -89,6 +89,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/banner_toolbar"
                 android:layout_width="120dp"
                 android:layout_height="55dp"
                 android:src="@drawable/banner_toolbar"/>
