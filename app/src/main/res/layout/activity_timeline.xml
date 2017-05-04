@@ -36,8 +36,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/ic_search_black_18px"
-                    android:backgroundTint="@color/toolbar_menu"/>
+                    android:background="@drawable/ic_search_kira_18px"/>
 
                 <Button
                     android:id="@+id/button_menu"
@@ -45,8 +44,7 @@
                     android:layout_height="38dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/ic_list_black_18px"
-                    android:backgroundTint="@color/toolbar_menu"/>
+                    android:background="@drawable/ic_list_kira_18px"/>
 
                 <Button
                     android:id="@+id/button_notification"
@@ -54,8 +52,7 @@
                     android:layout_height="38dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/ic_star_rate_black_18px"
-                    android:backgroundTint="@color/toolbar_menu"/>
+                    android:background="@drawable/ic_star_kira_18px"/>
 
                 <Button
                     android:id="@+id/button_account"
@@ -63,8 +60,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/ic_atmark"
-                    android:backgroundTint="@color/toolbar_menu"/>
+                    android:background="@drawable/ic_atmark_kira_18px"/>
 
                 <com.bl_lia.kirakiratter.presentation.view.TimelineSpinner
                     android:id="@+id/spinner_timeline"
@@ -72,8 +68,7 @@
                     android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="end"
-                    android:background="@drawable/ic_home_black_24px"
-                    android:backgroundTint="@color/toolbar_menu"/>
+                    android:background="@drawable/ic_home_kira_18px"/>
 
             </android.support.v7.widget.Toolbar>
 

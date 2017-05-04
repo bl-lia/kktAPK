@@ -104,11 +104,11 @@ class TimelineActivity : AppCompatActivity() {
     private fun showTimeline(position: Int) {
         when (position) {
             0 -> {
-                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_home_black_24px, null)
+                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_home_kira_18px, null)
                 view_pager.setCurrentItem(0, false)
             }
             1 -> {
-                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_group_black_24px, null)
+                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_group_kira_18px, null)
                 view_pager.setCurrentItem(1, false)
             }
         }
