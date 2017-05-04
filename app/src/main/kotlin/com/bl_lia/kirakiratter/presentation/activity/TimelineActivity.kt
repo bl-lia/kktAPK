@@ -89,10 +89,7 @@ class TimelineActivity : AppCompatActivity() {
         }
         button_notification.setOnClickListener { view_pager.setCurrentItem(2, false) }
         button_search.setOnClickListener { showNothing() }
-    }
 
-    override fun onResume() {
-        super.onResume()
         view_pager.post {
             presenter.getSelectedTimeline()
                     .subscribe { timeline, error ->
