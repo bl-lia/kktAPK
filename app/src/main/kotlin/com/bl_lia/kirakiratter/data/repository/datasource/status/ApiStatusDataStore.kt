@@ -36,8 +36,8 @@ class ApiStatusDataStore(
 
     override fun post(statusForm: StatusForm): Single<Status> {
         val mediaIds: List<String>? =
-                if (statusForm.mediaId != null) {
-                    listOf(statusForm.mediaId.toString())
+                if (statusForm.mediaIds.isNotEmpty()) {
+                    statusForm.mediaIds.map(Int::toString)
                 } else {
                     null
                 }

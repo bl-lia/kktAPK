@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/attach_image_content"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp" />
+
+    <ImageView
+        android:id="@+id/attach_image_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/attach_image_content"
+        android:layout_alignEnd="@id/attach_image_content"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+</RelativeLayout>

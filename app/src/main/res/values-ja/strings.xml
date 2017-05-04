@@ -16,4 +16,5 @@
     <string name="notification_mention">%s さんがコメントくれたよ</string>
 
     <string name="timeline_boosted">%s さんがブースト</string>
+    <string name="post_image_over_max">画像は4個までだよ</string>
 </resources>
