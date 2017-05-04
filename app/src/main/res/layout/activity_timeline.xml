@@ -60,7 +60,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/ic_atmark_kira"/>
+                    android:background="@drawable/ic_atmark_kira_18px"/>
 
                 <com.bl_lia.kirakiratter.presentation.view.TimelineSpinner
                     android:id="@+id/spinner_timeline"

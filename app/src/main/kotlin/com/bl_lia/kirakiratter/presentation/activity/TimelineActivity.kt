@@ -111,7 +111,7 @@ class TimelineActivity : AppCompatActivity() {
                 view_pager.setCurrentItem(0, false)
             }
             1 -> {
-                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_group_kira_24px, null)
+                spinner_timeline.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_group_kira_18px, null)
                 view_pager.setCurrentItem(1, false)
             }
         }
