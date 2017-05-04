@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryLight">#EEF5C6</color>
+    <color name="colorPrimary">#E3EBA3</color>
+    <color name="colorPrimaryDark">#BCC66C</color>
+    <color name="colorAccent">#ED649C</color>
     <color name="content_bg">#f8f7f2</color>
     <color name="content_border">#e5ddac</color>
     <color name="timeline_bg">#eaf1ae</color>
