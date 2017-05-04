@@ -150,29 +150,31 @@ class AccountActivity : AppCompatActivity() {
         if (item != null) {
             when (item.itemId) {
                 R.id.menu_follow -> {
-                    presenter.follow(account.blockingGet())
-                            .subscribe { rel, error ->
-                                if (error != null) {
-                                    showError(error)
-                                    return@subscribe
-                                }
+                    account.flatMap { account ->
+                        presenter.follow(account)
+                    }.subscribe { rel, error ->
+                        if (error != null) {
+                            showError(error)
+                            return@subscribe
+                        }
 
-                                relationship = rel
-                                invalidateOptionsMenu()
-                            }
+                        relationship = rel
+                        invalidateOptionsMenu()
+                    }
                     return true
                 }
                 R.id.menu_unfollow -> {
-                    presenter.unfollow(account.blockingGet())
-                            .subscribe { rel, error ->
-                                if (error != null) {
-                                    showError(error)
-                                    return@subscribe
-                                }
+                    account.flatMap { account ->
+                        presenter.unfollow(account)
+                    }.subscribe { rel, error ->
+                        if (error != null) {
+                            showError(error)
+                            return@subscribe
+                        }
 
-                                relationship = rel
-                                invalidateOptionsMenu()
-                            }
+                        relationship = rel
+                        invalidateOptionsMenu()
+                    }
                     return true
                 }
                 android.R.id.home -> {
