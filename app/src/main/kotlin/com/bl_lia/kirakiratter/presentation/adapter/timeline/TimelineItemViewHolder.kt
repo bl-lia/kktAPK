@@ -61,11 +61,11 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
-    val onClickImage = Observable.create<Pair<Status, Int>> { subscriber ->
-        image1.setOnClickListener { subscriber.onNext(Pair(status, 0)) }
-        image2.setOnClickListener { subscriber.onNext(Pair(status, 1)) }
-        image3.setOnClickListener { subscriber.onNext(Pair(status, 2)) }
-        image4.setOnClickListener { subscriber.onNext(Pair(status, 3)) }
+    val onClickImage = Observable.create<Triple<Status, Int, ImageView>> { subscriber ->
+        image1.setOnClickListener { subscriber.onNext(Triple(status, 0, image1)) }
+        image2.setOnClickListener { subscriber.onNext(Triple(status, 1, image2)) }
+        image3.setOnClickListener { subscriber.onNext(Triple(status, 2, image3)) }
+        image4.setOnClickListener { subscriber.onNext(Triple(status, 3, image4)) }
     }
 
     // Boosted

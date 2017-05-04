@@ -60,6 +60,7 @@
             android:label="Special Thanks"
             android:theme="@style/LicenseTheme"
             android:parentActivityName=".presentation.activity.TimelineActivity"/>
+        <activity android:name=".presentation.activity.FullImageViewActivity"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="27f9af93b690794d39395b724dff12c8ce3483c1"
