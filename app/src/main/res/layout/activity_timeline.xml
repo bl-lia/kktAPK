@@ -70,6 +70,13 @@
                     android:layout_gravity="end"
                     android:background="@drawable/ic_home_kira_18px"/>
 
+                <View
+                    android:id="@+id/toolbar_space_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"/>
+
             </android.support.v7.widget.Toolbar>
 
             <!--<FrameLayout-->

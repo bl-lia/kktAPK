@@ -103,7 +103,7 @@ class TimelineActivity : AppCompatActivity() {
                     }
         }
 
-        banner_toolbar.setOnClickListener {
+        toolbar_space_left.setOnClickListener {
             val innerFragment = timelineFragmentAdapter.getItem(view_pager.currentItem)
             if(innerFragment is ScrollableFragment) {
                 innerFragment.scrollToTop()
