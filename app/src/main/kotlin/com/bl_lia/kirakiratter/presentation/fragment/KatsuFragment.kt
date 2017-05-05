@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -20,11 +19,12 @@ import com.bl_lia.kirakiratter.presentation.internal.di.component.StatusComponen
 import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.KatsuPresenter
 import com.squareup.picasso.Picasso
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_katsu.*
 import kotlinx.android.synthetic.main.list_item_katsu_image.view.*
 import javax.inject.Inject
 
-class KatsuFragment : Fragment() {
+class KatsuFragment : RxFragment() {
 
     companion object {
         fun newInstance(accountName: String? = null, replyStatusId: Int? = null, sharedText: String? = null, sharedImages: ArrayList<Uri> = arrayListOf()): KatsuFragment =
@@ -85,20 +85,21 @@ class KatsuFragment : Fragment() {
                         text = body,
                         warning = header,
                         attachment = mediaUris,
-                        inReplyToId = replyTo
-                ).subscribe { status, error ->
-                    button_katsu.isEnabled = true
-                    if (error != null) {
-                        showError(error)
-                        return@subscribe
-                    }
+                        inReplyToId = replyTo)
+                        .compose(bindToLifecycle())
+                        .subscribe { status, error ->
+                            button_katsu.isEnabled = true
+                            if (error != null) {
+                                showError(error)
+                                return@subscribe
+                            }
 
-                    val intent = Intent(activity, TimelineActivity::class.java).apply {
-                        setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    }
-                    startActivity(intent)
-                    activity?.finish()
-                }
+                            val intent = Intent(activity, TimelineActivity::class.java).apply {
+                                setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            }
+                            startActivity(intent)
+                            activity?.finish()
+                        }
             }
         }
 
