@@ -12,6 +12,7 @@ import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.presentation.adapter.timeline.TimelineFragmentPagerAdapter
 import com.bl_lia.kirakiratter.presentation.adapter.timeline.TimelineSpinnerAdapter
 import com.bl_lia.kirakiratter.presentation.fragment.NavigationDrawerFragment
+import com.bl_lia.kirakiratter.presentation.fragment.ScrollableFragment
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerTimelineActivityComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.TimelineActivityComponent
 import com.bl_lia.kirakiratter.presentation.presenter.TimelineActivityPresenter
@@ -25,6 +26,8 @@ class TimelineActivity : AppCompatActivity() {
     val spinnerAdapter: TimelineSpinnerAdapter by lazy {
         TimelineSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, timelines)
     }
+
+    val timelineFragmentAdapter by lazy { TimelineFragmentPagerAdapter(supportFragmentManager) }
 
     @Inject
     lateinit var presenter: TimelineActivityPresenter
@@ -42,7 +45,7 @@ class TimelineActivity : AppCompatActivity() {
         setContentView(R.layout.activity_timeline)
         component.inject(this)
 
-        view_pager.adapter = TimelineFragmentPagerAdapter(supportFragmentManager)
+        view_pager.adapter = timelineFragmentAdapter
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().also { transaction ->
@@ -98,6 +101,13 @@ class TimelineActivity : AppCompatActivity() {
                             showTimeline(index)
                         }
                     }
+        }
+
+        banner_toolbar.setOnClickListener {
+            val innerFragment = timelineFragmentAdapter.getItem(view_pager.currentItem)
+            if(innerFragment is ScrollableFragment) {
+                innerFragment.scrollToTop()
+            }
         }
     }
 

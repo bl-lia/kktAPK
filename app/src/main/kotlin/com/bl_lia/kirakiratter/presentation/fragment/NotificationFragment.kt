@@ -26,7 +26,7 @@ import com.bl_lia.kirakiratter.presentation.scroll_listener.NotificationScrollLi
 import kotlinx.android.synthetic.main.fragment_notification.*
 import javax.inject.Inject
 
-class NotificationFragment : Fragment() {
+class NotificationFragment : Fragment(), ScrollableFragment {
 
     companion object {
         fun newInstance(): NotificationFragment = NotificationFragment()
@@ -148,6 +148,10 @@ class NotificationFragment : Fragment() {
         }
 
         fetch()
+    }
+
+    override fun scrollToTop() {
+        list_notification.smoothScrollToPosition(0)
     }
 
     fun tranlateText(notification: Notification, status: Status, translations: List<Translation>, error: Throwable?) {
