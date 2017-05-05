@@ -14,61 +14,76 @@
         android:padding="10dp"
         android:background="@color/timeline_bg">
 
-        <RelativeLayout
-            android:id="@+id/layout_content_header"
+        <ScrollView
+            android:id="@+id/layout_content_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/content_warning_textinput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <EditText
-                    android:id="@+id/content_warning_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_content_warning"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-        </RelativeLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/layout_content_body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_content_header"
-            android:layout_above="@+id/layout_image_list_container">
-
-            <EditText
-                android:id="@+id/katsu_content_body"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="top|start"
-                android:scrollbars="vertical"
-                android:hint="@string/hint_content_body" />
-
-            <requestFocus/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <HorizontalScrollView
-            android:id="@+id/layout_image_list_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_above="@+id/layout_content_footer">
 
-            <LinearLayout
-                android:id="@+id/attach_image_list"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </HorizontalScrollView>
+                <RelativeLayout
+                    android:id="@+id/layout_content_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/content_warning_textinput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <EditText
+                            android:id="@+id/content_warning_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_content_warning"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layout_content_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_content_header">
+
+                    <EditText
+                        android:id="@+id/katsu_content_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"
+                        android:hint="@string/hint_content_body" />
+
+                    <requestFocus/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/layout_image_list_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_content_body"
+                    android:layout_alignParentBottom="true">
+
+                    <LinearLayout
+                        android:id="@+id/attach_image_list"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+        </ScrollView>
 
         <RelativeLayout
             android:id="@+id/layout_content_footer"
