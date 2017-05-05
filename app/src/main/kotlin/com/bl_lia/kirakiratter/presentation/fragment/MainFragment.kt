@@ -36,8 +36,7 @@ class MainFragment : Fragment() {
     }
 
     private val sharedText: String? by lazy {
-        if (activity.intent.action == Intent.ACTION_SEND
-                && activity.intent.type == "text/plain") {
+        if (activity.intent.action == Intent.ACTION_SEND) {
             activity.intent.getStringExtra(Intent.EXTRA_TEXT)
         } else {
             null
@@ -46,10 +45,10 @@ class MainFragment : Fragment() {
 
     private val sharedImages: ArrayList<Uri> by lazy {
         if (activity.intent.action == Intent.ACTION_SEND
-                && activity.intent.type.startsWith("image/")) {
+                && activity.intent.type?.startsWith("image/") ?: false) {
             activity.intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)?.let { arrayListOf(it) } ?: arrayListOf()
         } else if(activity.intent.action == Intent.ACTION_SEND_MULTIPLE
-                && activity.intent.type.startsWith("image/")) {
+                && activity.intent.type?.startsWith("image/") ?: false) {
             ArrayList(activity.intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM).orEmpty())
         } else {
             arrayListOf()
@@ -91,7 +90,7 @@ class MainFragment : Fragment() {
                 .subscribe { authenticated ->
                     if (authenticated) {
                         if (activity != null) {
-                            if (sharedText != null || sharedImages.isNotEmpty()) {
+                            if (!sharedText.isNullOrEmpty() || sharedImages.isNotEmpty()) {
                                 val intent = Intent(activity, KatsuActivity::class.java).apply {
                                     setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                     putExtra(KatsuActivity.INTENT_PARAM_SHARED_TEXT, sharedText)
