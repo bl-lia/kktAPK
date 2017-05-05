@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,10 +22,11 @@ import com.bl_lia.kirakiratter.presentation.internal.di.component.NotificationCo
 import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.NotificationPresenter
 import com.bl_lia.kirakiratter.presentation.scroll_listener.NotificationScrollListener
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_notification.*
 import javax.inject.Inject
 
-class NotificationFragment : Fragment(), ScrollableFragment {
+class NotificationFragment : RxFragment(), ScrollableFragment {
 
     companion object {
         fun newInstance(): NotificationFragment = NotificationFragment()
@@ -118,6 +118,7 @@ class NotificationFragment : Fragment(), ScrollableFragment {
             val target = notification.status?.reblog ?: notification.status
             target?.let { target ->
                 presenter.reblog(target)
+                        .compose(bindToLifecycle())
                         .subscribe { status, error ->
                             if (error != null) {
                                 showError(error)
@@ -132,6 +133,7 @@ class NotificationFragment : Fragment(), ScrollableFragment {
         adapter.onClickFavourite.subscribe { notification ->
             notification.status?.let { status ->
                 presenter.favourite(status)
+                        .compose(bindToLifecycle())
                         .subscribe { status, error ->
                             if (error != null) {
                                 showError(error)
@@ -168,6 +170,7 @@ class NotificationFragment : Fragment(), ScrollableFragment {
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
+                .compose(bindToLifecycle())
                 .subscribe { list, error ->
                     if (error != null) {
                         showError(error)
