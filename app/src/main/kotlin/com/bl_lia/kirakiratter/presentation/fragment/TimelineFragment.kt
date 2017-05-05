@@ -178,7 +178,7 @@ class TimelineFragment : Fragment(), ScrollableFragment {
     }
 
     override fun scrollToTop() {
-        timeline.smoothScrollToPosition(0)
+        timeline?.smoothScrollToPosition(0)
     }
 
     private fun fetch(scope: Scope, newTimeline: Boolean = false) {
