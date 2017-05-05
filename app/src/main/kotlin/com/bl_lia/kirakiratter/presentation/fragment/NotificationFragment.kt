@@ -151,7 +151,7 @@ class NotificationFragment : Fragment(), ScrollableFragment {
     }
 
     override fun scrollToTop() {
-        list_notification.smoothScrollToPosition(0)
+        list_notification?.smoothScrollToPosition(0)
     }
 
     fun tranlateText(notification: Notification, status: Status, translations: List<Translation>, error: Throwable?) {
