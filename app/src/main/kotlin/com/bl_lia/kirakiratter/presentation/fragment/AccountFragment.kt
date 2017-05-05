@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,10 +22,11 @@ import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerAccountF
 import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.AccountFragmentPresenter
 import com.bl_lia.kirakiratter.presentation.scroll_listener.TimelineScrollListener
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_account.*
 import javax.inject.Inject
 
-class AccountFragment : Fragment() {
+class AccountFragment : RxFragment() {
 
     companion object {
         fun newInstance(account: Account): AccountFragment =
@@ -112,6 +112,7 @@ class AccountFragment : Fragment() {
         adapter.onClickReblog.subscribe { status ->
             val target = status.reblog ?: status
             presenter.reblog(target)
+                    .compose(bindToLifecycle())
                     .subscribe { status, error ->
                         if (error != null) {
                             showError(error)
@@ -125,6 +126,7 @@ class AccountFragment : Fragment() {
         adapter.onClickFavourite.subscribe { status ->
             val target = status.reblog ?: status
             presenter.favourite(target)
+                    .compose(bindToLifecycle())
                     .subscribe { status, error ->
                         if (error != null) {
                             showError(error)
@@ -178,6 +180,7 @@ class AccountFragment : Fragment() {
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
+                .compose(bindToLifecycle())
                 .subscribe { list, error ->
                     if (error != null) {
                         showError(error)
