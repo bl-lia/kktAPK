@@ -1,6 +1,7 @@
 package com.bl_lia.kirakiratter.presentation.fragment
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
@@ -126,6 +128,12 @@ class KatsuFragment : Fragment() {
                 setKatsuButtonVisibility()
             }
         })
+
+        layout_content_scroll.onClickOutsideListener = {
+            katsu_content_body.requestFocus()
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(katsu_content_body, 0)
+        }
+        layout_image_list_container.onClickOutsideListener = layout_content_scroll.onClickOutsideListener
 
         if (arguments.containsKey(PARAM_ACCOUNT_NAME)) {
             val accountText = "@%s ".format(arguments.getString(PARAM_ACCOUNT_NAME))
