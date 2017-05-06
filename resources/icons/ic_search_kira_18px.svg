@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 18 18" style="enable-background:new 0 0 18 18;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#754234;stroke:#F7E032;stroke-width:0.5;stroke-miterlimit:10;}
-</style>
-<g>
-	<g>
-		<path class="st0" d="M15.6,13.7L12,10.2c0.5-0.8,0.8-1.7,0.8-2.7c0-3-2.4-5.4-5.4-5.4S2,4.5,2,7.4c0,3,2.4,5.4,5.4,5.4
-			c1,0,2-0.3,2.8-0.8l3.6,3.5c0.3,0.3,0.6,0.4,0.9,0.4c0.3,0,0.7-0.1,0.9-0.4C16.1,15.1,16.1,14.2,15.6,13.7z M3.6,7.4
-			c0-2.1,1.7-3.8,3.8-3.8s3.8,1.7,3.8,3.8c0,2.1-1.7,3.8-3.8,3.8S3.6,9.6,3.6,7.4z"/>
-	</g>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_search_kira_18px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_search_kira_18px" transform="translate(5.000000, 5.000000)" stroke="#F7E032" stroke-width="0.5" fill="#754234" fill-rule="nonzero">
+            <path d="M25.2571429,21.7285714 L18.5714286,15.2285714 C19.5,13.7428571 20.0571429,12.0714286 20.0571429,10.2142857 C20.0571429,4.64285714 15.6,0.185714286 10.0285714,0.185714286 C4.45714286,0.185714286 0,4.64285714 0,10.0285714 C0,15.6 4.45714286,20.0571429 10.0285714,20.0571429 C11.8857143,20.0571429 13.7428571,19.5 15.2285714,18.5714286 L21.9142857,25.0714286 C22.4714286,25.6285714 23.0285714,25.8142857 23.5857143,25.8142857 C24.1428571,25.8142857 24.8857143,25.6285714 25.2571429,25.0714286 C26.1857143,24.3285714 26.1857143,22.6571429 25.2571429,21.7285714 Z M2.97142857,10.0285714 C2.97142857,6.12857143 6.12857143,2.97142857 10.0285714,2.97142857 C13.9285714,2.97142857 17.0857143,6.12857143 17.0857143,10.0285714 C17.0857143,13.9285714 13.9285714,17.0857143 10.0285714,17.0857143 C6.12857143,17.0857143 2.97142857,14.1142857 2.97142857,10.0285714 Z" id="Shape"></path>
+        </g>
+    </g>
 </svg>
