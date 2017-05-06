@@ -192,12 +192,15 @@ class AccountFragment : RxFragment() {
     }
 
     private fun showError(error: Throwable) {
-        val messsage =
-                if (error.localizedMessage.startsWith("HTTP 520")) {
+        val message =
+                if (error.localizedMessage.isNullOrEmpty()) {
+                    "Error"
+                } else if(error.localizedMessage.startsWith("HTTP 520")) {
                     resources.getString(R.string.error_message_5xx)
                 } else {
                     error.localizedMessage
                 }
-        Snackbar.make(layout_content, messsage, Snackbar.LENGTH_LONG).show()
+
+        Snackbar.make(layout_content, message, Snackbar.LENGTH_LONG).show()
     }
 }
