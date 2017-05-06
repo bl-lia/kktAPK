@@ -5,7 +5,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
@@ -23,12 +22,13 @@ import com.bl_lia.kirakiratter.presentation.internal.di.module.ActivityModule
 import com.bl_lia.kirakiratter.presentation.presenter.AccountPresenter
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
 import com.squareup.picasso.Picasso
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.Single
 import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_account.*
 import javax.inject.Inject
 
-class AccountActivity : AppCompatActivity() {
+class AccountActivity : RxAppCompatActivity() {
 
     companion object {
         val INTENT_PARAM_ACCOUNT = "intent_param_account"
@@ -71,7 +71,7 @@ class AccountActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if (savedInstanceState == null) {
-            account.subscribe { account, error ->
+            account.compose(bindToLifecycle()).subscribe { account, error ->
                 supportFragmentManager.beginTransaction().apply {
                     val fragment = AccountFragment.newInstance(account)
                     replace(R.id.layout_list, fragment)
