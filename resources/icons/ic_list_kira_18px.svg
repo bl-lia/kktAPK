@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 18 18" style="enable-background:new 0 0 18 18;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#754234;stroke:#F7E032;stroke-width:0.5;stroke-miterlimit:10;}
-	.st1{fill:none;}
-</style>
-<path class="st0" d="M1.2,6h2V4h-2V6z M4.5,4.1v2h12.2v-2H4.5z"/>
-<path class="st0" d="M1.2,8.7h2v-2h-2V8.7z M4.5,6.7v2h12.2v-2H4.5z"/>
-<path class="st0" d="M1.2,11.3h2v-2h-2V11.3z M4.5,9.3v2h12.2v-2H4.5z"/>
-<path class="st0" d="M1.2,13.9h2v-2h-2V13.9z M4.5,12v2h12.2v-2H4.5z"/>
-<path class="st1" d="M0,0h18v18H0V0z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_list_kira_18px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_list_kira_18px" transform="translate(3.000000, 3.000000)">
+            <path d="M2,10 L5.33333333,10 L5.33333333,6.66666667 L2,6.66666667 L2,10 L2,10 Z M7.5,6.83333333 L7.5,10.1666667 L27.8333333,10.1666667 L27.8333333,6.83333333 L7.5,6.83333333 Z" id="Shape" stroke="#F7E032" stroke-width="0.5" fill="#754234" fill-rule="nonzero"></path>
+            <path d="M2,14.5 L5.33333333,14.5 L5.33333333,11.1666667 L2,11.1666667 L2,14.5 L2,14.5 Z M7.5,11.1666667 L7.5,14.5 L27.8333333,14.5 L27.8333333,11.1666667 L7.5,11.1666667 L7.5,11.1666667 Z" id="Shape" stroke="#F7E032" stroke-width="0.5" fill="#754234" fill-rule="nonzero"></path>
+            <path d="M2,18.8333333 L5.33333333,18.8333333 L5.33333333,15.5 L2,15.5 L2,18.8333333 L2,18.8333333 Z M7.5,15.5 L7.5,18.8333333 L27.8333333,18.8333333 L27.8333333,15.5 L7.5,15.5 Z" id="Shape" stroke="#F7E032" stroke-width="0.5" fill="#754234" fill-rule="nonzero"></path>
+            <path d="M2,23.1666667 L5.33333333,23.1666667 L5.33333333,19.8333333 L2,19.8333333 L2,23.1666667 L2,23.1666667 Z M7.5,20 L7.5,23.3333333 L27.8333333,23.3333333 L27.8333333,20 L7.5,20 Z" id="Shape" stroke="#F7E032" stroke-width="0.5" fill="#754234" fill-rule="nonzero"></path>
+            <polygon id="Shape" points="0 0 30 0 30 30 0 30"></polygon>
+        </g>
+    </g>
 </svg>
