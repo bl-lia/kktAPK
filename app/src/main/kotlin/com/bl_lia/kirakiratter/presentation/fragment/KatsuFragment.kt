@@ -45,13 +45,14 @@ class KatsuFragment : RxFragment() {
         private val PARAM_REPLY_STATUS_ID = "param_reply_status_id"
         private val PARAM_SHARED_TEXT = "param_shared_text"
         private val PARAM_SHARED_IMAGE = "param_shared_image"
+        private val PARAM_SAVED_IMAGE = "param_saved_image"
         private val MAX_IMAGE_COUNT = 4
     }
 
     @Inject
     lateinit var presenter: KatsuPresenter
 
-    val mediaUris = mutableListOf<Uri>()
+    val mediaUris = ArrayList<Uri>()
 
     private val component: StatusComponent by lazy {
         DaggerStatusComponent.builder()
@@ -151,13 +152,24 @@ class KatsuFragment : RxFragment() {
             }
         }
 
-        if (arguments.containsKey(PARAM_SHARED_IMAGE)) {
+        if(savedInstanceState != null && savedInstanceState.containsKey(PARAM_SAVED_IMAGE)) {
+            savedInstanceState.getParcelableArrayList<Uri>(PARAM_SAVED_IMAGE)?.forEach { sharedImage ->
+                attachImage(sharedImage)
+            }
+        }
+        else if (arguments.containsKey(PARAM_SHARED_IMAGE)) {
             arguments.getParcelableArrayList<Uri>(PARAM_SHARED_IMAGE)?.forEach { sharedImage ->
                 attachImage(sharedImage)
             }
         }
 
         setKatsuButtonVisibility()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putParcelableArrayList(PARAM_SAVED_IMAGE, mediaUris)
+
+        super.onSaveInstanceState(outState)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
