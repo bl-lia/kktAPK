@@ -15,6 +15,7 @@ import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Relationship
 import com.bl_lia.kirakiratter.domain.extension.asHtml
+import com.bl_lia.kirakiratter.domain.extension.preparedErrorMessage
 import com.bl_lia.kirakiratter.presentation.fragment.AccountFragment
 import com.bl_lia.kirakiratter.presentation.internal.di.component.AccountComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerAccountComponent
@@ -202,13 +203,7 @@ class AccountActivity : RxAppCompatActivity() {
     }
 
     private fun showError(error: Throwable) {
-        val messsage =
-                if (error.localizedMessage.startsWith("HTTP 520")) {
-                    resources.getString(R.string.error_message_5xx)
-                } else {
-                    error.localizedMessage
-                }
-        Snackbar.make(layout_content, messsage, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(layout_content, error.preparedErrorMessage(this), Snackbar.LENGTH_LONG).show()
     }
 
     internal class AppBarOffsetChangedListener(val collapsingLayout: CollapsingToolbarLayout, val title: String) : AppBarLayout.OnOffsetChangedListener {

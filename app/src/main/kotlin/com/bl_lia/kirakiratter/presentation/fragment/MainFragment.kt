@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
+import com.bl_lia.kirakiratter.domain.extension.preparedErrorMessage
 import com.bl_lia.kirakiratter.presentation.activity.KatsuActivity
 import com.bl_lia.kirakiratter.presentation.activity.TimelineActivity
 import com.bl_lia.kirakiratter.presentation.internal.di.component.AuthComponent
@@ -134,6 +135,6 @@ class MainFragment : Fragment() {
     }
 
     private fun showError(error: Throwable) {
-        Snackbar.make(layout_content, error.localizedMessage, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(layout_content, error.preparedErrorMessage(activity), Snackbar.LENGTH_LONG).show()
     }
 }

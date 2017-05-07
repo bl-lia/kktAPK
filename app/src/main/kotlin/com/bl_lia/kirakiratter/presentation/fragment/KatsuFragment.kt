@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
+import com.bl_lia.kirakiratter.domain.extension.preparedErrorMessage
 import com.bl_lia.kirakiratter.presentation.activity.TimelineActivity
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerStatusComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.StatusComponent
@@ -201,7 +202,7 @@ class KatsuFragment : RxFragment() {
     }
 
     private fun showError(error: Throwable) {
-        Snackbar.make(layout_content, error.localizedMessage, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(layout_content, error.preparedErrorMessage(activity), Snackbar.LENGTH_LONG).show()
     }
 
     private fun setKatsuButtonVisibility() {
