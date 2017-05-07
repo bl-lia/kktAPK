@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Status
+import com.bl_lia.kirakiratter.domain.extension.preparedErrorMessage
 import com.bl_lia.kirakiratter.domain.value_object.Translation
 import com.bl_lia.kirakiratter.presentation.activity.AccountActivity
 import com.bl_lia.kirakiratter.presentation.activity.FullImageViewActivity
@@ -216,12 +217,6 @@ class TimelineFragment : Fragment(), ScrollableFragment {
 
 
     private fun showError(error: Throwable) {
-        val messsage =
-            if (error.localizedMessage.startsWith("HTTP 520")) {
-                resources.getString(R.string.error_message_5xx)
-            } else {
-                error.localizedMessage
-            }
-        Snackbar.make(layout_content, messsage, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(layout_content, error.preparedErrorMessage(activity), Snackbar.LENGTH_LONG).show()
     }
 }
