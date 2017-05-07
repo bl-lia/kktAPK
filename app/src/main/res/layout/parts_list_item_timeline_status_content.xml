@@ -57,4 +57,12 @@
         android:layout_below="@+id/layout_account_name"
         android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
+    <ImageView
+        android:id="@+id/image_content_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/layout_account_name"
+        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"/>
+
 </RelativeLayout>
