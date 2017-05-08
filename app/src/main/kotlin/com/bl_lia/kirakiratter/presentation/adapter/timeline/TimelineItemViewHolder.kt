@@ -80,6 +80,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val contentHeader: TextView by lazy { itemView.f(R.id.text_content_header) as TextView }
     private val contentBody: TextView by lazy { itemView.f(R.id.text_content_body) as TextView }
     private val showWarningContentImage: ImageView by lazy { itemView.f(R.id.image_content_show) as ImageView }
+    private val hideWarningContentImage: ImageView by lazy { itemView.f(R.id.image_content_hide) as ImageView }
 
     // Media
     private val imagesLayout: FlexboxLayout by lazy { itemView.f(R.id.images) as FlexboxLayout }
@@ -140,13 +141,21 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             contentHeader.visibility = View.GONE
             contentBody.visibility = View.VISIBLE
             showWarningContentImage.visibility = View.GONE
+            hideWarningContentImage.visibility = View.GONE
         } else {
             contentHeader.visibility = View.VISIBLE
             contentBody.visibility = View.GONE
             showWarningContentImage.visibility = View.VISIBLE
+            hideWarningContentImage.visibility = View.GONE
             showWarningContentImage.setOnClickListener {
                 contentBody.visibility = View.VISIBLE
                 showWarningContentImage.visibility = View.GONE
+                hideWarningContentImage.visibility = View.VISIBLE
+            }
+            hideWarningContentImage.setOnClickListener {
+                contentBody.visibility = View.GONE
+                showWarningContentImage.visibility = View.VISIBLE
+                hideWarningContentImage.visibility = View.GONE
             }
         }
     }
