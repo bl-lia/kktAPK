@@ -98,11 +98,13 @@ class MainFragment : Fragment() {
                                     putParcelableArrayListExtra(KatsuActivity.INTENT_PARAM_SHARED_IMAGE, sharedImages)
                                 }
                                 startActivity(intent)
+                                activity.finish()
                             } else {
                                 val intent = Intent(activity, TimelineActivity::class.java).apply {
                                     setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 }
                                 startActivity(intent)
+                                activity.finish()
                             }
                         }
                     }
