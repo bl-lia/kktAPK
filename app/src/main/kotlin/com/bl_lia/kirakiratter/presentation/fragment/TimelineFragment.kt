@@ -71,6 +71,7 @@ class TimelineFragment : RxFragment(), ScrollableFragment {
                     if (moreLoading) return@let
                     moreLoading = true
                     presenter.fetchMoreTimeline(scope, maxId)
+                            ?.compose(bindToLifecycle())
                             ?.doAfterTerminate {
                                 moreLoading = false
                             }
