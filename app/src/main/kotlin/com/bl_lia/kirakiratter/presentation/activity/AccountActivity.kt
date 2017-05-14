@@ -73,6 +73,9 @@ class AccountActivity : RxAppCompatActivity() {
 
         if (savedInstanceState == null) {
             account.compose(bindToLifecycle()).subscribe { account, error ->
+                if (error != null) {
+                    return@subscribe
+                }
                 supportFragmentManager.beginTransaction().apply {
                     val fragment = AccountFragment.newInstance(account)
                     replace(R.id.layout_list, fragment)
