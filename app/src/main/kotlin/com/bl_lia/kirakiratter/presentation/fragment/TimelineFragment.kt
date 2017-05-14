@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -24,10 +23,11 @@ import com.bl_lia.kirakiratter.presentation.internal.di.component.TimelineCompon
 import com.bl_lia.kirakiratter.presentation.internal.di.module.FragmentModule
 import com.bl_lia.kirakiratter.presentation.presenter.TimelinePresenter
 import com.bl_lia.kirakiratter.presentation.scroll_listener.TimelineScrollListener
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_timeline.*
 import javax.inject.Inject
 
-class TimelineFragment : Fragment(), ScrollableFragment {
+class TimelineFragment : RxFragment(), ScrollableFragment {
 
     enum class Scope {
         Home, Local
@@ -185,6 +185,7 @@ class TimelineFragment : Fragment(), ScrollableFragment {
     private fun fetch(scope: Scope, newTimeline: Boolean = false) {
         layout_swipe_refresh?.isRefreshing = true
         presenter.fetchTimeline(scope, newTimeline)
+                .compose(bindToLifecycle())
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
@@ -200,7 +201,7 @@ class TimelineFragment : Fragment(), ScrollableFragment {
                     lastSinceId?.toInt()?.let { lastId ->
                         list.indexOfFirst { it.id <= lastId }.let { nextPosition ->
                             if(nextPosition >= 0) {
-                                timeline.scrollToPosition(nextPosition)
+                                timeline?.scrollToPosition(nextPosition)
                             }
                         }
                     }
