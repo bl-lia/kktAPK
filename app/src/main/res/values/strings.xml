@@ -19,4 +19,6 @@
 
     <string name="timeline_boosted">%s boosted</string>
     <string name="post_image_over_max">Maximum number of images is 4.</string>
+    <string name="share_text">Share text…</string>
+    <string name="copy_link">Copy link</string>
 </resources>

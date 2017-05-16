@@ -61,6 +61,12 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
+    val onClickMoreMenu = Observable.create<Pair<Status, View>> { subscriber ->
+        moreMenuButton.setOnClickListener {
+            subscriber.onNext(Pair(status, moreMenuButton))
+        }
+    }
+
     val onClickImage = Observable.create<Triple<Status, Int, ImageView>> { subscriber ->
         image1.setOnClickListener { subscriber.onNext(Triple(status, 0, image1)) }
         image2.setOnClickListener { subscriber.onNext(Triple(status, 1, image2)) }
@@ -96,6 +102,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val reblogButton: Button by lazy { itemView.f(R.id.button_reblog) as Button }
     private val favouriteButton: Button by lazy { itemView.f(R.id.button_favourite) as Button }
     private val translateButton: Button by lazy { itemView.f(R.id.button_translate) as Button }
+    private val moreMenuButton: Button by lazy { itemView.f(R.id.button_more_menu) as Button }
 
     // Time
     private val tootTime: TextView by lazy { itemView.f(R.id.text_toot_time) as TextView }

@@ -17,4 +17,6 @@
 
     <string name="timeline_boosted">%s さんがブースト</string>
     <string name="post_image_over_max">画像は4個までだよ</string>
+    <string name="share_text">テキストを共有…</string>
+    <string name="copy_link">リンクをコピー</string>
 </resources>

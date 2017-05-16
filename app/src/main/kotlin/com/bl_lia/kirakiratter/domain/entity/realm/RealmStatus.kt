@@ -16,7 +16,8 @@ open class RealmStatus(
         open var favourited: Boolean = false,
         open var mediaAttachments: RealmList<RealmMedia> = RealmList(),
         open var sensitive: Boolean = false,
-        open var createdAt: Date? = null
+        open var createdAt: Date? = null,
+        open var url: String? = null
 ): RealmObject() {
 
     fun toStatus(): Status =
@@ -29,6 +30,7 @@ open class RealmStatus(
                     favourited = favourited,
                     mediaAttachments = mediaAttachments.map { it.toMedia() },
                     sensitive = sensitive,
-                    createdAt = createdAt
+                    createdAt = createdAt,
+                    url = url
             )
 }

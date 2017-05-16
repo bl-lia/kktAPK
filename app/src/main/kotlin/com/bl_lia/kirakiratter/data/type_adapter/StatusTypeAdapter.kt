@@ -32,6 +32,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
         var mediaAttachments: List<Media>? = null
         var sensitive: Boolean = false
         var createdAt: Date? = null
+        var url: String? = null
 
         if (input == null || input.peek() == JsonToken.NULL) {
             input?.nextNull()
@@ -57,6 +58,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 "media_attachments" -> mediaAttachments = input.mediaList()
                 "sensitive" -> sensitive = input.nextBooleanExtra(false)
                 "created_at" -> createdAt = DateTime.parse(input.nextString()).toDate()
+                "url" -> url = input.nextStringExtra()
                 else -> input.skipValue()
             }
         }
@@ -73,7 +75,8 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 favourited = favourited,
                 mediaAttachments = mediaAttachments ?: listOf(),
                 sensitive = sensitive,
-                createdAt = createdAt)
+                createdAt = createdAt,
+                url = url)
     }
 
 
@@ -92,6 +95,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
         var mediaAttachments: List<Media>? = null
         var sensitive: Boolean = false
         var createdAt: Date? = null
+        var url: String? = null
 
         beginObject()
         while (hasNext()) {
@@ -111,6 +115,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 "media_attachments" -> mediaAttachments = mediaList()
                 "sensitive" -> sensitive = nextBooleanExtra(false)
                 "created_at" -> createdAt = DateTime.parse(nextStringExtra()).toDate()
+                "url" -> url = nextStringExtra()
                 else -> skipValue()
             }
         }
@@ -126,7 +131,8 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 favourited = favourited,
                 mediaAttachments = mediaAttachments ?: listOf(),
                 sensitive = sensitive,
-                createdAt = createdAt)
+                createdAt = createdAt,
+                url = url)
     }
 
     private fun JsonReader.mediaList(): List<Media>? {
