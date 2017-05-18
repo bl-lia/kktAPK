@@ -1,10 +1,14 @@
 package com.bl_lia.kirakiratter.presentation.fragment
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -142,6 +146,30 @@ class AccountFragment : RxFragment() {
             if (target.content?.translatedText.isNullOrEmpty()) {
                 presenter.translation(status)
             }
+        }
+        adapter.onClickMoreMenu.subscribe { (status, view) ->
+            val menu = PopupMenu(context, view)
+            menu.setOnMenuItemClickListener { menuItem ->
+                when(menuItem.itemId) {
+                    R.id.menu_share_text -> {
+                        val intent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, status.toSummarizedText(context))
+                        }
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.menu_copy_link -> {
+                        val url = status.reblog?.url ?: status.url
+                        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        clipboardManager.primaryClip = ClipData.newPlainText("URL", url)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            menu.inflate(R.menu.menu_katsu)
+            menu.show()
         }
         adapter.onClickMedia.subscribe { triple ->
             val status = triple.first

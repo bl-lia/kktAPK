@@ -2,6 +2,7 @@ package com.bl_lia.kirakiratter.presentation.adapter.timeline
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bl_lia.kirakiratter.domain.entity.Account
@@ -14,6 +15,7 @@ class TimelineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val onClickReblog = PublishSubject.create<Status>()
     val onClickFavourite = PublishSubject.create<Status>()
     val onClickTranslate = PublishSubject.create<Status>()
+    val onClickMoreMenu = PublishSubject.create<Pair<Status, View>>()
     val onClickMedia = PublishSubject.create<Triple<Status, Int, ImageView>>()
     val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
 
@@ -52,6 +54,7 @@ class TimelineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.onClickReblog.subscribe(onClickReblog)
             holder.onClickFavourite.subscribe(onClickFavourite)
             holder.onClickTranslate.subscribe(onClickTranslate)
+            holder.onClickMoreMenu.subscribe(onClickMoreMenu)
             holder.onClickImage.subscribe(onClickMedia)
             holder.onClickAccount.subscribe(onClickAccount)
         }
