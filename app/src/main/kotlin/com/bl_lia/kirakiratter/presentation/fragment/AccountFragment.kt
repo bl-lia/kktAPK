@@ -59,6 +59,7 @@ class AccountFragment : RxFragment() {
                     moreLoading = true
 
                     presenter.fetchMoreStatus(account, maxId)
+                            ?.compose(bindToLifecycle())
                             ?.doAfterTerminate { moreLoading = false }
                             ?.subscribe { list, error ->
                                 if (error != null) {
