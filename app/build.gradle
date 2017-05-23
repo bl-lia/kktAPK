@@ -107,12 +107,10 @@ dependencies {
         transitive = true;
     }
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
-    compile 'com.google.firebase:firebase-core:10.2.6'
-    compile 'com.google.firebase:firebase-config:10.2.6'
-    compile 'com.google.firebase:firebase-messaging:10.2.6'
-    compile ('com.firebase:firebase-jobdispatcher-with-gcm-dep:0.6.0') {
-        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
-    }
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-config:10.2.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.6.0'
     compile 'net.danlew:android.joda:2.9.9'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
