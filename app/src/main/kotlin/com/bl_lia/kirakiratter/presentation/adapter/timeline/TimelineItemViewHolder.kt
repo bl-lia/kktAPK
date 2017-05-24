@@ -81,6 +81,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     // Account
     private val avatarImage: ImageView by lazy { itemView.f(R.id.image_avatar) as ImageView }
     private val accountName: TextView by lazy { itemView.f(R.id.text_account_name) as TextView }
+    private val userName: TextView by lazy { itemView.f(R.id.text_user_name) as TextView }
 
     // Content
     private val contentHeader: TextView by lazy { itemView.f(R.id.text_content_header) as TextView }
@@ -169,6 +170,7 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private fun initAccount(account: Account) {
         accountName.text = account.preparedDisplayName
+        userName.text = "@${account.userName}"
 
         val border = ContextCompat.getColor(itemView.context, R.color.content_border)
         Picasso.with(itemView.context)
