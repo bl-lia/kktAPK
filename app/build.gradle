@@ -16,6 +16,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -109,6 +110,7 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.2.6'
     compile 'com.google.firebase:firebase-config:10.2.6'
     compile 'com.google.firebase:firebase-messaging:10.2.6'
+    compile 'com.google.firebase:firebase-perf:10.2.6'
     compile 'com.firebase:firebase-jobdispatcher:0.6.0'
     compile 'net.danlew:android.joda:2.9.9'
     compile 'com.github.bumptech.glide:glide:3.7.0'
