@@ -21,7 +21,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.cookpad.android.licensetools'
 
 android {
@@ -107,10 +106,10 @@ dependencies {
         transitive = true;
     }
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
-    compile 'com.google.firebase:firebase-core:10.2.1'
-    compile 'com.google.firebase:firebase-config:10.2.1'
-    compile 'com.google.firebase:firebase-messaging:10.2.1'
-    compile 'com.firebase:firebase-jobdispatcher-with-gcm-dep:0.6.0'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-config:10.2.6'
+    compile 'com.google.firebase:firebase-messaging:10.2.6'
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
     compile 'net.danlew:android.joda:2.9.9'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
@@ -127,3 +126,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
 }
+
+apply plugin: 'com.google.gms.google-services'
+
