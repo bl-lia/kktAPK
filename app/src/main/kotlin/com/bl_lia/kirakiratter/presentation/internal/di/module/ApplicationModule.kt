@@ -166,6 +166,10 @@ class ApplicationModule(
 
     @Provides
     @Singleton
+    internal fun provideConfigRepository(repository: ConfigDataRepository): ConfigRepository = repository
+
+    @Provides
+    @Singleton
     internal fun provideAuthCache(cache: SharedPrefAuthCache): AuthCache = cache
 
     @Provides

@@ -110,13 +110,14 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private lateinit var status: Status
 
-    fun bind(status: Status) {
+    fun bind(status: Status, simpleMode: Boolean = false) {
         this.status = status
         initBoosted(status)
 
         val target = status.reblog ?: status
+        tootTime.visibility = if (simpleMode) View.GONE else View.VISIBLE
         tootTime.text = DateUtils.getRelativeTimeSpanString(status.createdAt?.time!!)
-        target.account?.let { account -> initAccount(account) }
+        target.account?.let { account -> initAccount(account, simpleMode) }
         initContent(target)
         initActions(target)
         initMediaAttachments(target.mediaAttachments, target)
@@ -168,8 +169,9 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         }
     }
 
-    private fun initAccount(account: Account) {
+    private fun initAccount(account: Account, simpleMode: Boolean) {
         accountName.text = account.preparedDisplayName
+        userName.visibility = if (simpleMode) View.GONE else View.VISIBLE
         userName.text = "@${account.userName}"
 
         val border = ContextCompat.getColor(itemView.context, R.color.content_border)

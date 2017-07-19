@@ -46,7 +46,9 @@
                     android:scheme="@string/oauth_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activity.TimelineActivity" />
+        <activity
+            android:name=".presentation.activity.TimelineActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".presentation.activity.KatsuActivity"
             android:windowSoftInputMode="adjustResize" />

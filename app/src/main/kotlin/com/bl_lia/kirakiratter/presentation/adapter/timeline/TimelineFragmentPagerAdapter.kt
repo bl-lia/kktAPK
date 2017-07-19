@@ -24,4 +24,9 @@ class TimelineFragmentPagerAdapter(
                 else -> null
             }
 
+    fun switchSimpleMode(simpleModeEnabled: Boolean) {
+        homeTimelineFragment.switchSimpleMode(simpleModeEnabled)
+        localTimelineFragment.switchSimpleMode(simpleModeEnabled)
+    }
+
 }

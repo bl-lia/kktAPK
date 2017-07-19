@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.BuildConfig
+import com.bl_lia.kirakiratter.KKTIntent
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.presentation.activity.LicenseActivity
 import com.bl_lia.kirakiratter.presentation.activity.MainActivity
 import com.bl_lia.kirakiratter.presentation.activity.ThanksActivity
+import com.bl_lia.kirakiratter.presentation.activity.TimelineActivity
 import com.bl_lia.kirakiratter.presentation.adapter.navigation_drawer.NavigationDrawerAdapter
 import com.bl_lia.kirakiratter.presentation.internal.di.component.DaggerNavigationDrawerComponent
 import com.bl_lia.kirakiratter.presentation.internal.di.component.NavigationDrawerComponent
@@ -101,10 +103,15 @@ class NavigationDrawerFragment : Fragment() {
                                             Crashlytics.logException(error)
                                             return@subscribe
                                         }
-                                        adapter.pushEnabled(registered)
+                                        adapter.pushConfigChanged(registered)
                                     }
                         }
                     }
+                }
+
+        presenter.getSimpleMode()
+                .subscribe { enabled, error ->
+                    adapter.simpleModeChanged(enabled)
                 }
 
         adapter.onChangePushNotificationSetting
@@ -114,7 +121,7 @@ class NavigationDrawerFragment : Fragment() {
                                 .subscribe { response, error ->
                                     if (error != null) {
                                         Crashlytics.logException(error)
-                                        adapter.pushEnabled(false)
+                                        adapter.pushConfigChanged(false)
                                         return@subscribe
                                     }
 
@@ -125,12 +132,25 @@ class NavigationDrawerFragment : Fragment() {
                                 .subscribe { response, error ->
                                     if (error != null) {
                                         Crashlytics.logException(error)
-                                        adapter.pushEnabled(true)
+                                        adapter.pushConfigChanged(true)
                                         return@subscribe
                                     }
                                     Toast.makeText(activity, activity.resources.getString(R.string.push_notification_disabled), Toast.LENGTH_SHORT).show()
                                 }
                     }
+                }
+
+        adapter.onChangeSimpleModeSetting
+                .subscribe { checked ->
+                    presenter.setSimpleMode(checked)
+                            .subscribe { enabled, error ->
+                                adapter.simpleModeChanged(enabled)
+                                Intent(activity, TimelineActivity::class.java).apply {
+                                    putExtra(KKTIntent.EXTRA_SWITCH_SIMPLE_MODE, enabled)
+                                }.run {
+                                    startActivity(this)
+                                }
+                            }
                 }
     }
 }

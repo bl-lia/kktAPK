@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import com.bl_lia.kirakiratter.App
+import com.bl_lia.kirakiratter.KKTIntent
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.presentation.adapter.timeline.TimelineFragmentPagerAdapter
 import com.bl_lia.kirakiratter.presentation.adapter.timeline.TimelineSpinnerAdapter
@@ -55,6 +56,14 @@ class TimelineActivity : AppCompatActivity() {
         }
 
         initView()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        if (intent?.hasExtra(KKTIntent.EXTRA_SWITCH_SIMPLE_MODE) ?: false) {
+            timelineFragmentAdapter.switchSimpleMode(intent?.getBooleanExtra(KKTIntent.EXTRA_SWITCH_SIMPLE_MODE, false) ?: false)
+        }
     }
 
     private fun initView() {

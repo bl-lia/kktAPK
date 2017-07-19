@@ -213,8 +213,14 @@ class TimelineFragment : RxFragment(), ScrollableFragment {
 
     private fun fetch(scope: Scope, newTimeline: Boolean = false) {
         layout_swipe_refresh?.isRefreshing = true
-        presenter.fetchTimeline(scope, newTimeline)
-                .compose(bindToLifecycle())
+
+        presenter.getSimpleMode()
+                .doOnEvent { simpleMode, _ ->
+                    adapter.simpleMode = simpleMode
+                }
+                .flatMap {
+                    presenter.fetchTimeline(scope, newTimeline)
+                }
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
@@ -245,6 +251,9 @@ class TimelineFragment : RxFragment(), ScrollableFragment {
         adapter.addTranslatedText(status, translations.first().translatedText)
     }
 
+    fun switchSimpleMode(simpleModeEnabled: Boolean) {
+        adapter.switchSimpleMode(simpleModeEnabled)
+    }
 
     private fun showError(error: Throwable) {
         Snackbar.make(layout_content, error.preparedErrorMessage(activity), Snackbar.LENGTH_LONG).show()

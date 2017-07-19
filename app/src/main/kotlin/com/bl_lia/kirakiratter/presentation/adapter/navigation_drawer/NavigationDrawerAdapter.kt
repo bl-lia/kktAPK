@@ -8,15 +8,17 @@ import io.reactivex.subjects.PublishSubject
 class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class Menu(val id: Int) {
-        License(1), Thanks(2), PushNotification(3)
+        License(0), Thanks(1), PushNotification(2), SimpleMode(3)
     }
 
     val onClickMenu = PublishSubject.create<Menu>()
     val onChangePushNotificationSetting = PublishSubject.create<Boolean>()
+    val onChangeSimpleModeSetting = PublishSubject.create<Boolean>()
 
     var pushFeatureEnabled: Boolean = false
 
     private var pushEnabled: Boolean = false
+    private var simpleMode: Boolean = false
 
     override fun getItemCount(): Int = if (pushFeatureEnabled) Menu.values().size else Menu.values().size - 1
 
@@ -27,8 +29,8 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 return NavigationDrawerViewHolder.newInstance(view)
             }
             2 -> {
-                val view = LayoutInflater.from(parent?.context).inflate(NavigationDrawerPushNotificationViewHolder.LAYOUT, parent, false)
-                return NavigationDrawerPushNotificationViewHolder.newInstance(view)
+                val view = LayoutInflater.from(parent?.context).inflate(NavigationDrawerSwitchConfigViewHolder.LAYOUT, parent, false)
+                return NavigationDrawerSwitchConfigViewHolder.newInstance(view)
             }
             else -> throw RuntimeException("no viewtype")
         }
@@ -37,7 +39,7 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     override fun getItemViewType(position: Int): Int =
             when (position) {
                 0, 1 -> 1
-                2    -> 2
+                2, 3 -> 2
                 else -> -1
             }
 
@@ -57,14 +59,34 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             }
         }
 
-        if (holder is NavigationDrawerPushNotificationViewHolder) {
-            holder.bind(pushEnabled)
-            holder.onCheckedChange.subscribe(onChangePushNotificationSetting)
+        if (holder is NavigationDrawerSwitchConfigViewHolder) {
+            val menu = if (pushFeatureEnabled && Menu.PushNotification.id == position) {
+                Menu.PushNotification
+            } else {
+                Menu.SimpleMode
+            }
+
+            when (menu) {
+                Menu.PushNotification -> {
+                    holder.bind("Push Notification", pushEnabled)
+                    holder.onCheckedChange.subscribe(onChangePushNotificationSetting)
+                }
+                Menu.SimpleMode -> {
+                    holder.bind("Simple Mode", simpleMode)
+                    holder.onCheckedChange.subscribe(onChangeSimpleModeSetting)
+                }
+                else -> {}
+            }
         }
     }
 
-    fun pushEnabled(enabled: Boolean) {
+    fun pushConfigChanged(enabled: Boolean) {
         pushEnabled = enabled
-        notifyItemChanged(2)
+        notifyItemChanged(Menu.PushNotification.id)
+    }
+
+    fun simpleModeChanged(enabled: Boolean) {
+        simpleMode = enabled
+        notifyItemChanged(Menu.SimpleMode.id)
     }
 }

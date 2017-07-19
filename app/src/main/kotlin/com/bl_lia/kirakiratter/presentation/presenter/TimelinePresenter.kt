@@ -38,7 +38,9 @@ class TimelinePresenter
             @Named("unreblogStatus")
             private val unreblogStatus: SingleUseCase<Status>,
             @Named("translateContent")
-            private val translateContent: SingleUseCase<List<Translation>>
+            private val translateContent: SingleUseCase<List<Translation>>,
+            @Named("getSimpleMode")
+            private val getSimpleMode: SingleUseCase<Boolean>
     ): Presenter {
 
     override fun resume() {
@@ -131,4 +133,6 @@ class TimelinePresenter
             (fragment as TimelineFragment).tranlateText(status, listOf(), Exception("Error"))
         }
     }
+
+    fun getSimpleMode(): Single<Boolean> = getSimpleMode.execute()
 }

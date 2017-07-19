@@ -18,7 +18,11 @@ class NavigationDrawerPresenter
             @Named("unregisterToken")
             private val unregisterToken: SingleUseCase<String>,
             @Named("isRegisteredToken")
-            private val isRegisteredToken: SingleUseCase<Boolean>
+            private val isRegisteredToken: SingleUseCase<Boolean>,
+            @Named("setSimpleMode")
+            private val setSimpleMode: SingleUseCase<Boolean>,
+            @Named("getSimpleMode")
+            private val getSimpleMode: SingleUseCase<Boolean>
     ): Presenter {
 
     override fun resume() {
@@ -48,4 +52,8 @@ class NavigationDrawerPresenter
     fun unregisterToken(pushApiUrl: String): Single<String> = unregisterToken.execute(pushApiUrl)
 
     fun isRegisteredToken(pushApiUrl: String): Single<Boolean> = isRegisteredToken.execute(pushApiUrl)
+
+    fun setSimpleMode(enabled: Boolean): Single<Boolean> = setSimpleMode.execute(enabled)
+
+    fun getSimpleMode(): Single<Boolean> = getSimpleMode.execute()
 }
