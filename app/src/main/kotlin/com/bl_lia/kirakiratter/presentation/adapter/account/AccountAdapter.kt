@@ -21,6 +21,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val onClickAccount = PublishSubject.create<Pair<Account, ImageView>>()
 
     private val list: MutableList<Status> = mutableListOf()
+    var simpleMode: Boolean = false
 
     val maxId: Int?
         get() {
@@ -49,7 +50,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is TimelineItemViewHolder) {
-            holder.bind(list[position])
+            holder.bind(list[position], simpleMode)
             holder.onClickReply.subscribe(onClickReply)
             holder.onClickReblog.subscribe(onClickReblog)
             holder.onClickFavourite.subscribe(onClickFavourite)
@@ -82,6 +83,11 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         notifyItemChanged(index)
                     }
                 }
+    }
+
+    fun switchSimpleMode(simpleModeEnabled: Boolean) {
+        simpleMode = simpleModeEnabled
+        notifyDataSetChanged()
     }
 
     fun addTranslatedText(status: Status, translatedText: String) {

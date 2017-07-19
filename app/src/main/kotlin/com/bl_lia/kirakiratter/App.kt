@@ -11,6 +11,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.fabric.sdk.android.Fabric
 import io.realm.Realm
+import net.danlew.android.joda.JodaTimeAndroid
 
 class App : MultiDexApplication(), HasComponent<ApplicationComponent> {
 
@@ -44,5 +45,7 @@ class App : MultiDexApplication(), HasComponent<ApplicationComponent> {
         }.build()
         FirebaseRemoteConfig.getInstance().setConfigSettings(configSettings)
         FirebaseRemoteConfig.getInstance().setDefaults(R.xml.remote_config_defaults)
+
+        JodaTimeAndroid.init(this)
     }
 }

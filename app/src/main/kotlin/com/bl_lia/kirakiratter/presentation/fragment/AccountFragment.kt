@@ -206,7 +206,14 @@ class AccountFragment : RxFragment() {
 
     private fun fetch() {
         layout_swipe_refresh?.isRefreshing = true
-        presenter.fetchStatus(account)
+
+        presenter.getSimpleMode()
+                .doOnEvent { simpleMode, _ ->
+                    adapter.simpleMode = simpleMode
+                }
+                .flatMap {
+                    presenter.fetchStatus(account)
+                }
                 .doAfterTerminate {
                     layout_swipe_refresh?.isRefreshing = false
                 }
