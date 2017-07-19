@@ -8,13 +8,11 @@ import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import io.reactivex.Observable
 
-class NavigationDrawerSwitchConfigViewHolder(val parent: View) : RecyclerView.ViewHolder(parent) {
+open class NavigationDrawerSwitchConfigViewHolder(val parent: View) : RecyclerView.ViewHolder(parent) {
 
     companion object {
         @LayoutRes
         const val LAYOUT = R.layout.list_item_navigation_drawer_push_notification
-
-        fun newInstance(parent: View): NavigationDrawerSwitchConfigViewHolder = NavigationDrawerSwitchConfigViewHolder(parent)
     }
 
     val onCheckedChange = Observable.create<Boolean> { subscriber ->

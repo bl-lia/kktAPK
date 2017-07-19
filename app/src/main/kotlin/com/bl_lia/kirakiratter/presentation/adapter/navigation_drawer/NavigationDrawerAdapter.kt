@@ -29,8 +29,12 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 return NavigationDrawerViewHolder.newInstance(view)
             }
             2 -> {
-                val view = LayoutInflater.from(parent?.context).inflate(NavigationDrawerSwitchConfigViewHolder.LAYOUT, parent, false)
-                return NavigationDrawerSwitchConfigViewHolder.newInstance(view)
+                val view = LayoutInflater.from(parent?.context).inflate(NavigationDrawerPushNotificationViewHolder.LAYOUT, parent, false)
+                return NavigationDrawerPushNotificationViewHolder.newInstance(view)
+            }
+            3 -> {
+                val view = LayoutInflater.from(parent?.context).inflate(NavigationDrawerSimpleModeViewHolder.LAYOUT, parent, false)
+                return NavigationDrawerSimpleModeViewHolder.newInstance(view)
             }
             else -> throw RuntimeException("no viewtype")
         }
@@ -39,7 +43,14 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     override fun getItemViewType(position: Int): Int =
             when (position) {
                 0, 1 -> 1
-                2, 3 -> 2
+                2    -> {
+                    if (pushFeatureEnabled && Menu.PushNotification.id == position) {
+                        2
+                    } else {
+                        3
+                    }
+                }
+                3    -> 3
                 else -> -1
             }
 
@@ -59,24 +70,14 @@ class NavigationDrawerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             }
         }
 
-        if (holder is NavigationDrawerSwitchConfigViewHolder) {
-            val menu = if (pushFeatureEnabled && Menu.PushNotification.id == position) {
-                Menu.PushNotification
-            } else {
-                Menu.SimpleMode
-            }
+        if (holder is NavigationDrawerPushNotificationViewHolder) {
+            holder.bind("Push Notification", pushEnabled)
+            holder.onCheckedChange.subscribe(onChangePushNotificationSetting)
+        }
 
-            when (menu) {
-                Menu.PushNotification -> {
-                    holder.bind("Push Notification", pushEnabled)
-                    holder.onCheckedChange.subscribe(onChangePushNotificationSetting)
-                }
-                Menu.SimpleMode -> {
-                    holder.bind("Simple Mode", simpleMode)
-                    holder.onCheckedChange.subscribe(onChangeSimpleModeSetting)
-                }
-                else -> {}
-            }
+        if (holder is NavigationDrawerSimpleModeViewHolder) {
+            holder.bind("Simple Mode", simpleMode)
+            holder.onCheckedChange.subscribe(onChangeSimpleModeSetting)
         }
     }
 
