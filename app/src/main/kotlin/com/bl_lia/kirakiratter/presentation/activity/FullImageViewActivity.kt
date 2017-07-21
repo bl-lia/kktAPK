@@ -111,6 +111,11 @@ class FullImageViewActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        FullImageViewActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+    }
+
     class InsertMediaTarget(
             val context: Context,
             val filename: String): Target {
