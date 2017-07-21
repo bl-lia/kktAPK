@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Widget" parent="Theme.AppCompat.NoActionBar">
+
+    </style>
+
     <style name="LicenseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
     </style>

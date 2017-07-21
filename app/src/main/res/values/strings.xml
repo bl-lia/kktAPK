@@ -21,4 +21,6 @@
     <string name="post_image_over_max">Maximum number of images is 4.</string>
     <string name="share_text">Share text…</string>
     <string name="copy_link">Copy link</string>
+
+    <string name="image_saved">Image saved</string>
 </resources>
