@@ -15,4 +15,6 @@ interface AccountDataStore {
     fun unfollow(id: Int): Single<Relationship>
 
     fun verifyCredentials(): Single<Account>
+
+    fun account(id: Int): Single<Account>
 }

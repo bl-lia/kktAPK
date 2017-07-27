@@ -31,4 +31,8 @@ class MemoryAccountDataStore(
     }
 
     override fun verifyCredentials(): Single<Account> = Single.just(accountCache.credentials)
+
+    override fun account(id: Int): Single<Account> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

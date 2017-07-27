@@ -28,4 +28,6 @@ class ApiAccountDataStore(
                     .doAfterSuccess { account ->
                         accountCache.credentials = account
                     }
+
+    override fun account(id: Int): Single<Account> = accountService.account(id)
 }

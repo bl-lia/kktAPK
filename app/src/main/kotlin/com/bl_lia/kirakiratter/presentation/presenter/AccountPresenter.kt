@@ -23,7 +23,9 @@ class AccountPresenter
             @Named("unfollow")
             private val unfollow: SingleUseCase<Relationship>,
             @Named("verifyCredentials")
-            private val verifyCredentials: SingleUseCase<Account>
+            private val verifyCredentials: SingleUseCase<Account>,
+            @Named("getAccount")
+            private val getAccount: SingleUseCase<Account>
     ): Presenter {
 
     override fun resume() {
@@ -49,4 +51,6 @@ class AccountPresenter
     fun unfollow(account: Account): Single<Relationship> = unfollow.execute(account.id)
 
     fun verifyCredentials(): Single<Account> = verifyCredentials.execute()
+
+    fun getAccount(id: Int): Single<Account> = getAccount(id)
 }

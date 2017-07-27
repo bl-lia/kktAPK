@@ -11,7 +11,10 @@ open class RealmAccount(
         open var displayName: String? = null,
         open var avatar: String? = null,
         open var header: String? = null,
-        open var note: String? = null
+        open var note: String? = null,
+        open var followersCount: Int? = null,
+        open var followingCount: Int? = null,
+        open var statusesCount: Int? = null
 ): RealmObject() {
 
     fun toAccount(): Account =
@@ -21,6 +24,9 @@ open class RealmAccount(
                     displayName = displayName,
                     avatar = avatar,
                     header = header,
-                    note = note
+                    note = note,
+                    followersCount = followersCount,
+                    followingCount = followingCount,
+                    statusesCount = statusesCount
             )
 }

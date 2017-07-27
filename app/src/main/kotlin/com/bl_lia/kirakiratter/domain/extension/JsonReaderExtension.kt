@@ -19,6 +19,13 @@ fun JsonReader.nextBooleanExtra(default: Boolean): Boolean =
             nextBoolean()
         }
 
+fun JsonReader.nextIntExtra(): Int? =
+        if (peek() == JsonToken.NULL) {
+            null
+        } else {
+            nextInt()
+        }
+
 
 fun JsonReader.readAccount(): Account? {
     if (peek() == JsonToken.NULL) {
@@ -32,6 +39,9 @@ fun JsonReader.readAccount(): Account? {
     var avatar: String? = null
     var header: String? = null
     var note: String? = null
+    var followersCount: Int? = null
+    var followingCount: Int? = null
+    var statusesCount: Int? = null
 
     beginObject()
     while (hasNext()) {
@@ -57,6 +67,9 @@ fun JsonReader.readAccount(): Account? {
             }
             "header" -> header = nextStringExtra()
             "note" -> note = nextStringExtra()
+            "followers_count" -> followersCount = nextIntExtra()
+            "following_count" -> followingCount = nextIntExtra()
+            "statuses_count" -> statusesCount = nextIntExtra()
             else -> skipValue()
         }
 
@@ -69,7 +82,10 @@ fun JsonReader.readAccount(): Account? {
             displayName = displayName,
             avatar = avatar,
             header = header,
-            note = note
+            note = note,
+            followersCount = followersCount,
+            followingCount = followingCount,
+            statusesCount = statusesCount
     )
 }
 

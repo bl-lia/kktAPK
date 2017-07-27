@@ -109,6 +109,8 @@ class AccountActivity : RxAppCompatActivity() {
             text_accont_name.text = account.preparedDisplayName
             text_account_description.text = account.note?.asHtml()
             text_account_description.movementMethod = LinkMovementMethod.getInstance()
+            text_num_followers.text = account.followersCount.toString()
+            text_num_follows.text = account.followingCount.toString()
 
             presenter.relationship(account)
                     .subscribe { rel, error ->

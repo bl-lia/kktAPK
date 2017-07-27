@@ -25,7 +25,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="260dp">
 
                 <ImageView
                     android:id="@+id/image_header"
@@ -82,7 +82,69 @@
                     android:layout_marginTop="4dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
                     tools:text="efaoeijboawejaiowjevoiwejo;iawjiod"/>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/text_account_description">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_num_follows"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        app:layout_widthPercent="50%">
+
+                        <TextView
+                            android:id="@+id/text_num_follows"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textSize="22dp"
+                            tools:text="100"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toRightOf="@+id/text_num_follows"
+                            android:layout_toEndOf="@+id/text_num_follows"
+                            android:text="follows"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_num_followers"
+                        android:layout_height="match_parent"
+                        app:layout_widthPercent="50%"
+                        android:gravity="center_horizontal"
+                        android:layout_toRightOf="@+id/layout_num_follows"
+                        android:layout_toEndOf="@+id/layout_num_follows">
+
+                        <TextView
+                            android:id="@+id/text_num_followers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textSize="22dp"
+                            tools:text="1000"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toRightOf="@+id/text_num_followers"
+                            android:layout_toEndOf="@+id/text_num_followers"
+                            android:text="followers"/>
+
+                    </RelativeLayout>
+                </android.support.percent.PercentRelativeLayout>
 
             </RelativeLayout>
 
