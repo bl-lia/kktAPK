@@ -32,4 +32,6 @@ class AccountDataRepository
                             Single.just(account)
                         }
                     }
+
+    override fun account(id: Int): Single<Account> = accountDataStoreFactory.create().account(id)
 }

@@ -81,4 +81,15 @@ class AccountModule {
     ): SingleUseCase<Account> {
         return VerifyCredentialsUseCase(accountRepository, threadExecutor, postExecutionThread)
     }
+
+    @Provides
+    @PerActivity
+    @Named("getAccount")
+    fun getAccount(
+            accountRepository: AccountRepository,
+            threadExecutor: ThreadExecutor,
+            postExecutionThread: PostExecutionThread
+    ): SingleUseCase<Account> {
+        return GetAccountUseCase(accountRepository, threadExecutor, postExecutionThread)
+    }
 }

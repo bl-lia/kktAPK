@@ -29,4 +29,7 @@ interface AccountService {
 
     @GET("api/v1/accounts/verify_credentials")
     fun verifyCredentials(): Single<Account>
+
+    @GET("api/v1/accounts/{id}")
+    fun account(@Path("id") id: Int): Single<Account>
 }

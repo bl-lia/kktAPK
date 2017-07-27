@@ -9,7 +9,10 @@ data class Account(
         val displayName: String? = null,
         val avatar: String? = null,
         val header: String? = null,
-        val note: String? = null
+        val note: String? = null,
+        val followersCount: Int? = null,
+        val followingCount: Int? = null,
+        val statusesCount: Int? = null
 ): Serializable {
 
     companion object {
@@ -32,6 +35,9 @@ data class Account(
                     displayName = displayName,
                     avatar = avatar,
                     header = header,
-                    note = note
+                    note = note,
+                    followersCount = followersCount,
+                    followingCount = followingCount,
+                    statusesCount = statusesCount
             )
 }

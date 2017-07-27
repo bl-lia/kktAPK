@@ -84,6 +84,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support:percent:25.3.1'
     compile 'com.google.android:flexbox:0.2.6'
     compile group: 'com.google.dagger', name: 'dagger', version: '2.10'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.6.0'
