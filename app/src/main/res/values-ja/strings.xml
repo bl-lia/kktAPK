@@ -5,6 +5,7 @@
     <string name="hint_content_warning">内容注意メッセージ</string>
     <string name="hint_content_body">今なにしてる？</string>
     <string name="label_content_warning">内容注意</string>
+    <string name="label_not_safe_for_work">閲覧注意</string>
     <string name="button_katsu">カツ!</string>
     <string name="error_message_5xx">サーバーに繋がらなかった... ＞＜</string>
 

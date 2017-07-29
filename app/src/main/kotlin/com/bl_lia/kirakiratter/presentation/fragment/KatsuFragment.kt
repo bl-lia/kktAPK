@@ -82,6 +82,7 @@ class KatsuFragment : RxFragment() {
                     } else {
                         null
                     }
+            val nsfw = switch_not_safe_for_work.isChecked
 
             if (body.isNotEmpty()) {
                 button_katsu.isEnabled = false
@@ -89,6 +90,7 @@ class KatsuFragment : RxFragment() {
                         text = body,
                         warning = header,
                         attachment = mediaUris,
+                        sensitive = nsfw,
                         inReplyToId = replyTo)
                         .compose(bindToLifecycle())
                         .subscribe { status, error ->
@@ -209,6 +211,8 @@ class KatsuFragment : RxFragment() {
         val body = katsu_content_body.text.toString()
 
         button_katsu.isEnabled = body.isNotEmpty() || mediaUris.size > 0
+
+        switch_not_safe_for_work.isEnabled = mediaUris.size > 0
 
         attach_image_1.isEnabled = mediaUris.size < MAX_IMAGE_COUNT
     }
