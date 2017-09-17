@@ -144,7 +144,7 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
                 } else {
                     notification.status?.content?.header?.asHtml()?.trim().toString() + "\n" + notification.status?.content?.body?.asHtml()?.trim().toString()
                 }
-               notification.status?.account?.loadAvater(itemView.context, avatarImage)
+                notification.status?.account?.loadAvater(itemView.context, avatarImage)
             }
             "mention" -> {
                 val target = notification.status?.reblog ?: notification.status
