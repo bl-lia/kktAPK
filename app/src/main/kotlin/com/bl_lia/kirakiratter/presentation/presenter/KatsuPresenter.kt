@@ -45,6 +45,7 @@ class KatsuPresenter
                                 status = text,
                                 spoilerText = warning,
                                 inReplyToId = inReplyToId,
+                                sensitive = sensitive,
                                 mediaIds = medias.map { it.id }
                         ))
                     }

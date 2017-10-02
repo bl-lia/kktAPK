@@ -113,8 +113,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_content_warning"
-                android:layout_alignBaseline="@+id/button_katsu"
                 android:layout_alignBottom="@+id/button_katsu"
+                android:layout_toStartOf="@+id/button_katsu" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_not_safe_for_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/label_not_safe_for_work"
+                android:layout_toStartOf="@+id/label_not_safe_for_work"/>
+
+            <TextView
+                android:id="@+id/label_not_safe_for_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_not_safe_for_work"
+                android:layout_alignTop="@+id/button_katsu"
                 android:layout_toStartOf="@+id/button_katsu" />
 
             <Button
