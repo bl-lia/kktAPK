@@ -15,7 +15,7 @@ buildscript {
 
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.24.4'
         classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.21.1'
     }
 }
@@ -76,6 +76,7 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/LICENSE'
     }
 }
 
@@ -96,7 +97,7 @@ dependencies {
     compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.6.0'
     compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.6.0'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
-    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.0.8'
+    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.6'
     compile group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.1'
     compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.2.0'
     compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.2.0'

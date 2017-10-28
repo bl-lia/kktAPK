@@ -16,7 +16,7 @@ class TimelineSpinnerAdapter (
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         return super.getView(position, convertView, parent)
                 .also { view ->
-                    val textView: TextView = view.findViewById(R.id.text1) as TextView
+                    val textView: TextView = view.findViewById<TextView>(R.id.text1) as TextView
                     textView.text = ""
                 }
     }

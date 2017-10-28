@@ -59,39 +59,39 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
     }
 
     private val notifyText: TextView by lazy {
-        itemView.findViewById(R.id.text_notify) as TextView
+        itemView.findViewById<TextView>(R.id.text_notify) as TextView
     }
 
     private val avatarImage: ImageView by lazy {
-        itemView.findViewById(R.id.image_avatar) as ImageView
+        itemView.findViewById<ImageView>(R.id.image_avatar) as ImageView
     }
 
     private val bodyText: TextView by lazy {
-        itemView.findViewById(R.id.text_body) as TextView
+        itemView.findViewById<TextView>(R.id.text_body) as TextView
     }
 
     private val notificationType: ImageView by lazy {
-        itemView.findViewById(R.id.image_type) as ImageView
+        itemView.findViewById<ImageView>(R.id.image_type) as ImageView
     }
 
     private val replyButton: Button by lazy {
-        itemView.findViewById(R.id.button_reply) as Button
+        itemView.findViewById<Button>(R.id.button_reply) as Button
     }
 
     private val reblogButton: Button by lazy {
-        itemView.findViewById(R.id.button_reblog) as Button
+        itemView.findViewById<Button>(R.id.button_reblog) as Button
     }
 
     private val favouriteButton: Button by lazy {
-        itemView.findViewById(R.id.button_favourite) as Button
+        itemView.findViewById<Button>(R.id.button_favourite) as Button
     }
 
     private val translateButton: Button by lazy {
-        itemView.findViewById(R.id.button_translate) as Button
+        itemView.findViewById<Button>(R.id.button_translate) as Button
     }
 
     private val actionLayout: ViewGroup by lazy {
-        itemView.findViewById(R.id.layout_action) as ViewGroup
+        itemView.findViewById<ViewGroup>(R.id.layout_action) as ViewGroup
     }
 
     private lateinit var notification: Notification

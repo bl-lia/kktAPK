@@ -22,11 +22,11 @@ open class NavigationDrawerSwitchConfigViewHolder(val parent: View) : RecyclerVi
     }
 
     private val menuText: TextView by lazy {
-        itemView.findViewById(R.id.menu_text) as TextView
+        itemView.findViewById<TextView>(R.id.menu_text) as TextView
     }
 
     private val switch: SwitchCompat by lazy {
-        itemView.findViewById(R.id.menu_switch) as SwitchCompat
+        itemView.findViewById<TextView>(R.id.menu_switch) as SwitchCompat
     }
 
     fun bind(text: String, enabled: Boolean) {

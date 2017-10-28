@@ -23,7 +23,7 @@ class NavigationDrawerViewHolder(val parent: View) : RecyclerView.ViewHolder(par
     }
 
     private val menuText:TextView by lazy {
-        itemView.findViewById(R.id.menu_text) as TextView
+        itemView.findViewById<TextView>(R.id.menu_text) as TextView
     }
 
     private lateinit var menu: NavigationDrawerAdapter.Menu

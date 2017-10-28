@@ -29,11 +29,11 @@ class NotificationFollowItemViewHolder(itemView: View) : RecyclerView.ViewHolder
     }
 
     private val avatarImage: ImageView by lazy {
-        itemView.findViewById(R.id.image_avatar) as ImageView
+        itemView.findViewById<ImageView>(R.id.image_avatar) as ImageView
     }
 
     private val headerMessage: TextView by lazy {
-        itemView.findViewById(R.id.text_head_message) as TextView
+        itemView.findViewById<TextView>(R.id.text_head_message) as TextView
     }
 
     private lateinit var notification: Notification
