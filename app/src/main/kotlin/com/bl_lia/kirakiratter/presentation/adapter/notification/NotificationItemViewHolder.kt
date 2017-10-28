@@ -36,7 +36,7 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
 
     val onClickReply = Observable.create<Status> { subscriber ->
         replyButton.setOnClickListener {
-            subscriber.onNext(notification.status)
+            subscriber.onNext(notification.status!!)
         }
     }
 
