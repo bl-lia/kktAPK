@@ -81,55 +81,55 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     kapt group: 'com.google.dagger', name: 'dagger-compiler', version: '2.10'
     kapt "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
-    compile 'com.android.support:multidex:1.0.1'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile "com.android.support:appcompat-v7:$support_lib_version"
-    compile "com.android.support:recyclerview-v7:$support_lib_version"
-    compile "com.android.support:design:$support_lib_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
-    compile "com.android.support:percent:$support_lib_version"
-    compile 'com.google.android:flexbox:0.2.6'
-    compile group: 'com.google.dagger', name: 'dagger', version: '2.10'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.6.0'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.6.0'
-    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.6.0'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
-    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.6'
-    compile group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.1'
-    compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.2.0'
-    compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.2.0'
-    compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.2.0'
-    compile group: 'com.trello.rxlifecycle2', name: 'rxlifecycle', version: '2.0.1'
-    compile group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-android', version: '2.0.1'
-    compile group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-kotlin', version: '2.0.1'
-    compile group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-components', version: '2.0.1'
-    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-    compile 'com.facebook.stetho:stetho:1.5.0'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:recyclerview-v7:$support_lib_version"
+    implementation "com.android.support:design:$support_lib_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.1'
+    implementation "com.android.support:percent:$support_lib_version"
+    implementation 'com.google.android:flexbox:0.2.6'
+    implementation group: 'com.google.dagger', name: 'dagger', version: '2.10'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.6.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.6.0'
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.6.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.6'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.1'
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.2.0'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.2.0'
+    implementation group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.2.0'
+    implementation group: 'com.trello.rxlifecycle2', name: 'rxlifecycle', version: '2.0.1'
+    implementation group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-android', version: '2.0.1'
+    implementation group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-kotlin', version: '2.0.1'
+    implementation group: 'com.trello.rxlifecycle2', name: 'rxlifecycle-components', version: '2.0.1'
+    implementation group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
-    compile 'jp.wasabeef:picasso-transformations:2.1.2'
-    compile "com.google.firebase:firebase-core:$firebase_version"
-    compile "com.google.firebase:firebase-config:$firebase_version"
-    compile "com.google.firebase:firebase-messaging:$firebase_version"
-    compile "com.google.firebase:firebase-perf:$firebase_version"
-    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
-    compile 'net.danlew:android.joda:2.9.9'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
-    compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
+    implementation 'jp.wasabeef:picasso-transformations:2.1.2'
+    implementation "com.google.firebase:firebase-core:$firebase_version"
+    implementation "com.google.firebase:firebase-config:$firebase_version"
+    implementation "com.google.firebase:firebase-messaging:$firebase_version"
+    implementation "com.google.firebase:firebase-perf:$firebase_version"
+    implementation 'com.firebase:firebase-jobdispatcher:0.6.0'
+    implementation 'net.danlew:android.joda:2.9.9'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation("com.github.hotchemi:permissionsdispatcher:2.4.0") {
         exclude module: "support-v13"
     }
 
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
