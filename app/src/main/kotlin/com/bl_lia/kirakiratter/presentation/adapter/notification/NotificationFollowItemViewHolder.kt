@@ -1,17 +1,16 @@
 package com.bl_lia.kirakiratter.presentation.adapter.notification
 
 import android.support.annotation.LayoutRes
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.entity.Account
 import com.bl_lia.kirakiratter.domain.entity.Notification
 import com.bl_lia.kirakiratter.presentation.transform.AvatarTransformation
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.list_item_notification_follow.view.*
 
 class NotificationFollowItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -23,17 +22,9 @@ class NotificationFollowItemViewHolder(itemView: View) : RecyclerView.ViewHolder
     }
 
     val onClickAccount = Observable.create<Pair<Account, ImageView>> { subscriber ->
-        avatarImage.setOnClickListener {
-            subscriber.onNext(Pair<Account, ImageView>(notification.account!!, avatarImage))
+        itemView.image_avatar.setOnClickListener {
+            subscriber.onNext(Pair<Account, ImageView>(notification.account!!, itemView.image_avatar))
         }
-    }
-
-    private val avatarImage: ImageView by lazy {
-        itemView.findViewById<ImageView>(R.id.image_avatar) as ImageView
-    }
-
-    private val headerMessage: TextView by lazy {
-        itemView.findViewById<TextView>(R.id.text_head_message) as TextView
     }
 
     private lateinit var notification: Notification
@@ -44,9 +35,9 @@ class NotificationFollowItemViewHolder(itemView: View) : RecyclerView.ViewHolder
         notification.account?.let { account ->
             Picasso.with(itemView.context)
                     .load(account.avatar)
-                    .transform(AvatarTransformation(ContextCompat.getColor(itemView.context, R.color.content_border)))
-                    .into(avatarImage)
-            headerMessage.text = itemView?.resources?.getString(R.string.notification_follow)?.format(account.preparedDisplayName)
+                    .transform(AvatarTransformation(itemView.context, R.color.content_border))
+                    .into(itemView.image_avatar)
+            itemView.text_head_message.text = itemView?.resources?.getString(R.string.notification_follow)?.format(account.preparedDisplayName)
         }
     }
 }

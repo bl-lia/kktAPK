@@ -1,11 +1,13 @@
 package com.bl_lia.kirakiratter.presentation.transform
 
+import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.support.annotation.ColorRes
+import android.support.v4.content.ContextCompat
 import com.squareup.picasso.Transformation
 
-class AvatarTransformation(@ColorRes val borderColor: Int) : Transformation {
+class AvatarTransformation(val context: Context, @ColorRes val borderColor: Int) : Transformation {
 
     override fun key(): String = "avatar"
 
@@ -35,7 +37,7 @@ class AvatarTransformation(@ColorRes val borderColor: Int) : Transformation {
         val r: Float = 10F
 
         val paintBg = Paint().apply {
-            color = borderColor
+            color = ContextCompat.getColor(context, borderColor)
             isAntiAlias = true
         }
 

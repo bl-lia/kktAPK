@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
@@ -97,7 +96,7 @@ class AccountActivity : RxAppCompatActivity() {
 
             Picasso.with(this)
                     .load(account.avatar)
-                    .transform(AvatarTransformation(ContextCompat.getColor(this, R.color.content_border)))
+                    .transform(AvatarTransformation(this, R.color.content_border))
                     .into(image_avatar)
             if (account.header?.isNotEmpty() ?: false) {
                 Picasso.with(this)

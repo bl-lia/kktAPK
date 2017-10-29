@@ -2,11 +2,10 @@ package com.bl_lia.kirakiratter.presentation.adapter.navigation_drawer
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SwitchCompat
 import android.view.View
-import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.list_item_navigation_drawer_push_notification.view.*
 
 open class NavigationDrawerSwitchConfigViewHolder(val parent: View) : RecyclerView.ViewHolder(parent) {
 
@@ -16,21 +15,13 @@ open class NavigationDrawerSwitchConfigViewHolder(val parent: View) : RecyclerVi
     }
 
     val onCheckedChange = Observable.create<Boolean> { subscriber ->
-        switch.setOnCheckedChangeListener { button, checked ->
+        itemView.menu_switch.setOnCheckedChangeListener { button, checked ->
             subscriber.onNext(checked)
         }
     }
 
-    private val menuText: TextView by lazy {
-        itemView.findViewById<TextView>(R.id.menu_text) as TextView
-    }
-
-    private val switch: SwitchCompat by lazy {
-        itemView.findViewById<TextView>(R.id.menu_switch) as SwitchCompat
-    }
-
     fun bind(text: String, enabled: Boolean) {
-        menuText.text = text
-        switch.isChecked = enabled
+        itemView.menu_text.text = text
+        itemView.menu_switch.isChecked = enabled
     }
 }
