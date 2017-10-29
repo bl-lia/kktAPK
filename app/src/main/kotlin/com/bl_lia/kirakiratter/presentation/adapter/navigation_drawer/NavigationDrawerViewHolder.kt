@@ -3,9 +3,9 @@ package com.bl_lia.kirakiratter.presentation.adapter.navigation_drawer
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.bl_lia.kirakiratter.R
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.list_item_navigation_drawer.view.*
 
 class NavigationDrawerViewHolder(val parent: View) : RecyclerView.ViewHolder(parent) {
 
@@ -22,22 +22,14 @@ class NavigationDrawerViewHolder(val parent: View) : RecyclerView.ViewHolder(par
         }
     }
 
-    private val menuText:TextView by lazy {
-        itemView.findViewById(R.id.menu_text) as TextView
-    }
-
     private lateinit var menu: NavigationDrawerAdapter.Menu
 
     fun bind(menu: NavigationDrawerAdapter.Menu) {
         this.menu = menu
-
-        when (menu) {
-            NavigationDrawerAdapter.Menu.License -> {
-                menuText.text = "Open Source License"
-            }
-            NavigationDrawerAdapter.Menu.Thanks -> {
-                menuText.text = "Special Thanks"
-            }
+        itemView.menu_text.text = when (menu) {
+            NavigationDrawerAdapter.Menu.License -> "Open Source License"
+            NavigationDrawerAdapter.Menu.Thanks  -> "Special Thanks"
+            else -> null
         }
     }
 }

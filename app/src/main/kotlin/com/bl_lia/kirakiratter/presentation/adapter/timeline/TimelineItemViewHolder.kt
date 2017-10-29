@@ -174,10 +174,9 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         userName.visibility = if (simpleMode) View.GONE else View.VISIBLE
         userName.text = "@${account.userName}"
 
-        val border = ContextCompat.getColor(itemView.context, R.color.content_border)
         Picasso.with(itemView.context)
                 .load(account.avatar)
-                .transform(AvatarTransformation(border))
+                .transform(AvatarTransformation(itemView.context, R.color.content_border))
                 .into(avatarImage)
     }
 
