@@ -139,7 +139,11 @@ class NotificationItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
             "reblog",
             "favourite",
             "follow" -> {
-                bodyText.text = notification.status?.content?.body?.asHtml()?.trim()
+                bodyText.text = if (notification.status?.content?.header.isNullOrEmpty()) {
+                    notification.status?.content?.body?.asHtml()?.trim()
+                } else {
+                    notification.status?.content?.header?.asHtml()?.trim().toString() + "\n" + notification.status?.content?.body?.asHtml()?.trim().toString()
+                }
                 notification.status?.account?.loadAvater(itemView.context, avatarImage)
             }
             "mention" -> {
