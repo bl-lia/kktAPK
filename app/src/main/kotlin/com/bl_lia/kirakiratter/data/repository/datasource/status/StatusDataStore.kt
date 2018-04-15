@@ -11,7 +11,9 @@ interface StatusDataStore {
     fun post(
             text: String,
             warning: String? = null,
+            inReplyToId: Int? = null,
             sensitive: Boolean? = null,
+            visibility: String? = null,
             mediaId: String? = null
     ): Single<Status>
 

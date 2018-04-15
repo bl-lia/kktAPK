@@ -29,18 +29,20 @@ class PostStatusUseCase(
     private fun postParam(params: Array<out Any>): Single<Status> {
         val text = params[0] as String
         val warning = params[1] as String
-        val sensitive = params[2] as Boolean
-        if (params.size > 3) {
-            val mediaId: Int? = params[3] as Int?
+        val inReplyToId = params[2] as Int
+        val sensitive = params[3] as Boolean
+        val visibility = params[4] as String
+        if (params.size > 5) {
+            val mediaId: Int? = params[5] as Int?
             val mediaIdString: String? =
                     if (mediaId != null) {
                         mediaId.toString()
                     } else {
                         null
                     }
-            return statusRepository.post(text, warning, sensitive, mediaIdString)
+            return statusRepository.post(text, warning, inReplyToId, sensitive, visibility, mediaIdString)
         } else {
-            return statusRepository.post(text, warning, sensitive)
+            return statusRepository.post(text, warning, inReplyToId, sensitive, visibility)
         }
     }
 }
