@@ -93,12 +93,22 @@
 
             <ImageView
                 android:id="@+id/attach_image_1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/ic_camera_alt_black_24px"
-                android:backgroundTint="@android:color/darker_gray"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:background="@drawable/ic_camera_alt_black_24px"
+                android:backgroundTint="@android:color/darker_gray" />
+
+            <Button
+                android:id="@+id/visibility_menu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8pt"
+                android:layout_toEndOf="@id/attach_image_1"
+                android:background="@drawable/ic_public_black_24dp"
+                android:backgroundTint="@android:color/darker_gray" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_content_warning"
@@ -112,9 +122,10 @@
                 android:id="@+id/label_content_warning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_content_warning"
                 android:layout_alignBottom="@+id/button_katsu"
-                android:layout_toStartOf="@+id/button_katsu" />
+                android:layout_alignLeft="@+id/label_not_safe_for_work"
+                android:layout_toStartOf="@+id/button_katsu"
+                android:text="@string/label_content_warning" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_not_safe_for_work"
@@ -133,14 +144,14 @@
 
             <Button
                 android:id="@+id/button_katsu"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:enabled="false"
-                android:text="@string/button_katsu"
-                android:layout_marginLeft="10dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="10dp"
+                android:enabled="false"
+                android:text="@string/button_katsu" />
 
         </RelativeLayout>
 

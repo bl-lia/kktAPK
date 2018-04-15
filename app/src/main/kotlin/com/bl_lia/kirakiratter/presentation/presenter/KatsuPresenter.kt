@@ -35,7 +35,7 @@ class KatsuPresenter
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun post(text: String, warning: String? = null, inReplyToId: Int? = null, sensitive: Boolean = false, attachment: List<Uri> = listOf()): Single<Status> {
+    fun post(text: String, warning: String? = null, inReplyToId: Int? = null, sensitive: Boolean = false,visibility: String? = null, attachment: List<Uri> = listOf()): Single<Status> {
 
         if (attachment.isNotEmpty()) {
             return Single.concat(attachment.map { uploadMedia.execute(it) })
@@ -46,6 +46,7 @@ class KatsuPresenter
                                 spoilerText = warning,
                                 inReplyToId = inReplyToId,
                                 sensitive = sensitive,
+                                visibility = visibility,
                                 mediaIds = medias.map { it.id }
                         ))
                     }
@@ -53,7 +54,9 @@ class KatsuPresenter
             return postStatus.execute(StatusForm(
                     status = text,
                     spoilerText = warning,
-                    inReplyToId = inReplyToId
+                    inReplyToId = inReplyToId,
+                    sensitive = sensitive,
+                    visibility = visibility
             ))
         }
     }

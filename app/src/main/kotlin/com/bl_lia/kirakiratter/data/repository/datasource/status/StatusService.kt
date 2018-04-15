@@ -16,9 +16,11 @@ interface StatusService {
             @Field("spoiler_text")
             warning: String? = null,
             @Field("in_reply_to_id")
-            inReplyTo: Int? = null,
+            inReplyToId: Int? = null,
             @Field("sensitive")
             sensitive: Boolean? = null,
+            @Field("visibility")
+            visibility: String? = null,
             @Field("media_ids[]")
             mediaIds: List<String>? = null
     ): Single<Status>

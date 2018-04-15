@@ -9,10 +9,13 @@ import android.support.design.widget.Snackbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import com.bl_lia.kirakiratter.App
 import com.bl_lia.kirakiratter.R
 import com.bl_lia.kirakiratter.domain.extension.preparedErrorMessage
@@ -54,6 +57,8 @@ class KatsuFragment : RxFragment() {
     lateinit var presenter: KatsuPresenter
 
     val mediaUris = ArrayList<Uri>()
+    val visibility = arrayOf("public", "unlisted", "private", "direct")
+    var vindex = 0
 
     private val component: StatusComponent by lazy {
         DaggerStatusComponent.builder()
@@ -73,6 +78,15 @@ class KatsuFragment : RxFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val visibilityListener = View.OnClickListener { it ->
+            when (it.id) {
+                R.id.visibility_menu -> {
+                    showPopup(it)
+                }
+            }
+        }
+        visibility_menu.setOnClickListener(visibilityListener)
+
         button_katsu.setOnClickListener {
             val header = content_warning_edittext.text.toString()
             val body = katsu_content_body.text.toString()
@@ -91,7 +105,8 @@ class KatsuFragment : RxFragment() {
                         warning = header,
                         attachment = mediaUris,
                         sensitive = nsfw,
-                        inReplyToId = replyTo)
+                        inReplyToId = replyTo,
+                        visibility = visibility[vindex])
                         .compose(bindToLifecycle())
                         .subscribe { status, error ->
                             button_katsu.isEnabled = true
@@ -191,6 +206,40 @@ class KatsuFragment : RxFragment() {
             }
             setKatsuButtonVisibility()
         }
+    }
+
+    private fun showPopup(view: View) {
+        var popup: PopupMenu?
+        popup = PopupMenu(this.context, view)
+        popup.inflate(R.menu.menu_visibility)
+
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+            when (item!!.itemId) {
+                R.id.menu_public -> {
+                    visibility_menu.setBackgroundResource(R.drawable.ic_public_black_24dp)
+                    Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+                    vindex = 0
+                }
+                R.id.menu_unlisted -> {
+                    visibility_menu.setBackgroundResource(R.drawable.ic_lock_open_black_24dp)
+                    Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+                    vindex = 1
+                }
+                R.id.menu_private -> {
+                    visibility_menu.setBackgroundResource(R.drawable.ic_lock_outline_black_24dp)
+                    Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+                    vindex = 2
+                }
+                R.id.menu_direct -> {
+                    visibility_menu.setBackgroundResource(R.drawable.ic_email_black_24dp)
+                    Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+                    vindex = 3
+                }
+            }
+            true
+        })
+
+        popup.show()
     }
 
     private fun setHint() {

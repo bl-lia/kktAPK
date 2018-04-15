@@ -24,4 +24,10 @@
     <string name="copy_link">Copy link</string>
 
     <string name="image_saved">Image saved</string>
+
+    <string name="visibility">public</string>
+    <string name="visibility_public">public</string>
+    <string name="visibility_unlisted">unlist</string>
+    <string name="visibility_private">private</string>
+    <string name="visibility_direct">direct</string>
 </resources>

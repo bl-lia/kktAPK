@@ -16,8 +16,8 @@ class StatusDataRepository
             private val statusDataStoreFactory: StatusDataStoreFactory
     ): StatusRepository {
 
-    override fun post(text: String, warning: String?, sensitive: Boolean?, mediaId: String?): Single<Status> =
-            statusDataStoreFactory.create().post(text, warning, sensitive, mediaId)
+    override fun post(text: String, warning: String?, inReplyToId: Int?, sensitive: Boolean?, visibility: String?, mediaId: String?): Single<Status> =
+            statusDataStoreFactory.create().post(text, warning, inReplyToId, sensitive, visibility, mediaId)
 
     override fun post(statusForm: StatusForm): Single<Status> =
             statusDataStoreFactory.create().post(statusForm)
