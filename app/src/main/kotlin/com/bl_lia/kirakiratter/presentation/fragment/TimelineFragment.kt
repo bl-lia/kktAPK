@@ -121,17 +121,19 @@ class TimelineFragment : RxFragment(), ScrollableFragment {
             startActivity(intent)
         }
         adapter.onClickReblog.subscribe { status ->
-            presenter.reblog(status)
-                    .subscribe { status, error ->
-                        if (error != null) {
-                            showError(error)
-                            return@subscribe
-                        }
+            if (status.visibility == "public" || status.visibility == "unlisted") {
+                presenter.reblog(status)
+                        .subscribe { status, error ->
+                            if (error != null) {
+                                showError(error)
+                                return@subscribe
+                            }
 
-                        status.reblog?.let {
-                            adapter.update(it)
+                            status.reblog?.let {
+                                adapter.update(it)
+                            }
                         }
-                    }
+            }
         }
         adapter.onClickFavourite.subscribe { status ->
             presenter.favourite(status)

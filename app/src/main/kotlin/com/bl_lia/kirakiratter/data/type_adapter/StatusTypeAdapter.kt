@@ -31,6 +31,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
         var favourited: Boolean = false
         var mediaAttachments: List<Media>? = null
         var sensitive: Boolean = false
+        var visibility: String? = null
         var createdAt: Date? = null
         var url: String? = null
 
@@ -57,6 +58,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 "reblogged" -> reblogged = input.nextBooleanExtra(false)
                 "media_attachments" -> mediaAttachments = input.mediaList()
                 "sensitive" -> sensitive = input.nextBooleanExtra(false)
+                "visibility" -> visibility = input.nextStringExtra()
                 "created_at" -> createdAt = DateTime.parse(input.nextString()).toDate()
                 "url" -> url = input.nextStringExtra()
                 else -> input.skipValue()
@@ -75,6 +77,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 favourited = favourited,
                 mediaAttachments = mediaAttachments ?: listOf(),
                 sensitive = sensitive,
+                visibility = visibility,
                 createdAt = createdAt,
                 url = url)
     }
@@ -94,6 +97,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
         var reblogged: Boolean = false
         var mediaAttachments: List<Media>? = null
         var sensitive: Boolean = false
+        var visibility: String? = null
         var createdAt: Date? = null
         var url: String? = null
 
@@ -114,6 +118,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 "reblogged" -> reblogged = nextBooleanExtra(false)
                 "media_attachments" -> mediaAttachments = mediaList()
                 "sensitive" -> sensitive = nextBooleanExtra(false)
+                "visibility" -> visibility = nextStringExtra()
                 "created_at" -> createdAt = DateTime.parse(nextStringExtra()).toDate()
                 "url" -> url = nextStringExtra()
                 else -> skipValue()
@@ -131,6 +136,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
                 favourited = favourited,
                 mediaAttachments = mediaAttachments ?: listOf(),
                 sensitive = sensitive,
+                visibility = visibility,
                 createdAt = createdAt,
                 url = url)
     }
