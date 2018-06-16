@@ -9,7 +9,7 @@ import com.bl_lia.kirakiratter.domain.value_object.Media
 import java.util.*
 
 data class Status(
-        val id: Int,
+        val id: String,
         val content: Content?,
         val account: Account?,
         val reblog: Status? = null,

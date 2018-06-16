@@ -23,7 +23,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val list: MutableList<Status> = mutableListOf()
     var simpleMode: Boolean = false
 
-    val maxId: Int?
+    val maxId: String?
         get() {
             if (list.isEmpty()) {
                 return null
