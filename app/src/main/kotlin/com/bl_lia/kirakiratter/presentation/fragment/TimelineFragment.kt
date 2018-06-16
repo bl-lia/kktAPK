@@ -233,7 +233,7 @@ class TimelineFragment : RxFragment(), ScrollableFragment {
                     val lastSinceId = adapter.sinceId
                     adapter.reset(list)
 
-                    lastSinceId?.toInt()?.let { lastId ->
+                    lastSinceId?.let { lastId ->
                         list.indexOfFirst { it.id <= lastId }.let { nextPosition ->
                             if(nextPosition >= 0) {
                                 timeline?.scrollToPosition(nextPosition)

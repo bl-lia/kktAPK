@@ -22,7 +22,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
 
     override fun read(input: JsonReader?): Status? {
 
-        var id: Int? = null
+        var id: String? = null
         var spoilerText: String? = null
         var content: String? = null
         var account: Account? = null
@@ -48,7 +48,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
 
             val nextName = input.nextName()
             when (nextName) {
-                "id" -> id = input.nextInt()
+                "id" -> id = input.nextString()
                 "spoiler_text" -> spoilerText = input.nextStringExtra()
                 "content" -> content = input.nextStringExtra()
                 "account" -> account = input.readAccount()
@@ -86,7 +86,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
             return null
         }
 
-        var id: Int? = null
+        var id: String? = null
         var spoilerText: String? = null
         var content: String? = null
         var account: Account? = null
@@ -106,7 +106,7 @@ class StatusTypeAdapter : TypeAdapter<Status>() {
 
             val nextName = nextName()
             when (nextName) {
-                "id" -> id = nextInt()
+                "id" -> id = nextString()
                 "spoiler_text" -> spoilerText = nextStringExtra()
                 "content" -> content = nextStringExtra()
                 "account" -> account = readAccount()

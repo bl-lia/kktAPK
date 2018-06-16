@@ -53,7 +53,7 @@ class AccountFragmentPresenter
 
     fun fetchStatus(account: Account): Single<List<Status>> = listAccountStatus.execute(account.id)
 
-    fun fetchMoreStatus(account: Account, maxId: Int): Single<List<Status>>? {
+    fun fetchMoreStatus(account: Account, maxId: String): Single<List<Status>>? {
         if (listMoreAccountStatus.processing) return null
 
         return listMoreAccountStatus.execute(account.id, maxId)

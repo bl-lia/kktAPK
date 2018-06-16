@@ -8,7 +8,7 @@ import java.util.*
 
 open class RealmStatus(
         @PrimaryKey
-        open var id: Int = -1,
+        open var id: String = "",
         open var content: RealmContent? = null,
         open var account: RealmAccount? = null,
         open var reblog: RealmStatus? = null,
