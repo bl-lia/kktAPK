@@ -33,10 +33,10 @@ class ApiTimelineDataStore(
     override fun unfavourite(id: String): Single<Status> =
             timelineService.unfavouriteStatus(id)
 
-    override fun reblog(id: Int): Single<Status> =
+    override fun reblog(id: String): Single<Status> =
             timelineService.reblog(id)
 
-    override fun unReblog(id: Int): Single<Status> =
+    override fun unReblog(id: String): Single<Status> =
             timelineService.unReblog(id)
 
     override var selectedTimeline: String?

@@ -14,8 +14,8 @@ interface TimelineDataStore {
     fun favourite(id: String): Single<Status>
     fun unfavourite(id: String): Single<Status>
 
-    fun reblog(id: Int): Single<Status>
-    fun unReblog(id: Int): Single<Status>
+    fun reblog(id: String): Single<Status>
+    fun unReblog(id: String): Single<Status>
 
     var selectedTimeline: String?
 }

@@ -14,6 +14,6 @@ class ReblogStatusUseCase(
 ) : SingleUseCase<Status>(threadExecutor, postExecutionThread) {
 
     override fun build(params: Array<out Any>): Single<Status> {
-        return timelineRepository.reblog(params[0] as Int)
+        return timelineRepository.reblog(params[0] as String)
     }
 }
