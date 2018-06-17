@@ -8,7 +8,7 @@ import io.reactivex.Single
 interface AccountRepository {
 
     fun statuses(id: Int): Single<List<Status>>
-    fun moreStatuses(id: Int, maxId: Int? = null, sinceId: Int? = null): Single<List<Status>>
+    fun moreStatuses(id: Int, maxId: String? = null, sinceId: Int? = null): Single<List<Status>>
     fun relationship(id: Int): Single<Relationship>
 
     fun follow(id: Int): Single<Relationship>

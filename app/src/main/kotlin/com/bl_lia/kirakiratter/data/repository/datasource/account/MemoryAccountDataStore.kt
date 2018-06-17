@@ -14,7 +14,7 @@ class MemoryAccountDataStore(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun moreStatus(id: Int, maxId: Int?, sinceId: Int?): Single<List<Status>> {
+    override fun moreStatus(id: Int, maxId: String?, sinceId: Int?): Single<List<Status>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

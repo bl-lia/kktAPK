@@ -14,7 +14,7 @@ interface AccountService {
     @GET("api/v1/accounts/{id}/statuses")
     fun status(
             @Path("id") id: Int?,
-            @Query("max_id") maxId: Int? = null,
+            @Query("max_id") maxId: String? = null,
             @Query("since_id") sinceId: Int? = null,
             @Query("limit") limit: Int? = null): Single<List<Status>>
 
