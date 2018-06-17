@@ -14,6 +14,6 @@ class UnreblogStatusUseCase(
 ) : SingleUseCase<Status>(threadExecutor, postExecutionThread) {
 
     override fun build(params: Array<out Any>): Single<Status> {
-        return timelineRepository.unReblog(params[0] as Int)
+        return timelineRepository.unReblog(params[0] as String)
     }
 }

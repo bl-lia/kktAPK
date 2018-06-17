@@ -38,11 +38,11 @@ class DiskTimelineDataStore(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun reblog(id: Int): Single<Status> {
+    override fun reblog(id: String): Single<Status> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun unReblog(id: Int): Single<Status> {
+    override fun unReblog(id: String): Single<Status> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

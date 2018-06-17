@@ -34,8 +34,8 @@ interface TimelineService {
     // reblog/unreblog
 
     @POST("api/v1/statuses/{id}/reblog")
-    fun reblog(@Path("id") id: Int): Single<Status>
+    fun reblog(@Path("id") id: String): Single<Status>
 
     @POST("api/v1/statuses/{id}/unreblog")
-    fun unReblog(@Path("id") id: Int): Single<Status>
+    fun unReblog(@Path("id") id: String): Single<Status>
 }
