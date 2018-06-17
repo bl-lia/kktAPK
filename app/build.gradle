@@ -5,6 +5,7 @@ buildscript {
     }
 
     repositories {
+        google()
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -31,7 +32,7 @@ apply plugin: 'com.cookpad.android.licensetools'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.bl_lia.kirakiratter"
         minSdkVersion 19
@@ -135,13 +136,10 @@ dependencies {
     })
 }
 repositories {
+    google()
     mavenCentral()
     maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-    }
 }
 
 apply plugin: 'com.google.gms.google-services'
