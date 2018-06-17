@@ -22,4 +22,10 @@
     <string name="copy_link">リンクをコピー</string>
 
     <string name="image_saved">画像を保存したよ！</string>
+
+    <string name="visibility">public</string>
+    <string name="visibility_public">公開</string>
+    <string name="visibility_unlisted">未収録</string>
+    <string name="visibility_private">非公開</string>
+    <string name="visibility_direct">ダイレクト</string>
 </resources>

@@ -181,12 +181,18 @@ class TimelineItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 
     private fun initActions(status: Status) {
+        val visibility = status.visibility
+
         reblogButton.background =
-                if (status.reblogged) {
-                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_reblog)
-                } else {
-                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_unreblog)
-                }
+            if (visibility == "direct") {
+                ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_direct)
+            } else if (visibility == "private") {
+                ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_private)
+            } else if (status.reblogged) {
+                ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_reblog)
+            } else {
+                ContextCompat.getDrawable(itemView.context, R.drawable.ic_reblog_unreblog)
+            }
 
         favouriteButton.background =
                 if (status.favourited) {

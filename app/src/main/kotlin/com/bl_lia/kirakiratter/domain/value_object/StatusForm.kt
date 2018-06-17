@@ -5,7 +5,8 @@ data class StatusForm(
         val inReplyToId: Int? = null,
         val mediaIds: List<Int> = listOf(),
         val sensitive: Boolean = false,
-        val spoilerText: String? = null) {
+        val spoilerText: String? = null,
+        val visibility: String? = null) {
 
     fun debug(): String =
         "status: %s, spoilerText: %s, mediaId: %s".format(status, spoilerText, mediaIds.joinToString())

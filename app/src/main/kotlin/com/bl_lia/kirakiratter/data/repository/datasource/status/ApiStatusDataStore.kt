@@ -18,7 +18,7 @@ class ApiStatusDataStore(
         private val statusService: StatusService
 ) : StatusDataStore {
 
-    override fun post(text: String, warning: String?, sensitive: Boolean?, mediaId: String?): Single<Status> {
+    override fun post(text: String, warning: String?, inReplyToId: Int?, sensitive: Boolean?, visibility: String?, mediaId: String?): Single<Status> {
         val mediaIds: List<String>? =
             if (mediaId != null) {
                 listOf(mediaId)
@@ -29,7 +29,9 @@ class ApiStatusDataStore(
         return statusService.post(
                 text = text,
                 warning = warning,
+                inReplyToId = inReplyToId,
                 sensitive = sensitive,
+                visibility = visibility,
                 mediaIds = mediaIds
         )
     }
@@ -45,8 +47,9 @@ class ApiStatusDataStore(
         return statusService.post(
                 text = statusForm.status,
                 warning = statusForm.spoilerText,
-                inReplyTo = statusForm.inReplyToId,
+                inReplyToId = statusForm.inReplyToId,
                 sensitive = statusForm.sensitive,
+                visibility = statusForm.visibility,
                 mediaIds = mediaIds
         )
     }

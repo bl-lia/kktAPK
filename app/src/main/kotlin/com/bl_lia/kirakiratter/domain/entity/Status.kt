@@ -17,6 +17,7 @@ data class Status(
         val favourited: Boolean,
         val mediaAttachments: List<Media> = listOf(),
         val sensitive: Boolean = false,
+        val visibility: String? = null,
         val createdAt: Date? = null,
         val url: String?
 ) {
@@ -33,6 +34,7 @@ data class Status(
                     reblogged = reblogged,
                     favourited = favourited,
                     sensitive = sensitive,
+                    visibility = visibility,
                     createdAt = createdAt,
                     url = url
             ).also { realmStatus ->

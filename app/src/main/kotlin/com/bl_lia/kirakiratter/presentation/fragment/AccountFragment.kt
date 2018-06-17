@@ -117,17 +117,19 @@ class AccountFragment : RxFragment() {
         }
         adapter.onClickReblog.subscribe { status ->
             val target = status.reblog ?: status
-            presenter.reblog(target)
-                    .compose(bindToLifecycle())
-                    .subscribe { status, error ->
-                        if (error != null) {
-                            showError(error)
-                            return@subscribe
-                        }
+            if (target.visibility == "public" || target.visibility == "unlisted") {
+                presenter.reblog(target)
+                        .compose(bindToLifecycle())
+                        .subscribe { status, error ->
+                            if (error != null) {
+                                showError(error)
+                                return@subscribe
+                            }
 
-                        val updateTarget = status.reblog ?: status
-                        adapter.update(updateTarget)
-                    }
+                            val updateTarget = status.reblog ?: status
+                            adapter.update(updateTarget)
+                        }
+            }
         }
         adapter.onClickFavourite.subscribe { status ->
             val target = status.reblog ?: status
