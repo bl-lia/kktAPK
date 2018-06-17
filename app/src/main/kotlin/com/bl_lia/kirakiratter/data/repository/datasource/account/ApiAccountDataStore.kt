@@ -13,7 +13,7 @@ class ApiAccountDataStore(
 
     override fun status(id: Int): Single<List<Status>> = accountService.status(id)
 
-    override fun moreStatus(id: Int, maxId: Int?, sinceId: Int?): Single<List<Status>> = accountService.status(id, maxId, sinceId)
+    override fun moreStatus(id: Int, maxId: String?, sinceId: Int?): Single<List<Status>> = accountService.status(id, maxId, sinceId)
 
     override fun relationship(id: Int): Single<Relationship> =
             accountService.relationships(id)

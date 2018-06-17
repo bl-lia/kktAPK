@@ -15,7 +15,7 @@ class ListMoreAccountStatusUseCase(
 
     override fun build(params: Array<out Any>): Single<List<Status>> {
         val id: Int = params[0] as Int
-        val maxId: Int? = params[1] as Int?
+        val maxId: String? = params[1] as String?
         return accountRepository.moreStatuses(id, maxId)
     }
 }
